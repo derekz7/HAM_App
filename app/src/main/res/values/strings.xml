@@ -1,11 +1,23 @@
 <resources>
     <string name="app_name">Đa khoa Hưng Yên</string>
-    <string name="user_image">User image</string>
-    <string name="home">Trang chủ</string>
-    <string name="appointment">Lịch khám</string>
-    <string name="information">Hồ sơ</string>
-    <string name="account">Tài khoản</string>
+    <string name="user_image" translatable="false">User image</string>
+    <string name="home">Home</string>
+    <string name="appointment">Appointment</string>
+    <string name="information">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="notification">Notification</string>
+    <string name="email">Email</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
+    <string name="account">Account</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="email_hint">you@example.com</string>
+    <string name="don_t_you_have_an_account">Don\'t you have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="name_hint">Full name</string>
+    <string name="register">Create an account</string>
+    <string name="phone_number">Phone number</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="create_your_account">Create your account</string>
 </resources>

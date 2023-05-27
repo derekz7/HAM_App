@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:orientation="vertical"
     tools:context=".fragments.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
         android:background="@color/blue"
         android:paddingHorizontal="16dp"
         android:paddingVertical="10dp">
@@ -56,9 +56,9 @@
             android:id="@+id/igb_notification"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:padding="10dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/notification"
+            android:padding="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/baseline_notifications_24"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -80,5 +80,108 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/image_slider"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        app:iss_auto_cycle="true"
+        app:iss_delay="1000"
+        app:iss_period="1000"
+        app:iss_placeholder="@drawable/placeholder"
+        app:iss_text_align="CENTER">
 
-</FrameLayout>
+    </com.denzcoskun.imageslider.ImageSlider>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/white"
+        android:elevation="16dp"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btn_datKham"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="10dp"
+                android:backgroundTint="@android:color/transparent"
+                android:importantForAccessibility="no"
+                android:scaleType="centerInside"
+                android:src="@drawable/hospital" />
+
+            <ImageButton
+                android:id="@+id/btn_datKham1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="10dp"
+                android:backgroundTint="@android:color/transparent"
+                android:importantForAccessibility="no"
+                android:scaleType="centerInside"
+                android:src="@drawable/case_1" />
+
+            <ImageButton
+                android:id="@+id/btn_datKham2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="10dp"
+                android:backgroundTint="@android:color/transparent"
+                android:importantForAccessibility="no"
+                android:scaleType="centerInside"
+                android:src="@drawable/paper" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="center"
+                android:text="Đặt khám"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="center"
+                android:text="Đơn thuốc"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="center"
+                android:text="Tin tức"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
