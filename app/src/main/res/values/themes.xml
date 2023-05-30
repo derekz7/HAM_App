@@ -12,6 +12,11 @@
         <item name="colorSecondaryVariant">#5ECDFF</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
+    
+    <style name="checkbox_blue" parent="ThemeOverlay.Material3">
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:textColorSecondary">@color/grey</item>
+    </style>
 
     <style name="Theme.HAM_App" parent="Base.Theme.HAM_App" />
 </resources>

@@ -18,4 +18,9 @@
     <string name="phone_number">Số điện thoại</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="create_your_account">Tạo tài khoản</string>
+    <string name="remember_me">Remember me</string>
+    <string name="username_hint">username</string>
+    <string name="news">Tin tức</string>
+    <string name="prescription">Đơn thuốc</string>
+    <string name="Booking">Đặt khám</string>
 </resources>

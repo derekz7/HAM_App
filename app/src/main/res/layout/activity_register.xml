@@ -58,6 +58,24 @@
                 android:textColorHighlight="@color/blue_dark" />
 
             <EditText
+                android:id="@+id/edt_username"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginVertical="10dp"
+                android:autofillHints="emailAddress"
+                android:background="@drawable/rounded_background"
+                android:drawableStart="@drawable/baseline_edit_24"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/blue"
+                android:elevation="10dp"
+                android:hint="@string/username"
+                android:inputType="text"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/blue_dark" />
+
+            <EditText
                 android:id="@+id/edt_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

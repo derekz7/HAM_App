@@ -20,4 +20,10 @@
     <string name="phone_number">Phone number</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="create_your_account">Create your account</string>
+    <string name="remember_me">Remember me</string>
+    <string name="username" translatable="false">Username</string>
+    <string name="username_hint">username</string>
+    <string name="news">News</string>
+    <string name="prescription">Prescription</string>
+    <string name="Booking">Booking</string>
 </resources>

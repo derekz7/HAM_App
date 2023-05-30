@@ -9,4 +9,5 @@
     <color name="grey">#A1A1A1</color>
     <color name="orange">#FF7700</color>
     <color name="red">#FF0000</color>
+    <color name="title">#80FFFFFF</color>
 </resources>

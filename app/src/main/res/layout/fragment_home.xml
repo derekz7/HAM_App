@@ -80,108 +80,182 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.denzcoskun.imageslider.ImageSlider
-        android:id="@+id/image_slider"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
-        app:iss_auto_cycle="true"
-        app:iss_delay="1000"
-        app:iss_period="1000"
-        app:iss_placeholder="@drawable/placeholder"
-        app:iss_text_align="CENTER">
-
-    </com.denzcoskun.imageslider.ImageSlider>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/white"
-        android:elevation="16dp"
-        android:padding="16dp">
-
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageButton
-                android:id="@+id/btn_datKham"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginHorizontal="10dp"
-                android:backgroundTint="@android:color/transparent"
-                android:importantForAccessibility="no"
-                android:scaleType="centerInside"
-                android:src="@drawable/hospital" />
-
-            <ImageButton
-                android:id="@+id/btn_datKham1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginHorizontal="10dp"
-                android:backgroundTint="@android:color/transparent"
-                android:importantForAccessibility="no"
-                android:scaleType="centerInside"
-                android:src="@drawable/case_1" />
-
-            <ImageButton
-                android:id="@+id/btn_datKham2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginHorizontal="10dp"
-                android:backgroundTint="@android:color/transparent"
-                android:importantForAccessibility="no"
-                android:scaleType="centerInside"
-                android:src="@drawable/paper" />
-        </LinearLayout>
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="100dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:gravity="center"
-                android:text="Đặt khám"
-                android:textStyle="bold" />
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                app:cardCornerRadius="20dp">
 
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:gravity="center"
-                android:text="Đơn thuốc"
-                android:textStyle="bold" />
+                <com.denzcoskun.imageslider.ImageSlider
+                    android:id="@+id/image_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    app:iss_auto_cycle="true"
+                    app:iss_corner_radius="20"
+                    app:iss_delay="10000"
+                    app:iss_period="5000"
+                    app:iss_placeholder="@drawable/placeholder"
+                    app:iss_selected_dot="@color/blue"
+                    app:iss_unselected_dot="@color/blue"
+                    app:iss_text_align="CENTER"
+                    app:iss_text_color="@color/black"
+                    app:iss_title_background="@color/title">
+                </com.denzcoskun.imageslider.ImageSlider>
+            </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:layout_width="100dp"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginHorizontal="10dp"
-                android:gravity="center"
-                android:text="Tin tức"
-                android:textStyle="bold" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/white"
+                android:elevation="16dp"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageButton
+                        android:id="@+id/btn_datKham"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/hospital" />
+
+                    <ImageButton
+                        android:id="@+id/btn_datKham1"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/case_1" />
+
+                    <ImageButton
+                        android:id="@+id/btn_datKham2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/paper" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:text="@string/Booking"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:text="@string/prescription"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:gravity="center"
+                        android:text="@string/news"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                android:elevation="10dp"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="start|center"
+                    android:orientation="horizontal"
+                    tools:ignore="RtlSymmetry">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/briefcase" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:text="Đặt khám theo chuyên khoa"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyleViewDepartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/stroke_rounded_btn"
+                    android:text="Xem tất cả các chuyên khoa"
+                    android:textColor="@color/blue" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
+    </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
