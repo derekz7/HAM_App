@@ -32,10 +32,10 @@ public interface ApiService {
 
 
     @GET("api/User/Login")
-    Call<Boolean> login(@Query("email") String email, @Query("password") String password);
+    Call<Boolean> login(@Query("username") String email, @Query("password") String password);
 
-    @GET("api/User/GetUserByEmail")
-    Call<User> getUserByEmail(@Query("email") String email);
+    @GET("api/User/GetUserByUsername")
+    Call<User> getUserByUsername(@Query("username") String username);
 
 
 
