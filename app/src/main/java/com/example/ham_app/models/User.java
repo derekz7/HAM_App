@@ -27,21 +27,10 @@ public class User {
         this.username = username;
         this.fullName = fullName;
         this.password = password;
-        this.email = email;
-        this.role = 3;
+        this.role = 2;
         this.phoneNumber = phoneNumber;
         this.imgUrl = null;
     }
-    public User(String username, String fullName, String password, String email, int role, String phoneNumber, String imgUrl) {
-        this.username = username;
-        this.fullName = fullName;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-        this.phoneNumber = phoneNumber;
-        this.imgUrl = imgUrl;
-    }
-
     public String getId() {
         return id;
     }

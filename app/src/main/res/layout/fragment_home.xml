@@ -107,9 +107,8 @@
                     app:iss_delay="10000"
                     app:iss_period="5000"
                     app:iss_placeholder="@drawable/placeholder"
-                    app:iss_selected_dot="@color/blue"
-                    app:iss_unselected_dot="@color/blue"
                     app:iss_text_align="CENTER"
+                    app:iss_no_dots="false"
                     app:iss_text_color="@color/black"
                     app:iss_title_background="@color/title">
                 </com.denzcoskun.imageslider.ImageSlider>
@@ -245,12 +244,15 @@
                     android:background="@color/white" />
 
                 <Button
+                    android:id="@+id/btn_seeMoreDepartment"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:elevation="10dp"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="10dp"
+                    android:textAllCaps="false"
                     android:background="@drawable/stroke_rounded_btn"
-                    android:text="Xem tất cả các chuyên khoa"
+                    android:text="@string/see_more"
                     android:textColor="@color/blue" />
 
             </LinearLayout>

@@ -1,22 +1,23 @@
-package com.example.ham_app.activities;
+package com.example.ham_app.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.widget.TextView;
 
 import com.example.ham_app.R;
 
-public class LoadingDialog {
+public class ErrorDialog {
     private final Context context;
     private Dialog dialog;
 
-    public LoadingDialog(Context context) {
+    public ErrorDialog(Context context) {
         this.context = context;
     }
 
-    public void show(){
+    public void show(String title, String message){
         dialog = new Dialog(context);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialog_loading);
         dialog.setCancelable(false);
         if (dialog.getWindow() != null)
@@ -28,4 +29,5 @@ public class LoadingDialog {
     public void dismissDialog(){
         dialog.dismiss();
     }
+
 }

@@ -1,19 +1,28 @@
 package com.example.ham_app.activities;
 
+import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-
 import com.example.ham_app.R;
+import com.example.ham_app.api.ApiService;
 import com.example.ham_app.databinding.ActivityMainBinding;
 import com.example.ham_app.fragments.AccountFragment;
 import com.example.ham_app.fragments.AppointmentFragment;
 import com.example.ham_app.fragments.HomeFragment;
 import com.example.ham_app.fragments.ProfileFragment;
+import com.example.ham_app.models.Service;
+import com.example.ham_app.untils.ApiDataManager;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -39,6 +48,21 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
+        ApiService.api.getAllServices().enqueue(new Callback<List<Service>>() {
+            @Override
+            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                if (response.body() != null){
+                    ApiDataManager.getInstance().setServiceList(response.body());
+                    Toast.makeText(getApplicationContext(), "Load Services success", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Service>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Load services fail" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 
@@ -49,5 +73,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void onBackPressed() {
 
+    }
 }

@@ -137,6 +137,7 @@
                 android:background="@drawable/rounded_background"
                 android:elevation="10dp"
                 android:padding="8dp"
+                android:backgroundTint="@color/blue"
                 android:text="@string/create_your_account"
                 android:textColor="@color/white" />
 

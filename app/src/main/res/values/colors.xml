@@ -3,11 +3,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background">#FFF1F1F1</color>
-    <color name="blue">#03A9F4</color>
+    <color name="blue">#2186F3</color>
     <color name="blue_dark">#0363F4</color>
     <color name="yellow">#FFC107</color>
     <color name="grey">#A1A1A1</color>
     <color name="orange">#FF7700</color>
     <color name="red">#FF0000</color>
     <color name="title">#80FFFFFF</color>
+    <color name="navy">#29699C</color>
 </resources>

@@ -2,6 +2,7 @@ package com.example.ham_app.untils;
 
 import com.example.ham_app.models.Department;
 import com.example.ham_app.models.News;
+import com.example.ham_app.models.Service;
 import com.example.ham_app.models.User;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public  class ApiDataManager {
     private User user;
     private List<Department> departmentList;
     private List<News> newsList;
+    private List<Service> serviceList;
 
     public ApiDataManager() {
 
@@ -46,5 +48,11 @@ public  class ApiDataManager {
 
     public void setNewsList(List<News> newsList) {
         this.newsList = newsList;
+    }
+    public List<Service> getServiceList() {
+        return serviceList;
+    }
+    public void setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
     }
 }

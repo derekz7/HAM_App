@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="checkbox_blue" parent="ThemeOverlay.Material3">
+        <item name="colorAccent">@color/blue</item>
+        <item name="android:textColorSecondary">@color/grey</item>
+    </style>
+
+    <style name="BottomSheetAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_anim</item>
+    </style>
+
+    <style name="DialogLoadingAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+</resources>

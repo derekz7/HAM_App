@@ -2,6 +2,7 @@ package com.example.ham_app.api;
 
 import com.example.ham_app.models.Department;
 import com.example.ham_app.models.News;
+import com.example.ham_app.models.Service;
 import com.example.ham_app.models.User;
 import com.example.ham_app.untils.Common;
 import com.google.gson.Gson;
@@ -14,7 +15,9 @@ import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -34,16 +37,22 @@ public interface ApiService {
     @GET("api/User/Login")
     Call<Boolean> login(@Query("username") String email, @Query("password") String password);
 
+    @POST("api/User/CreateUser")
+    Call<User> signUp(@Body User user);
+
     @GET("api/User/GetUserByUsername")
     Call<User> getUserByUsername(@Query("username") String username);
-
-
 
     //Tin tuc
     @GET("api/News/GetAllNews")
     Call<List<News>> getAllNews();
-
+    @GET("api/News/Get3NewestNews")
+    Call<List<News>> getNewestNews();
     //Department
     @GET("api/Department/GetAllDepartments")
     Call<List<Department>> getAllDepartment();
+
+    //Service
+    @GET("api/Service/GetAllServices")
+    Call<List<Service>> getAllServices();
 }

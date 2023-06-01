@@ -26,4 +26,7 @@
     <string name="news">News</string>
     <string name="prescription">Prescription</string>
     <string name="Booking">Booking</string>
+    <string name="see_more">See more</string>
+    <string name="your_account">Your account</string>
+    <string name="back">Back</string>
 </resources>

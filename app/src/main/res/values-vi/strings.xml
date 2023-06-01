@@ -23,4 +23,7 @@
     <string name="news">Tin tức</string>
     <string name="prescription">Đơn thuốc</string>
     <string name="Booking">Đặt khám</string>
+    <string name="see_more">Xem tất cả chuyên khoa</string>
+    <string name="your_account">Thông tin tài </string>
+    <string name="back">Back</string>
 </resources>

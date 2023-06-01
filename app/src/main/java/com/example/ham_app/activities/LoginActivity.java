@@ -1,6 +1,5 @@
 package com.example.ham_app.activities;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
@@ -15,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.ham_app.R;
 import com.example.ham_app.api.ApiService;
+import com.example.ham_app.dialog.AlertDialog;
+import com.example.ham_app.dialog.LoadingDialog;
 import com.example.ham_app.models.User;
 import com.example.ham_app.untils.ApiDataManager;
 
@@ -25,7 +26,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
     private EditText edtUsername, edt_password;
     private Button btn_signUp, btn_login;
-    private LoadingDialog loadingDialog;
+    private AlertDialog alertDialog;
     private  SharedPreferences sharedPreferences;
     private CheckBox cbRemember;
     @Override
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
             }
         });
 
@@ -54,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (password.length() == 0) {
                     edt_password.setError("Please enter your password.");
                 } else {
-                    loadingDialog.show();
+                    LoadingDialog.show(LoginActivity.this);
                     ApiService.api.login(username, password).enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -73,24 +75,27 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.putBoolean("checked",false);
                                         editor.apply();
                                     }
-                                    loadingDialog.dismissDialog();
                                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                                     startActivity(intent);
                                     finish();
+                                    LoadingDialog.dismissDialog();
                                 } else {
-                                    showAlert("Incorrect username or password.","Tên tài khoản hoặc mật khẩu không đúng.");
-                                    loadingDialog.dismissDialog();
+                                    alertDialog.show("Tên tài khoản hoặc mật khẩu không đúng.");
+                                    LoadingDialog.dismissDialog();
                                 }
                             } else {
-                                showAlert("Error.","Server gặp sự cố. Vui lòng thử lại sau.");
-                                loadingDialog.dismissDialog();
+
+                                LoadingDialog.dismissDialog();
+                                startActivity(new Intent(LoginActivity.this, ErrorActivity.class));
+
                             }
                         }
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
                             Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                            loadingDialog.dismissDialog();
+                            startActivity(new Intent(LoginActivity.this, ErrorActivity.class));
+                            LoadingDialog.dismissDialog();
                         }
                     });
                 }
@@ -115,26 +120,13 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void showAlert(String title, String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-        builder.setIcon(R.drawable.cancel);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.create().show();
-    }
     private void init() {
+        alertDialog = new AlertDialog(LoginActivity.this);
         edtUsername = findViewById(R.id.edt_username);
         edt_password = findViewById(R.id.edt_password);
         btn_signUp = findViewById(R.id.btn_signUp);
         btn_login = findViewById(R.id.btn_login);
         cbRemember = findViewById(R.id.cb_remember);
-        loadingDialog = new LoadingDialog(LoginActivity.this);
         sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
         edtUsername.setText(sharedPreferences.getString("username", ""));
         edt_password.setText(sharedPreferences.getString("password", ""));
