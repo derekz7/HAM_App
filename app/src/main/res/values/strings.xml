@@ -29,4 +29,11 @@
     <string name="see_more">See more</string>
     <string name="your_account">Your account</string>
     <string name="back">Back</string>
+    <string name="edit">Edit</string>
+    <string name="basic_information">Information</string>
+    <string name="relative">Relative</string>
+    <string name="address">Address</string>
+    <string name="not_update">Not update</string>
+    <string name="ho_so_benh_nhan">Hồ sơ bệnh nhân</string>
+    <string name="patient_tips">Please select one of the records below, or click the icon above to add a patient record.</string>
 </resources>

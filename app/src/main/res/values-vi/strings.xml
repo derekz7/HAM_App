@@ -24,6 +24,13 @@
     <string name="prescription">Đơn thuốc</string>
     <string name="Booking">Đặt khám</string>
     <string name="see_more">Xem tất cả chuyên khoa</string>
-    <string name="your_account">Thông tin tài </string>
+    <string name="your_account">Thông tin tài khoản</string>
     <string name="back">Back</string>
+    <string name="edit">Điều chỉnh</string>
+    <string name="basic_information">Thông tin cơ bản</string>
+    <string name="relative">Người thân</string>
+    <string name="address">Địa chỉ</string>
+    <string name="not_update">Chưa cập nhật</string>
+    <string name="ho_so_benh_nhan">Hồ sơ bệnh nhân</string>
+    <string name="patient_tips">Vui lòng chọn 1 trong số các hồ sơ bên dưới, hoặc bấm vào biểu tượng ở trên để thêm hồ sơ người bệnh.</string>
 </resources>

@@ -1,19 +1,23 @@
 package com.example.ham_app.models;
 
+import java.util.Date;
+
 public class News {
     private String id;
     private String title;
     private String body;
     private String imgUrl;
 
+    private Date postDate;
     public News() {
 
     }
 
-    public News(String title, String body, String imgUrl) {
+    public News(String title, String body, String imgUrl,Date postDate) {
         this.title = title;
         this.body = body;
         this.imgUrl = imgUrl;
+        this.postDate = postDate;
     }
 
     public String getId() {
@@ -46,5 +50,13 @@ public class News {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Date getPostDate() {
+        return postDate;
+    }
+
+    public void setPostDate(Date postDate) {
+        this.postDate = postDate;
     }
 }
