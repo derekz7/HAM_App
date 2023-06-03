@@ -1,4 +1,4 @@
-package com.example.ham_app.models;
+package com.example.ham_app.modules;
 
 public class Relative {
     private String id;

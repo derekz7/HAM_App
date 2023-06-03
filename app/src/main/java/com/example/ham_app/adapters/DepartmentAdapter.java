@@ -12,8 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ham_app.R;
-import com.example.ham_app.models.Department;
-import com.example.ham_app.untils.Common;
+import com.example.ham_app.modules.Department;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -23,13 +22,13 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.De
     private Context context;
     private List<Department> listDep;
 
-    private DepartmentAdapter.onItemCLickListener mListener;
+    private DepartmentAdapter.onItemClickListener mListener;
 
-    public interface onItemCLickListener{
+    public interface onItemClickListener{
         void onItemClick(int pos, View view);
     }
 
-    public void setOnItemClickListener(DepartmentAdapter.onItemCLickListener mListener) {
+    public void setOnItemClickListener(DepartmentAdapter.onItemClickListener mListener) {
         this.mListener = mListener;
     }
 
@@ -72,7 +71,7 @@ public class DepartmentAdapter extends RecyclerView.Adapter<DepartmentAdapter.De
         private ImageView img_dep;
         private TextView tv_depName;
 
-        public DepartmentViewHolder(@NonNull View itemView, DepartmentAdapter.onItemCLickListener listener) {
+        public DepartmentViewHolder(@NonNull View itemView, DepartmentAdapter.onItemClickListener listener) {
             super(itemView);
             img_dep = itemView.findViewById(R.id.img_department);
             tv_depName = itemView.findViewById(R.id.tv_depName);

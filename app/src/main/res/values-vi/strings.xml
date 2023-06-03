@@ -33,4 +33,15 @@
     <string name="not_update">Chưa cập nhật</string>
     <string name="ho_so_benh_nhan">Hồ sơ bệnh nhân</string>
     <string name="patient_tips">Vui lòng chọn 1 trong số các hồ sơ bên dưới, hoặc bấm vào biểu tượng ở trên để thêm hồ sơ người bệnh.</string>
+    <string name="department">Chuyên khoa<font color="@android:color/red"><sup>*</sup></font></string>
+    <string name="service">Loại hình khám<font color='@android:color/red'><sup>*</sup></font></string>
+    <string name="date">Ngày khám<font color='@android:color/red'><sup>*</sup></font></string>
+    <string name="time">Giờ khám<font color='@android:color/red'><sup>*</sup></font></string>
+    <string name="patient">Bệnh nhân<font color='@android:color/red'><sup>*</sup></font></string>
+    <string name="doctor">Bác sĩ<font color='@android:color/red'><sup>*</sup></font></string>
+    <string name="note">Ghi chú</string>
+    <string name="hint_note">Triệu chứng, thuốc đang dùng, tiền sử...</string>
+    <string name="next">Tiếp tục</string>
+    <string name="choose_department">Chọn chuyên khoa</string>
+
 </resources>

@@ -2,7 +2,6 @@ package com.example.ham_app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,8 +15,11 @@ import com.example.ham_app.R;
 import com.example.ham_app.api.ApiService;
 import com.example.ham_app.dialog.AlertDialog;
 import com.example.ham_app.dialog.LoadingDialog;
-import com.example.ham_app.models.User;
+import com.example.ham_app.modules.Department;
+import com.example.ham_app.modules.User;
 import com.example.ham_app.untils.ApiDataManager;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,8 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edtUsername, edt_password;
     private Button btn_signUp, btn_login;
     private AlertDialog alertDialog;
-    private  SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
     private CheckBox cbRemember;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,20 +65,20 @@ public class LoginActivity extends AppCompatActivity {
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             if (response.isSuccessful()) {
                                 if (Boolean.TRUE.equals(response.body())) {
-                                    if (cbRemember.isChecked()){
+                                    if (cbRemember.isChecked()) {
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("username", username);
                                         editor.putString("password", password);
-                                        editor.putBoolean("checked",true);
+                                        editor.putBoolean("checked", true);
                                         editor.apply();
-                                    }else {
+                                    } else {
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString("username",username);
+                                        editor.putString("username", username);
                                         editor.remove("password");
-                                        editor.putBoolean("checked",false);
+                                        editor.putBoolean("checked", false);
                                         editor.apply();
                                     }
-                                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
                                     LoadingDialog.dismissDialog();
@@ -108,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         ApiService.api.getUserByUsername(username).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.body() != null){
+                if (response.body() != null) {
                     ApiDataManager.getInstance().setUser(response.body());
                 }
             }
@@ -130,6 +133,8 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
         edtUsername.setText(sharedPreferences.getString("username", ""));
         edt_password.setText(sharedPreferences.getString("password", ""));
-        cbRemember.setChecked(sharedPreferences.getBoolean("checked",false));
+        cbRemember.setChecked(sharedPreferences.getBoolean("checked", false));
     }
+
+
 }

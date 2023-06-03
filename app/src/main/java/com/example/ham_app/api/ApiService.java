@@ -1,9 +1,10 @@
 package com.example.ham_app.api;
 
-import com.example.ham_app.models.Department;
-import com.example.ham_app.models.News;
-import com.example.ham_app.models.Service;
-import com.example.ham_app.models.User;
+import com.example.ham_app.modules.Department;
+import com.example.ham_app.modules.News;
+import com.example.ham_app.modules.Patient;
+import com.example.ham_app.modules.Service;
+import com.example.ham_app.modules.User;
 import com.example.ham_app.untils.Common;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -43,14 +44,21 @@ public interface ApiService {
     @GET("api/User/GetUserByUsername")
     Call<User> getUserByUsername(@Query("username") String username);
 
+    //Patient
+    @GET("api/Patient/GetPatientsByUser")
+    Call<List<Patient>> getPatientByUser (@Query("userId") String userid);
+
+    @GET("api/Patient/GetPatientsByUsername")
+    Call<List<Patient>> getPatientByUsername (@Query("username") String username);
     //Tin tuc
     @GET("api/News/GetAllNews")
     Call<List<News>> getAllNews();
     @GET("api/News/Get3NewestNews")
     Call<List<News>> getNewestNews();
+
     //Department
     @GET("api/Department/GetAllDepartments")
-    Call<List<Department>> getAllDepartment();
+    Call<List<Department>> getDepartments();
 
     //Service
     @GET("api/Service/GetAllServices")

@@ -27,6 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:itemBackground="@color/white"
+        android:theme="@style/Theme.Material3.Light.NoActionBar"
         app:itemIconTint="@drawable/bottom_nav_icon_color_selector"
         app:itemTextColor="@drawable/bottom_nav_icon_color_selector"
         app:menu="@menu/bottom_nav_menu">

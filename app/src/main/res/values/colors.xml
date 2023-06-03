@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="background">#FFF1F1F1</color>
+    <color name="background">#EAEAEA</color>
     <color name="blue">#2186F3</color>
     <color name="sky">#D7E0FF</color>
     <color name="blue_dark">#0363F4</color>
@@ -13,4 +13,5 @@
     <color name="red">#FF0000</color>
     <color name="title">#80FFFFFF</color>
     <color name="navy">#29699C</color>
+    <color name="green">#4CAF50</color>
 </resources>

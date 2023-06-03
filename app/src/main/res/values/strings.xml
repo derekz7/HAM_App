@@ -36,4 +36,15 @@
     <string name="not_update">Not update</string>
     <string name="ho_so_benh_nhan">Hồ sơ bệnh nhân</string>
     <string name="patient_tips">Please select one of the records below, or click the icon above to add a patient record.</string>
+    <string name="calendar_tips" translatable="false">Vui lòng chọn ngày khám, tránh các ngày cuối tuần và ngày nghỉ lễ.</string>
+    <string name="service">Loại hình khám<font color='@android:color/red'><sup>*</sup></font></string>
+    <string name="department">Chuyên khoa<font color='@android:color/red'><sup>*</sup></font></string>
+    <string name="date">Date<font color='@android:color/red'><sup>*</sup></font></string>
+    <string name="time">Time<font color='@android:color/red'><sup>*</sup></font></string>
+    <string name="patient">Patient<font color='@android:color/red'><sup>*</sup></font></string>
+    <string name="doctor">Doctor<font color='@android:color/red'><sup>*</sup></font></string>
+    <string name="note">Note</string>
+    <string name="hint_note">Triệu chứng, thuốc đang dùng, tiền sử...</string>
+    <string name="next">next</string>
+    <string name="choose_department">Choose department</string>
 </resources>

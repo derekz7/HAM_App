@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
+    android:id="@+id/parentLayout"
+    android:orientation="vertical"
     tools:context=".activities.BookingActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topBar"
+        android:id="@+id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blue"
@@ -15,19 +18,284 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="@string/Booking"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <ImageButton
+            android:id="@+id/igb_backBooking"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:padding="16dp"
-            android:scaleType="fitCenter"
             android:background="@android:color/transparent"
-            android:src="@drawable/baseline_arrow_back_24"
+            android:contentDescription="@string/back"
+            android:padding="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp">
+
+            <LinearLayout
+                android:id="@+id/layout_LoaiHinhKham"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/service"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btnChonLoaiKham"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_gray_btn"
+                    android:drawableStart="@drawable/baseline_medical_services_24"
+                    android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+                    android:drawablePadding="10dp"
+                    android:gravity="start|center"
+                    android:paddingHorizontal="10dp"
+                    android:text="Chọn loại hình khám"
+                    android:textAllCaps="false"
+                    android:textColor="@color/grey"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_ChuyenKhoa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/department"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_gray_btn"
+                    android:drawableStart="@drawable/baseline_medical_services_24"
+                    android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+                    android:drawablePadding="10dp"
+                    android:gravity="start|center"
+                    android:paddingHorizontal="10dp"
+                    android:text="@string/choose_department"
+                    android:textAllCaps="false"
+                    android:textColor="@color/grey"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_ngayKham"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/date"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/btn_ChonNgayKham"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_gray_btn"
+                    android:drawableStart="@drawable/baseline_calendar_month_24"
+                    android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/grey"
+                    android:gravity="start|center"
+                    android:paddingHorizontal="10dp"
+                    android:text="Chọn ngày khám"
+                    android:textAllCaps="false"
+                    android:textColor="@color/grey"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_gioKham"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/time"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_gray_btn"
+                    android:drawableStart="@drawable/baseline_access_time_24"
+                    android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/grey"
+                    android:gravity="start|center"
+                    android:paddingHorizontal="10dp"
+                    android:text="Chọn giờ khám"
+                    android:textAllCaps="false"
+                    android:textColor="@color/grey"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout_bacSi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/doctor"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_gray_btn"
+                    android:drawableStart="@drawable/baseline_person_24"
+                    android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/grey"
+                    android:gravity="start|center"
+                    android:paddingHorizontal="10dp"
+                    android:text="Chọn bác sĩ"
+                    android:textAllCaps="false"
+                    android:textColor="@color/grey"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_benhNhan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/patient"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_gray_btn"
+                    android:drawableStart="@drawable/baseline_folder_24"
+                    android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/grey"
+                    android:gravity="start|center"
+                    android:paddingHorizontal="10dp"
+                    android:text="Chọn hồ sơ bệnh nhân"
+                    android:textAllCaps="false"
+                    android:textColor="@color/grey"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/note"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/edtGhiChu"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/round_gray_btn"
+                    android:hint="@string/hint_note"
+                    android:inputType="text"
+                    android:textSize="15sp"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/blue_dark" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/blue"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

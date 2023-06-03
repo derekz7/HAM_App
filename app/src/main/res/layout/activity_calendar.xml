@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context=".activities.BookingActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blue"
@@ -16,11 +19,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="false"
             android:gravity="center"
-            android:text="@string/ho_so_benh_nhan"
+            android:text="Chọn ngày khám"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -32,54 +36,41 @@
 
 
         <ImageButton
-            android:id="@+id/igb_addPatient"
+            android:id="@+id/igb_backBooking"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/back"
             android:padding="20dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/baseline_person_add_alt_1_24"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:id="@+id/tvTips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/sky"
         android:drawablePadding="10dp"
         android:padding="10dp"
-        android:text="@string/patient_tips"
-        app:drawableStartCompat="@drawable/baseline_info_24" />
+        android:text="@string/calendar_tips"
+        app:drawableStartCompat="@drawable/baseline_info_24"
+        app:layout_constraintTop_toBottomOf="@+id/layout_title" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipelayout"
+    <CalendarView
+        android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rec_Patients"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:paddingHorizontal="16dp"
-            android:visibility="visible" />
-
-        <TextView
-            android:id="@+id/tv_noti"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Không có hồ sơ bệnh nhân nào"
-            android:textColor="@color/grey"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:visibility="invisible" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minDate="06/04/2023"
+        android:theme="@style/calendarView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTips" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
