@@ -1,6 +1,7 @@
 package com.example.ham_app.api;
 
 import com.example.ham_app.modules.Department;
+import com.example.ham_app.modules.Doctor;
 import com.example.ham_app.modules.News;
 import com.example.ham_app.modules.Patient;
 import com.example.ham_app.modules.Service;
@@ -63,4 +64,8 @@ public interface ApiService {
     //Service
     @GET("api/Service/GetAllServices")
     Call<List<Service>> getAllServices();
+
+    //Doctor
+    @GET("api/Doctor/available")
+    Call<List<Doctor>> getDoctorAvailable(@Query("dep_id") String dep_id, @Query("date") String date, @Query("time") String time);
 }

@@ -3,18 +3,18 @@
     <item
         android:id="@+id/trangchu"
         android:title="@string/home"
-        android:icon="@drawable/baseline_home_24"/>
+        android:icon="@drawable/home_icon"/>
     <item
         android:id="@+id/appointment"
         android:title="@string/appointment"
-        android:icon="@drawable/baseline_calendar_month_24"/>
+        android:icon="@drawable/calendar_icon"/>
     <item
         android:id="@+id/profile"
         android:title="@string/information"
-        android:icon="@drawable/baseline_folder_24"/>
+        android:icon="@drawable/folder_icon"/>
     <item
         android:id="@+id/account"
         android:title="@string/account"
-        android:icon="@drawable/baseline_person_24"/>
+        android:icon="@drawable/user_icon"/>
 
 </menu>

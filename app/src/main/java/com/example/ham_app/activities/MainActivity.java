@@ -55,20 +55,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-        ApiService.api.getAllServices().enqueue(new Callback<List<Service>>() {
-            @Override
-            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
-                if (response.body() != null) {
-                    ApiDataManager.getInstance().setServiceList(response.body());
-                    Toast.makeText(getApplicationContext(), "Load Services success", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Service>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Load services fail" + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
 

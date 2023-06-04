@@ -8,7 +8,7 @@ public class Booking {
     private String id;
     @SerializedName("order_num")
     private int orderNum;
-    private Date date;
+    private String date;
     private String time;
     private int price;
     private String status;
@@ -16,11 +16,12 @@ public class Booking {
     private String user_id;
     private String dc_id;
     private String sv_id;
+    private String note;
 
     public Booking() {
     }
 
-    public Booking(int orderNum, Date date, String time, int price, String status, String pt_id, String user_id, String dc_id, String sv_id) {
+    public Booking( int orderNum, String date, String time, int price, String status, String pt_id, String user_id, String dc_id, String sv_id, String note) {
         this.orderNum = orderNum;
         this.date = date;
         this.time = time;
@@ -30,6 +31,7 @@ public class Booking {
         this.user_id = user_id;
         this.dc_id = dc_id;
         this.sv_id = sv_id;
+        this.note = note;
     }
 
     public String getId() {
@@ -44,11 +46,11 @@ public class Booking {
         this.orderNum = orderNum;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -106,5 +108,13 @@ public class Booking {
 
     public void setSv_id(String sv_id) {
         this.sv_id = sv_id;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

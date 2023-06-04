@@ -33,6 +33,7 @@
     <string name="not_update">Chưa cập nhật</string>
     <string name="ho_so_benh_nhan">Hồ sơ bệnh nhân</string>
     <string name="patient_tips">Vui lòng chọn 1 trong số các hồ sơ bên dưới, hoặc bấm vào biểu tượng ở trên để thêm hồ sơ người bệnh.</string>
+    <string name="doctor_tips">Vui lòng chọn bác sĩ bên dưới. Nếu danh sách bác sĩ trống vui lòng thay đổi thời gian hoặc ngày đặt khám.</string>
     <string name="department">Chuyên khoa<font color="@android:color/red"><sup>*</sup></font></string>
     <string name="service">Loại hình khám<font color='@android:color/red'><sup>*</sup></font></string>
     <string name="date">Ngày khám<font color='@android:color/red'><sup>*</sup></font></string>
@@ -43,5 +44,16 @@
     <string name="hint_note">Triệu chứng, thuốc đang dùng, tiền sử...</string>
     <string name="next">Tiếp tục</string>
     <string name="choose_department">Chọn chuyên khoa</string>
+    <string name="morning">Buổi sáng</string>
+    <string name="afternoon">Buổi chiều</string>
+    <string name="patient_information">Thông tin bệnh nhân</string>
+    <string name="select">Xác nhận</string>
+    <string name="booking_infomation">Thông tin đặt khám</string>
+    <string name="date_of_birth">Ngày sinh</string>
+    <string name="date_">Ngày khám</string>
+    <string name="time_">Giờ khám</string>
+    <string name="department_">Chuyên khoa</string>
+    <string name="price">Phí khám</string>
+    <string name="payment_notification">Chức năng này đang được phát triển. Vui lòng chọn thanh toán tại bệnh viện để tiếp tục đặt khám. Trân trọng cảm ơn</string>
 
 </resources>

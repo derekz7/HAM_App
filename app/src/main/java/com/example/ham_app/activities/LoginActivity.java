@@ -107,22 +107,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void getUser(String username) {
-        ApiService.api.getUserByUsername(username).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.body() != null) {
-                    ApiDataManager.getInstance().setUser(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
-            }
-        });
-    }
-
     private void init() {
         alertDialog = new AlertDialog(LoginActivity.this);
         edtUsername = findViewById(R.id.edt_username);

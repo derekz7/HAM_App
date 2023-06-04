@@ -41,6 +41,7 @@ import com.example.ham_app.modules.Booking;
 import com.example.ham_app.modules.Department;
 import com.example.ham_app.modules.News;
 import com.example.ham_app.modules.Patient;
+import com.example.ham_app.modules.Service;
 import com.example.ham_app.modules.User;
 import com.example.ham_app.untils.ApiDataManager;
 import com.squareup.picasso.Picasso;
@@ -81,6 +82,7 @@ public class HomeFragment extends Fragment {
         setLayout();
         getDepartment();
         loadUser();
+        loadService();
         getNews();
         onClick();
 
@@ -160,6 +162,23 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    private void loadService(){
+        if (ApiDataManager.getInstance().getServiceList() == null) {
+            ApiService.api.getAllServices().enqueue(new Callback<List<Service>>() {
+                @Override
+                public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                    if (response.body() != null) {
+                        ApiDataManager.getInstance().setServiceList(response.body());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Service>> call, Throwable t) {
+                }
+            });
+        }
+    }
+
 
 
     private void getNews() {
@@ -217,9 +236,9 @@ public class HomeFragment extends Fragment {
         slideModels = new ArrayList<>();
         newsList = new ArrayList<>();
         departmentList = new ArrayList<>();
-        user = new User();
         recycleViewDepartment = view.findViewById(R.id.recyleViewDepartment);
         depAdapter = new DepartmentAdapter(getContext(), ApiDataManager.getInstance().getDepartmentList());
+        user = new User();
         tv_Username = view.findViewById(R.id.tv_userName);
         userImg = view.findViewById(R.id.profile_image);
         btn_seeMoreDepartments = view.findViewById(R.id.btn_seeMoreDepartment);

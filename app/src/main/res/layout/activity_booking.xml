@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/background"
     android:id="@+id/parentLayout"
-    android:orientation="vertical"
     tools:context=".activities.BookingActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@color/blue">
 
         <TextView
             android:id="@+id/textView"
@@ -53,6 +50,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,20 +77,22 @@
                     android:text="@string/service"
                     android:textColor="@color/black" />
 
-                <Button
-                    android:id="@+id/btnChonLoaiKham"
+                <TextView
+                    android:id="@+id/btnPickService"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_gray_btn"
-                    android:drawableStart="@drawable/baseline_medical_services_24"
-                    android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+                    android:paddingVertical="10dp"
+                    android:textSize="16sp"
+                    android:background="@drawable/round_outline_gray_btn"
                     android:drawablePadding="10dp"
                     android:gravity="start|center"
                     android:paddingHorizontal="10dp"
                     android:text="Chọn loại hình khám"
                     android:textAllCaps="false"
                     android:textColor="@color/grey"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    app:drawableStartCompat="@drawable/baseline_medical_services_24"
+                    app:drawableEndCompat="@drawable/baseline_arrow_forward_ios_24" />
 
             </LinearLayout>
 
@@ -110,19 +110,22 @@
                     android:text="@string/department"
                     android:textColor="@color/black" />
 
-                <Button
+                <TextView
+                    android:id="@+id/btnPickDepartment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_gray_btn"
-                    android:drawableStart="@drawable/baseline_medical_services_24"
-                    android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+                    android:paddingVertical="10dp"
+                    android:textSize="16sp"
+                    android:background="@drawable/round_outline_gray_btn"
                     android:drawablePadding="10dp"
                     android:gravity="start|center"
                     android:paddingHorizontal="10dp"
                     android:text="@string/choose_department"
                     android:textAllCaps="false"
                     android:textColor="@color/grey"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    app:drawableStartCompat="@drawable/baseline_medical_services_24"
+                    app:drawableEndCompat="@drawable/baseline_arrow_forward_ios_24" />
 
             </LinearLayout>
 
@@ -140,21 +143,23 @@
                     android:text="@string/date"
                     android:textColor="@color/black" />
 
-                <Button
-                    android:id="@+id/btn_ChonNgayKham"
+                <TextView
+                    android:id="@+id/btnPickDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_gray_btn"
-                    android:drawableStart="@drawable/baseline_calendar_month_24"
-                    android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+                    android:paddingVertical="10dp"
+                    android:textSize="16sp"
+                    android:background="@drawable/round_outline_gray_btn"
                     android:drawablePadding="10dp"
-                    android:drawableTint="@color/grey"
                     android:gravity="start|center"
                     android:paddingHorizontal="10dp"
                     android:text="Chọn ngày khám"
                     android:textAllCaps="false"
                     android:textColor="@color/grey"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    app:drawableStartCompat="@drawable/baseline_calendar_month_24"
+                    app:drawableEndCompat="@drawable/baseline_arrow_forward_ios_24"
+                    app:drawableTint="@color/grey" />
 
             </LinearLayout>
 
@@ -172,20 +177,23 @@
                     android:text="@string/time"
                     android:textColor="@color/black" />
 
-                <Button
+                <TextView
+                    android:id="@+id/btnPickTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_gray_btn"
-                    android:drawableStart="@drawable/baseline_access_time_24"
-                    android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+                    android:paddingVertical="10dp"
+                    android:textSize="16sp"
+                    android:background="@drawable/round_outline_gray_btn"
                     android:drawablePadding="10dp"
-                    android:drawableTint="@color/grey"
                     android:gravity="start|center"
                     android:paddingHorizontal="10dp"
                     android:text="Chọn giờ khám"
                     android:textAllCaps="false"
                     android:textColor="@color/grey"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    app:drawableStartCompat="@drawable/baseline_access_time_24"
+                    app:drawableEndCompat="@drawable/baseline_arrow_forward_ios_24"
+                    app:drawableTint="@color/grey" />
 
             </LinearLayout>
 
@@ -204,20 +212,23 @@
                     android:text="@string/doctor"
                     android:textColor="@color/black" />
 
-                <Button
+                <TextView
+                    android:id="@+id/btnPickDoctor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_gray_btn"
-                    android:drawableStart="@drawable/baseline_person_24"
-                    android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+                    android:paddingVertical="10dp"
+                    android:textSize="16sp"
+                    android:background="@drawable/round_outline_gray_btn"
                     android:drawablePadding="10dp"
-                    android:drawableTint="@color/grey"
                     android:gravity="start|center"
                     android:paddingHorizontal="10dp"
                     android:text="Chọn bác sĩ"
                     android:textAllCaps="false"
                     android:textColor="@color/grey"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    app:drawableEndCompat="@drawable/baseline_arrow_forward_ios_24"
+                    app:drawableStartCompat="@drawable/baseline_person_24"
+                    app:drawableTint="@color/grey" />
 
             </LinearLayout>
 
@@ -226,6 +237,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -235,39 +247,44 @@
                     android:text="@string/patient"
                     android:textColor="@color/black" />
 
-                <Button
+                <TextView
+                    android:id="@+id/btnPickPatient"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_gray_btn"
-                    android:drawableStart="@drawable/baseline_folder_24"
-                    android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+                    android:paddingVertical="10dp"
+                    android:textSize="16sp"
+                    android:background="@drawable/round_outline_gray_btn"
                     android:drawablePadding="10dp"
-                    android:drawableTint="@color/grey"
                     android:gravity="start|center"
                     android:paddingHorizontal="10dp"
                     android:text="Chọn hồ sơ bệnh nhân"
                     android:textAllCaps="false"
                     android:textColor="@color/grey"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    app:drawableStartCompat="@drawable/baseline_folder_24"
+                    app:drawableEndCompat="@drawable/baseline_arrow_forward_ios_24"
+                    app:drawableTint="@color/grey" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:layout_marginTop="10dp"
                     android:text="@string/note"
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/edtGhiChu"
+                    android:id="@+id/edtNote"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="@drawable/round_gray_btn"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/round_outline_gray_btn"
                     android:hint="@string/hint_note"
                     android:inputType="text"
-                    android:textSize="15sp"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textColorHighlight="@color/blue_dark" />
+                    android:textColorHighlight="@color/blue_dark"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -276,9 +293,11 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:elevation="10dp"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -288,14 +307,13 @@
         <Button
             android:id="@+id/btn_next"
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:background="@drawable/rounded_background"
-            android:backgroundTint="@color/blue"
+            android:background="@drawable/rounded_bg_blue"
             android:text="@string/next"
             android:textAllCaps="false"
             android:textColor="@color/white" />
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

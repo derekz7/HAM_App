@@ -3,11 +3,14 @@ package com.example.ham_app.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
 import com.example.ham_app.R;
+import com.example.ham_app.untils.ApiDataManager;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -16,6 +19,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     private CalendarView calendarView;
     private Calendar lastSelectedCalendar = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +36,20 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(year,month,dayOfMonth);
-                if (calendar.equals(lastSelectedCalendar)){
+                calendar.set(year, month, dayOfMonth);
+                if (calendar.equals(lastSelectedCalendar)) {
                     Toast.makeText(CalendarActivity.this, "Không thể đặt khám vào hôm nay", Toast.LENGTH_SHORT).show();
                 }
-                if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
                     Toast.makeText(CalendarActivity.this, "Không thể đặt khám vào cuối tuần", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     lastSelectedCalendar = calendar;
+                    String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+                    ApiDataManager.getInstance().getBooking().setDate(selectedDate);
+                    Log.d("Booking","Date: " + selectedDate);
+                    Intent resultIntent = new Intent();
+                    setResult(RESULT_OK, resultIntent);
+                    finish();
                 }
             }
         });

@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.ham_app.R;
 import com.example.ham_app.adapters.ServiceAdapter;
@@ -34,9 +36,9 @@ public class ServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
         initView();
-        onClick();
         setUpView();
         loadData();
+        onClick();
     }
 
     private void setUpView() {
@@ -77,7 +79,17 @@ public class ServiceActivity extends AppCompatActivity {
         igbBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ServiceActivity.this, BookingActivity.class));
+                finish();
+            }
+        });
+        serviceAdapter.setOnClickListener(new ServiceAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int pos, View view) {
+                ApiDataManager.getInstance().setSelectedService(serviceList.get(pos));
+                ApiDataManager.getInstance().getBooking().setSv_id(serviceList.get(pos).getId());
+                Log.d("Booking","Service: " + serviceList.get(pos).getServiceName());
+                Intent resultIntent = new Intent();
+                setResult(RESULT_OK, resultIntent);
                 finish();
             }
         });

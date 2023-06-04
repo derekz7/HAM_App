@@ -98,4 +98,5 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
             });
         }
     }
+
 }
