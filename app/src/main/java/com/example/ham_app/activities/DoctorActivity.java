@@ -45,7 +45,7 @@ public class DoctorActivity extends AppCompatActivity {
 
     private void loadData() {
         if (ApiDataManager.getInstance().getBooking() != null){
-            String dep_id = ApiDataManager.getInstance().getSelectedDepartment().getId();
+            String dep_id = ApiDataManager.getInstance().getSelectDepartment().getId();
             String date = ApiDataManager.getInstance().getBooking().getDate();
             String time = ApiDataManager.getInstance().getBooking().getTime();
             LoadingDialog.show(this);
@@ -93,7 +93,7 @@ public class DoctorActivity extends AppCompatActivity {
         adapter.setOnClickListener(new DoctorAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int pos, View view) {
-                ApiDataManager.getInstance().setSelectedDoctor(doctors.get(pos));
+                ApiDataManager.getInstance().setSelectDoctor(doctors.get(pos));
                 ApiDataManager.getInstance().getBooking().setDc_id(doctors.get(pos).getId());
                 Log.d("Booking","Doctor: " + doctors.get(pos).getName());
                 Intent resultIntent = new Intent();

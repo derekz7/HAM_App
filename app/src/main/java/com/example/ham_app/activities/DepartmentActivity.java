@@ -42,7 +42,7 @@ public class DepartmentActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new DepartmentAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int pos, View view) {
-                ApiDataManager.getInstance().setSelectedDepartment(departmentList.get(pos));
+                ApiDataManager.getInstance().setSelectDepartment(departmentList.get(pos));
                 Log.d("Booking","Department: " + departmentList.get(pos).getName());
                 Intent resultIntent = new Intent();
                 setResult(RESULT_OK, resultIntent);

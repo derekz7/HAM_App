@@ -170,7 +170,7 @@ public class PatientActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ApiDataManager.getInstance().getBooking().setPt_id(patient.getId());
-                ApiDataManager.getInstance().setSelectedpatient(patient);
+                ApiDataManager.getInstance().setSelectPatient(patient);
                 Intent resultIntent = new Intent();
                 setResult(RESULT_OK, resultIntent);
                 finish();

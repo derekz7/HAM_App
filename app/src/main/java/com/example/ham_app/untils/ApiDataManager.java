@@ -19,16 +19,61 @@ public class ApiDataManager {
     private List<News> newsList;
     private List<Service> serviceList;
     private List<Patient> patientList;
-    private Patient selectedpatient;
+    private Patient selectedPatient;
+    private Patient selectPatient;
     private Booking booking;
+    private Booking booked;
+    private Service selectService;
     private Service selectedService;
     private Doctor selectedDoctor;
+    private Doctor selectDoctor;
     private Department selectedDepartment;
+    private Department selectDepartment;
     private List<Booking> bookingList;
     private int[] selectedTime;
 
     public ApiDataManager() {
 
+    }
+
+    public Patient getSelectPatient() {
+        return selectPatient;
+    }
+
+    public void setSelectPatient(Patient selectPatient) {
+        this.selectPatient = selectPatient;
+    }
+
+    public Booking getBooked() {
+        return booked;
+    }
+
+    public void setBooked(Booking booked) {
+        this.booked = booked;
+    }
+
+    public Service getSelectService() {
+        return selectService;
+    }
+
+    public void setSelectService(Service selectService) {
+        this.selectService = selectService;
+    }
+
+    public Doctor getSelectDoctor() {
+        return selectDoctor;
+    }
+
+    public void setSelectDoctor(Doctor selectDoctor) {
+        this.selectDoctor = selectDoctor;
+    }
+
+    public Department getSelectDepartment() {
+        return selectDepartment;
+    }
+
+    public void setSelectDepartment(Department selectDepartment) {
+        this.selectDepartment = selectDepartment;
     }
 
     public int[] getSelectedTime() {
@@ -41,12 +86,12 @@ public class ApiDataManager {
         };
     }
 
-    public Patient getSelectedpatient() {
-        return selectedpatient;
+    public Patient getSelectedPatient() {
+        return selectedPatient;
     }
 
-    public void setSelectedpatient(Patient patient) {
-        this.selectedpatient = patient;
+    public void setSelectedPatient(Patient patient) {
+        this.selectedPatient = patient;
     }
 
     public static ApiDataManager getInstance() {

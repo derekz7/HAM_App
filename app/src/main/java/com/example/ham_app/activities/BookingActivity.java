@@ -82,13 +82,13 @@ public class BookingActivity extends AppCompatActivity {
             hideLayout();
             ApiDataManager.getInstance().setBooking(new Booking());
         } else {
-            if (ApiDataManager.getInstance().getSelectedService() != null) {
-                selectedService = ApiDataManager.getInstance().getSelectedService();
+            if (ApiDataManager.getInstance().getSelectService() != null) {
+                selectedService = ApiDataManager.getInstance().getSelectService();
                 selectedButtonChange(btnPickService, selectedService.getServiceName());
                 layout_ChuyenKhoa.setVisibility(View.VISIBLE);
             }
-            if (ApiDataManager.getInstance().getSelectedDepartment() != null) {
-                selectedDepartment = ApiDataManager.getInstance().getSelectedDepartment();
+            if (ApiDataManager.getInstance().getSelectDepartment() != null) {
+                selectedDepartment = ApiDataManager.getInstance().getSelectDepartment();
                 selectedButtonChange(btnPickDepartment, selectedDepartment.getName());
                 layout_ngayKham.setVisibility(View.VISIBLE);
             }
@@ -100,12 +100,12 @@ public class BookingActivity extends AppCompatActivity {
                 selectedButtonChange(btnPickTime, ApiDataManager.getInstance().getBooking().getTime());
                 layout_bacSi.setVisibility(View.VISIBLE);
             }
-            if (ApiDataManager.getInstance().getSelectedDoctor() != null) {
-                selectedButtonChange(btnPickDoctor, ApiDataManager.getInstance().getSelectedDoctor().getName());
+            if (ApiDataManager.getInstance().getSelectDoctor() != null) {
+                selectedButtonChange(btnPickDoctor, ApiDataManager.getInstance().getSelectDoctor().getName());
                 layout_benhNhan.setVisibility(View.VISIBLE);
             }
-            if (ApiDataManager.getInstance().getSelectedpatient() != null) {
-                selectedButtonChange(btnPickPatient, ApiDataManager.getInstance().getSelectedpatient().getPatientName());
+            if (ApiDataManager.getInstance().getSelectPatient() != null) {
+                selectedButtonChange(btnPickPatient, ApiDataManager.getInstance().getSelectPatient().getPatientName());
                 btn_next.setClickable(true);
                 btn_next.setBackground(getDrawable(R.drawable.rounded_bg_blue));
             }
@@ -176,7 +176,8 @@ public class BookingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String note = edtNote.getText().toString();
                 ApiDataManager.getInstance().getBooking().setNote(note);
-
+                Intent intent = new Intent(BookingActivity.this, DetailActivity.class);
+                secondActivityLauncher.launch(intent);
             }
         });
     }
@@ -227,7 +228,7 @@ public class BookingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        ApiDataManager.getInstance().setSelectedpatient(null);
+        ApiDataManager.getInstance().setSelectPatient(null);
         ApiDataManager.getInstance().setSelectedService(null);
         ApiDataManager.getInstance().setSelectedDepartment(null);
         ApiDataManager.getInstance().setSelectedDoctor(null);

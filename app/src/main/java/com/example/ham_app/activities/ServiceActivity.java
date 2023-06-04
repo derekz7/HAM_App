@@ -85,7 +85,7 @@ public class ServiceActivity extends AppCompatActivity {
         serviceAdapter.setOnClickListener(new ServiceAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int pos, View view) {
-                ApiDataManager.getInstance().setSelectedService(serviceList.get(pos));
+                ApiDataManager.getInstance().setSelectService(serviceList.get(pos));
                 ApiDataManager.getInstance().getBooking().setSv_id(serviceList.get(pos).getId());
                 Log.d("Booking","Service: " + serviceList.get(pos).getServiceName());
                 Intent resultIntent = new Intent();
