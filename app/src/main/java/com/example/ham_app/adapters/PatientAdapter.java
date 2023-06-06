@@ -59,12 +59,6 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
         holder.tvPatientName.setText(patient.getPatientName());
         holder.tvPatientDOB.setText(patient.getDob());
         holder.tvPatientAddress.setText(patient.getAddress());
-        holder.tvChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Choose", Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
 
@@ -77,14 +71,13 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
     }
 
     public class PatientViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvPatientName, tvPatientDOB, tvPatientAddress, tvChoose;
+        private TextView tvPatientName, tvPatientDOB, tvPatientAddress;
 
         public PatientViewHolder(@NonNull View itemView, PatientAdapter.onItemClickListener listener) {
             super(itemView);
             tvPatientName = itemView.findViewById(R.id.tvPatientName);
             tvPatientDOB = itemView.findViewById(R.id.tvPatientDOB);
             tvPatientAddress = itemView.findViewById(R.id.tvPatientAddress);
-            tvChoose = itemView.findViewById(R.id.btn_choosePatient);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

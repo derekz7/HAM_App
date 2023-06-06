@@ -43,6 +43,7 @@ public class PatientActivity extends AppCompatActivity {
     private PatientAdapter patientAdapter;
     private List<Patient> patients;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ImageButton igb_backPatient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,12 @@ public class PatientActivity extends AppCompatActivity {
     }
 
     private void onClick() {
+        igb_backPatient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -133,6 +140,7 @@ public class PatientActivity extends AppCompatActivity {
         igb_addPatient = findViewById(R.id.igb_addPatient);
         recyclerViewPatients = findViewById(R.id.rec_Patient);
         tvNotification = findViewById(R.id.tv_notiPatient);
+        igb_backPatient = findViewById(R.id.igb_backPatient);
     }
 
     public void showDialog(Patient patient) {
@@ -170,7 +178,7 @@ public class PatientActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ApiDataManager.getInstance().getBooking().setPt_id(patient.getId());
-                ApiDataManager.getInstance().setSelectPatient(patient);
+                ApiDataManager.getInstance().setSelectedPatient(patient);
                 Intent resultIntent = new Intent();
                 setResult(RESULT_OK, resultIntent);
                 finish();

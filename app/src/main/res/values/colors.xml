@@ -2,8 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="purple">#8857DF</color>
     <color name="background">#EAEAEA</color>
     <color name="blue">#2186F3</color>
+    <color name="blue_loading">#3aa9dc</color>
+    <color name="blue_loading_out">#d7e4ea</color>
     <color name="sky">#D7E0FF</color>
     <color name="blue_dark">#0363F4</color>
     <color name="yellow">#FFC107</color>

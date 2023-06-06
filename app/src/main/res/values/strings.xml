@@ -20,7 +20,7 @@
     <string name="phone_number">Phone number</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="create_your_account">Create your account</string>
-    <string name="remember_me">Remember me</string>
+    <string name="remember_me">Keep me logged in</string>
     <string name="username" translatable="false">Username</string>
     <string name="username_hint">username</string>
     <string name="news">News</string>
@@ -36,6 +36,8 @@
     <string name="not_update">Not update</string>
     <string name="ho_so_benh_nhan">Hồ sơ bệnh nhân</string>
     <string name="patient_tips">Please select one of the records below, or click the icon above to add a patient record.</string>
+    <string name="booking_tips">Bạn chỉ đặt khám được một lần, vui lòng hoàn thành lịch khám đang chờ để có thể đặt lịch mới.</string>
+    <string name="prescription_tips">Sau khi khám tại bệnh viện, nếu bạn yêu cầu bác sĩ có thể lên đơn thuốc trực tuyến. Điều này giúp thiểu giấy tờ và bảo vệ môi trường.</string>
     <string name="doctor_tips">Vui lòng chọn bác sĩ bên dưới. Nếu danh sách bác sĩ trống vui lòng thay đổi thời gian hoặc ngày đặt khám.</string>
     <string name="calendar_tips" translatable="false">Vui lòng chọn ngày khám, tránh các ngày cuối tuần và ngày nghỉ lễ.</string>
     <string name="service">Loại hình khám<font color='@android:color/red'><sup>*</sup></font></string>
@@ -59,4 +61,15 @@
     <string name="department_">Department</string>
     <string name="price">Price</string>
     <string name="payment_notification">Chức năng này đang được phát triển. Vui lòng chọn thanh toán tại bệnh viện để tiếp tục đặt khám. Trân trọng cảm ơn</string>
+    <string name="payment_method">Select payment method</string>
+    <string name="place_an_order">Place an order</string>
+    <string name="hospital_address">Đường Hải Thượng Lãn Ông, phường An Tảo, TP Hưng Yên</string>
+    <string name="hospital_name">Bệnh viện đa khoa tỉnh Hưng Yên</string>
+    <string name="medical_appointment">Medical Appointment</string>
+    <string name="pending">Chờ khám</string>
+    <string name="filter">Filter</string>
+    <string name="your_prescription">Đơn thuốc của bạn</string>
+    <string name="log_out">Đăng xuất</string>
+    <string name="change_pasword">Change password</string>
+    <string name="passwordandsecurity"><![CDATA[Mật khẩu & Bảo mật]]></string>
 </resources>

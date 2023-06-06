@@ -8,16 +8,19 @@ public class News {
     private String body;
     private String imgUrl;
 
-    private Date postDate;
+    private String postDate;
+    private String Url;
     public News() {
 
     }
 
-    public News(String title, String body, String imgUrl,Date postDate) {
+    public News(String id, String title, String body, String imgUrl, String postDate, String url) {
+        this.id = id;
         this.title = title;
         this.body = body;
         this.imgUrl = imgUrl;
         this.postDate = postDate;
+        Url = url;
     }
 
     public String getId() {
@@ -52,11 +55,19 @@ public class News {
         this.imgUrl = imgUrl;
     }
 
-    public Date getPostDate() {
+    public String getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(Date postDate) {
+    public void setPostDate(String postDate) {
         this.postDate = postDate;
+    }
+
+    public String getUrl() {
+        return Url;
+    }
+
+    public void setUrl(String url) {
+        Url = url;
     }
 }

@@ -44,23 +44,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/btn_choosePatient"
-                    android:layout_width="80dp"
-                    android:gravity="center"
-                    android:layout_height="30dp"
-                    android:background="@drawable/rounded_background_white"
-                    android:backgroundTint="@color/blue"
-                    android:text="Chọn"
-                    android:textSize="12sp"
-                    android:textStyle="normal"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 

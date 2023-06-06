@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".activities.BookingActivity">
+    tools:context=".activities.MedicalBillActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_title"
@@ -46,15 +46,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView2"
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_margin="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
             android:padding="16dp"
             android:background="@drawable/rounded_background_white"
             android:layout_height="wrap_content">
@@ -70,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textAllCaps="true"
-                android:text="Bệnh viện đa khoa tỉnh Hưng Yên"
+                android:text="@string/hospital_name"
                 android:textStyle="bold"
                 android:gravity="center"/>
             <TextView
@@ -80,7 +82,7 @@
                 android:textSize="12sp"
                 android:layout_marginTop="2dp"
                 android:textAllCaps="false"
-                android:text="Đường Hải Thượng Lãn Ông, phường An Tảo, TP Hưng Yên"
+                android:text="@string/hospital_address"
                 android:textStyle="normal"
                 android:gravity="center"/>
 
@@ -400,6 +402,6 @@
             </LinearLayout>
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

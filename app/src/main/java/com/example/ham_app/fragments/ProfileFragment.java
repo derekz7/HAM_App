@@ -85,14 +85,12 @@ public class ProfileFragment extends Fragment {
 
     private void getData() {
         LoadingDialog.show(getContext());
-        Toast.makeText(getContext(), ""+ ApiDataManager.getInstance().getUser().getId(), Toast.LENGTH_SHORT).show();
         ApiService.api.getPatientByUser(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Patient>>() {
             @Override
             public void onResponse(Call<List<Patient>> call, Response<List<Patient>> response) {
                 if (response.body() != null) {
                     patients.clear();
                     patients.addAll(response.body());
-                    Toast.makeText(getContext(), ""+patients.size(), Toast.LENGTH_SHORT).show();
                     patientAdapter.setData(response.body());
                     ApiDataManager.getInstance().setPatientList(patients);
                 } else {
@@ -104,7 +102,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
                 LoadingDialog.dismissDialog();
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

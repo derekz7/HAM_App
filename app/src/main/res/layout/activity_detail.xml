@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".activities.BookingActivity">
+    tools:context=".activities.DetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_title"
@@ -341,6 +341,7 @@
         android:paddingVertical="10dp">
 
         <ImageView
+            android:id="@+id/img_iconPayment"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
@@ -348,6 +349,7 @@
             android:scaleType="centerCrop"/>
 
         <TextView
+            android:id="@+id/tvPaymentMethod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

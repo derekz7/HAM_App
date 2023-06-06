@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.ham_app.R;
@@ -28,6 +29,7 @@ public class DepartmentActivity extends AppCompatActivity {
     private RecyclerView rec_depList;
     private DepartmentAdapter adapter;
     private List<Department> departmentList;
+    private ImageButton igb_backDepartment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +41,16 @@ public class DepartmentActivity extends AppCompatActivity {
     }
 
     private void onClick() {
+        igb_backDepartment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         adapter.setOnItemClickListener(new DepartmentAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int pos, View view) {
-                ApiDataManager.getInstance().setSelectDepartment(departmentList.get(pos));
+                ApiDataManager.getInstance().setSelectedDepartment(departmentList.get(pos));
                 Log.d("Booking","Department: " + departmentList.get(pos).getName());
                 Intent resultIntent = new Intent();
                 setResult(RESULT_OK, resultIntent);
@@ -53,6 +61,7 @@ public class DepartmentActivity extends AppCompatActivity {
 
     private void initView() {
         rec_depList = findViewById(R.id.rec_depList);
+        igb_backDepartment = findViewById(R.id.igb_backDepartment);
     }
     @SuppressLint("NotifyDataSetChanged")
     private void setLayout() {

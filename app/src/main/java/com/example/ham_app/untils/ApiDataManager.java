@@ -5,9 +5,11 @@ import com.example.ham_app.modules.Department;
 import com.example.ham_app.modules.Doctor;
 import com.example.ham_app.modules.News;
 import com.example.ham_app.modules.Patient;
+import com.example.ham_app.modules.Prescription;
 import com.example.ham_app.modules.Service;
 import com.example.ham_app.modules.User;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
@@ -16,64 +18,20 @@ public class ApiDataManager {
     public static ApiDataManager instance;
     private User user;
     private List<Department> departmentList;
+    private List<Prescription> prescriptionList;
     private List<News> newsList;
     private List<Service> serviceList;
     private List<Patient> patientList;
     private Patient selectedPatient;
-    private Patient selectPatient;
     private Booking booking;
-    private Booking booked;
-    private Service selectService;
     private Service selectedService;
     private Doctor selectedDoctor;
-    private Doctor selectDoctor;
     private Department selectedDepartment;
-    private Department selectDepartment;
     private List<Booking> bookingList;
     private int[] selectedTime;
 
     public ApiDataManager() {
 
-    }
-
-    public Patient getSelectPatient() {
-        return selectPatient;
-    }
-
-    public void setSelectPatient(Patient selectPatient) {
-        this.selectPatient = selectPatient;
-    }
-
-    public Booking getBooked() {
-        return booked;
-    }
-
-    public void setBooked(Booking booked) {
-        this.booked = booked;
-    }
-
-    public Service getSelectService() {
-        return selectService;
-    }
-
-    public void setSelectService(Service selectService) {
-        this.selectService = selectService;
-    }
-
-    public Doctor getSelectDoctor() {
-        return selectDoctor;
-    }
-
-    public void setSelectDoctor(Doctor selectDoctor) {
-        this.selectDoctor = selectDoctor;
-    }
-
-    public Department getSelectDepartment() {
-        return selectDepartment;
-    }
-
-    public void setSelectDepartment(Department selectDepartment) {
-        this.selectDepartment = selectDepartment;
     }
 
     public int[] getSelectedTime() {
@@ -84,6 +42,19 @@ public class ApiDataManager {
         this.selectedTime = new int[]{
                 selectedSection, selectedItem
         };
+    }
+
+
+    public List<Prescription> getPrescriptionList() {
+        return prescriptionList;
+    }
+
+    public void setPrescriptionList(List<Prescription> prescriptionList) {
+        this.prescriptionList = prescriptionList;
+    }
+
+    public void setSelectedTime(int[] selectedTime) {
+        this.selectedTime = selectedTime;
     }
 
     public Patient getSelectedPatient() {
@@ -155,7 +126,8 @@ public class ApiDataManager {
     }
 
     public void setBookingList(List<Booking> bookingList) {
-        this.bookingList = bookingList;
+        this.bookingList = new ArrayList<>();
+        this.bookingList.addAll(bookingList);
     }
 
     public Service getSelectedService() {

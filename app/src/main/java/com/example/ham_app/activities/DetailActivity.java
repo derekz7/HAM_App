@@ -1,5 +1,7 @@
 package com.example.ham_app.activities;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -16,33 +18,67 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ham_app.R;
+import com.example.ham_app.api.ApiService;
+import com.example.ham_app.dialog.LoadingDialog;
 import com.example.ham_app.modules.Booking;
 import com.example.ham_app.modules.Department;
 import com.example.ham_app.modules.Patient;
 import com.example.ham_app.modules.Service;
 import com.example.ham_app.untils.ApiDataManager;
+import com.example.ham_app.untils.Common;
+
+import java.util.Random;
+import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
     private ImageButton igb_backDetail;
-    private TextView tv_ptName,tv_ptDob,tv_bookingDate,tv_bookingTime,tv_department,tv_price,tv_total;
+    private ImageView img_iconPayment;
+    private TextView tv_ptName,tv_ptDob,tv_bookingDate,tv_bookingTime,tv_department,tv_price,tv_total, tvPaymentMethod;
     private Button btn_nextToPay;
     private Booking currentBooking;
     private Department department;
     private Patient patient;
     private Service service;
-    private LinearLayout layout_Patient;
+    private LinearLayout layout_Patient,linear_payment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         intiView();
         setUpView();
+        reloadView();
         onClick();
     }
 
+    private void reloadView() {
+        if(Common.selectedPayment != null){
+            if (Common.selectedPayment.equals("cash")){
+                linear_payment.setVisibility(View.VISIBLE);
+                btn_nextToPay.setText(getString(R.string.place_an_order));
+            }
+        }else {
+            linear_payment.setVisibility(View.INVISIBLE);
+            btn_nextToPay.setText(getString(R.string.payment_method));
+        }
+
+    }
+
     private void onClick() {
+        ActivityResultLauncher<Intent> startActivity = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == 123) {
+                       reloadView();
+                    }
+                }
+        );
         layout_Patient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +98,41 @@ public class DetailActivity extends AppCompatActivity {
         btn_nextToPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               if(btn_nextToPay.getText().equals(getString(R.string.place_an_order))){
+                   createBooking();
+               }
+               if(btn_nextToPay.getText().equals(getString(R.string.payment_method))){
+                   Intent intent = new Intent(DetailActivity.this, PaymentActivity.class);
+                   startActivity.launch(intent);
+               }
+            }
+        });
+    }
 
+    private void createBooking() {
+        UUID uuid = UUID.randomUUID();
+        String id = "bk-" + uuid.toString().substring(0,17);
+        currentBooking.setId(id);
+        currentBooking.setOrderNum(new Random().nextInt(101));
+        currentBooking.setPrice(service.getPrice());
+        ApiService.api.createBooking(currentBooking).enqueue(new Callback<Booking>() {
+            @Override
+            public void onResponse(Call<Booking> call, Response<Booking> response) {
+                if (response.isSuccessful()){
+                    if(response.body() != null){
+                        Toast.makeText(DetailActivity.this, "Đặt khám thành công", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(DetailActivity.this,MedicalBillActivity.class));
+                        finish();
+                    }
+                }else {
+                    Toast.makeText(DetailActivity.this, "Bạn đang có lịch khám đang chờ. Không thể đặt thêm lịch", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Booking> call, Throwable t) {
+                LoadingDialog.dismissDialog();
+                startActivity(new Intent(DetailActivity.this, ErrorActivity.class));
             }
         });
     }
@@ -71,9 +141,9 @@ public class DetailActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void setUpView() {
         currentBooking = ApiDataManager.getInstance().getBooking();
-        department = ApiDataManager.getInstance().getSelectDepartment();
-        patient = ApiDataManager.getInstance().getSelectPatient();
-        service = ApiDataManager.getInstance().getSelectService();
+        department = ApiDataManager.getInstance().getSelectedDepartment();
+        patient = ApiDataManager.getInstance().getSelectedPatient();
+        service = ApiDataManager.getInstance().getSelectedService();
         tv_ptName.setText(patient.getPatientName());
         tv_ptDob.setText(patient.getDob());
         tv_bookingDate.setText(currentBooking.getDate());
@@ -85,6 +155,9 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void intiView() {
+        linear_payment = findViewById(R.id.linear_payment);
+        img_iconPayment = findViewById(R.id.img_iconPayment);
+        tvPaymentMethod = findViewById(R.id.tvPaymentMethod);
         layout_Patient = findViewById(R.id.layout_Patient);
         igb_backDetail = findViewById(R.id.igb_backDetail);
         tv_ptName = findViewById(R.id.tv_ptName2);

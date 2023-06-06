@@ -3,6 +3,7 @@ package com.example.ham_app.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class ServiceActivity extends AppCompatActivity {
     private RecyclerView rec_services;
     private ServiceAdapter serviceAdapter;
     private ImageButton igbBack;
+    private SwipeRefreshLayout swipeRefeshService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +78,30 @@ public class ServiceActivity extends AppCompatActivity {
     }
 
     private void onClick() {
+        swipeRefeshService.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                LoadingDialog.show(ServiceActivity.this);
+                ApiService.api.getAllServices().enqueue(new Callback<List<Service>>() {
+                    @Override
+                    public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                        if (response.body() != null){
+                            serviceList.clear();
+                            serviceList.addAll(response.body());
+                            serviceAdapter.setData(response.body());
+                            ApiDataManager.getInstance().setServiceList(response.body());
+                        }
+                        LoadingDialog.dismissDialog();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Service>> call, Throwable t) {
+                        LoadingDialog.dismissDialog();
+                    }
+                });
+                swipeRefeshService.setRefreshing(false);
+            }
+        });
         igbBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +111,7 @@ public class ServiceActivity extends AppCompatActivity {
         serviceAdapter.setOnClickListener(new ServiceAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int pos, View view) {
-                ApiDataManager.getInstance().setSelectService(serviceList.get(pos));
+                ApiDataManager.getInstance().setSelectedService(serviceList.get(pos));
                 ApiDataManager.getInstance().getBooking().setSv_id(serviceList.get(pos).getId());
                 Log.d("Booking","Service: " + serviceList.get(pos).getServiceName());
                 Intent resultIntent = new Intent();
@@ -98,5 +124,6 @@ public class ServiceActivity extends AppCompatActivity {
     private void initView() {
         rec_services = findViewById(R.id.rec_services);
         igbBack = findViewById(R.id.igb_backService);
+        swipeRefeshService = findViewById(R.id.swipeRefeshService);
     }
 }

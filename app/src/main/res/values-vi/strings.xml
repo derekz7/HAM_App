@@ -18,8 +18,8 @@
     <string name="phone_number">Số điện thoại</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="create_your_account">Tạo tài khoản</string>
-    <string name="remember_me">Remember me</string>
-    <string name="username_hint">username</string>
+    <string name="remember_me">Giữ tôi luôn đăng nhập</string>
+    <string name="username_hint">Tên tài khoản</string>
     <string name="news">Tin tức</string>
     <string name="prescription">Đơn thuốc</string>
     <string name="Booking">Đặt khám</string>
@@ -55,5 +55,18 @@
     <string name="department_">Chuyên khoa</string>
     <string name="price">Phí khám</string>
     <string name="payment_notification">Chức năng này đang được phát triển. Vui lòng chọn thanh toán tại bệnh viện để tiếp tục đặt khám. Trân trọng cảm ơn</string>
+    <string name="payment_method">Chọn phương thức thanh toán</string>
+    <string name="place_an_order">Xác nhận đặt khám</string>
+    <string name="hospital_address">Đường Hải Thượng Lãn Ông, phường An Tảo, TP Hưng Yên</string>
+    <string name="hospital_name">Bệnh viện đa khoa tỉnh Hưng Yên</string>
+    <string name="medical_appointment">Lịch đặt khám của bạn</string>
+    <string name="booking_tips">Bạn chỉ đặt khám được một lần, vui lòng hoàn thành lịch khám đang chờ để có thể đặt lịch mới.</string>
+    <string name="pending">Chờ khám</string>
+    <string name="filter">Filter</string>
+    <string name="your_prescription">Đơn thuốc của bạn</string>
+    <string name="prescription_tips">Sau khi khám tại bệnh viện, nếu bạn yêu cầu bác sĩ có thể lên đơn thuốc trực tuyến. Giảm thiểu giấy tờ và bảo vệ môi trường.</string>
+    <string name="log_out">Đăng xuất</string>
+    <string name="change_pasword">Đổi mật khẩu</string>
+    <string name="passwordandsecurity"><![CDATA[Mật khẩu & Bảo mật]]></string>
 
 </resources>

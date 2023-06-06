@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +32,13 @@ import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.ham_app.R;
 import com.example.ham_app.activities.BookingActivity;
 import com.example.ham_app.activities.ErrorActivity;
 import com.example.ham_app.activities.LoginActivity;
+import com.example.ham_app.activities.PrescriptionActivity;
 import com.example.ham_app.activities.UserActivity;
 import com.example.ham_app.dialog.LoadingDialog;
 import com.example.ham_app.adapters.DepartmentAdapter;
@@ -41,6 +47,7 @@ import com.example.ham_app.modules.Booking;
 import com.example.ham_app.modules.Department;
 import com.example.ham_app.modules.News;
 import com.example.ham_app.modules.Patient;
+import com.example.ham_app.modules.Prescription;
 import com.example.ham_app.modules.Service;
 import com.example.ham_app.modules.User;
 import com.example.ham_app.untils.ApiDataManager;
@@ -49,6 +56,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -79,16 +89,42 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init(view);
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        //Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadService();
+                loadUser();
+                getPatient();
+            }
+        });
         setLayout();
         getDepartment();
-        loadUser();
-        loadService();
         getNews();
         onClick();
 
     }
 
     private void onClick() {
+        imageSlider.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onItemSelected(int i) {
+                Toast.makeText(getContext(), "clicked " + newsList.get(i).getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                String url = newsList.get(i).getUrl();
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+
+            @Override
+            public void doubleClick(int i) {
+
+            }
+        });
+
         igbDatKham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +141,8 @@ public class HomeFragment extends Fragment {
         depAdapter.setOnItemClickListener(new DepartmentAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int pos, View view) {
-                Toast.makeText(getContext(), "Clicked " +departmentList.get(pos).getName(), Toast.LENGTH_SHORT).show();
+                ApiDataManager.getInstance().setSelectedDepartment(departmentList.get(pos));
+                startActivity(new Intent(getContext(),BookingActivity.class));
             }
         });
         userImg.setOnClickListener(new View.OnClickListener() {
@@ -114,12 +151,21 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getContext(), UserActivity.class));
             }
         });
+
+        igbDonThuoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), PrescriptionActivity.class));
+            }
+        });
     }
+
     private void getDepartment() {
-        if (ApiDataManager.getInstance().getDepartmentList() != null){
+        if (ApiDataManager.getInstance().getDepartmentList() != null) {
             departmentList.addAll(ApiDataManager.getInstance().getDepartmentList());
             depAdapter.setData(departmentList);
-        }else {
+        } else {
+            LoadingDialog.show(getContext());
             ApiService.api.getDepartments().enqueue(new Callback<List<Department>>() {
                 @Override
                 public void onResponse(Call<List<Department>> call, Response<List<Department>> response) {
@@ -127,22 +173,21 @@ public class HomeFragment extends Fragment {
                         departmentList.addAll(response.body());
                         depAdapter.setData(response.body());
                         ApiDataManager.getInstance().setDepartmentList(departmentList);
-                        Toast.makeText(getContext(), "Loading department success", Toast.LENGTH_SHORT).show();
                     }
+                    LoadingDialog.dismissDialog();
                 }
+
                 @Override
                 public void onFailure(Call<List<Department>> call, Throwable t) {
-                    Toast.makeText(getContext(), "Loading department fail", Toast.LENGTH_SHORT).show();
+                    LoadingDialog.dismissDialog();
                 }
             });
         }
 
     }
+
     private void loadUser() {
-        if (ApiDataManager.getInstance().getUser() != null) {
-            tv_Username.setText(ApiDataManager.getInstance().getUser().getFullName());
-            Picasso.get().load(ApiDataManager.getInstance().getUser().getImgUrl()).into(userImg);
-        } else {
+        if (ApiDataManager.getInstance().getUser() == null) {
             ApiService.api.getUserByUsername(user.getUsername()).enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
@@ -151,9 +196,9 @@ public class HomeFragment extends Fragment {
                         Picasso.get().load(response.body().getImgUrl()).into(userImg);
                         ApiDataManager.getInstance().setUser(response.body());
                         user = response.body();
-                        Toast.makeText(getContext(), "userid" + user.getId(), Toast.LENGTH_SHORT).show();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
 
@@ -162,7 +207,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void loadService(){
+    private void loadService() {
         if (ApiDataManager.getInstance().getServiceList() == null) {
             ApiService.api.getAllServices().enqueue(new Callback<List<Service>>() {
                 @Override
@@ -180,7 +225,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-
     private void getNews() {
         if (ApiDataManager.getInstance().getNewsList() != null) {
             newsList = ApiDataManager.getInstance().getNewsList();
@@ -191,7 +235,7 @@ public class HomeFragment extends Fragment {
             }
             imageSlider.setImageList(slideModels);
         } else {
-            LoadingDialog.show(getContext());
+
             ApiService.api.getNewestNews().enqueue(new Callback<List<News>>() {
                 @Override
                 public void onResponse(Call<List<News>> call, Response<List<News>> response) {
@@ -203,18 +247,14 @@ public class HomeFragment extends Fragment {
                             slideModels.add(slideModel);
                         }
                         imageSlider.setImageList(slideModels);
-                        LoadingDialog.dismissDialog();
 
-                    } else {
-                        Toast.makeText(getContext(), "NEWS null", Toast.LENGTH_SHORT).show();
-                        LoadingDialog.dismissDialog();
-                    }
+
+                    } 
                 }
 
                 @Override
                 public void onFailure(Call<List<News>> call, Throwable t) {
-                    Toast.makeText(getContext(), "Load news error", Toast.LENGTH_SHORT).show();
-                    LoadingDialog.dismissDialog();
+
                 }
             });
         }
@@ -226,6 +266,10 @@ public class HomeFragment extends Fragment {
         recycleViewDepartment.setLayoutManager(layoutManager);
         recycleViewDepartment.setNestedScrollingEnabled(false);
         recycleViewDepartment.setAdapter(depAdapter);
+        if (ApiDataManager.getInstance().getUser() != null) {
+            tv_Username.setText(ApiDataManager.getInstance().getUser().getFullName());
+            Picasso.get().load(ApiDataManager.getInstance().getUser().getImgUrl()).into(userImg);
+        }
     }
 
     private void init(View view) {
@@ -271,4 +315,25 @@ public class HomeFragment extends Fragment {
         dialog.show();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadUser();
+    }
+
+    private void getPatient() {
+        ApiService.api.getPatientByUser(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Patient>>() {
+            @Override
+            public void onResponse(Call<List<Patient>> call, Response<List<Patient>> response) {
+                if (response.body() != null) {
+                    ApiDataManager.getInstance().setPatientList(response.body());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Patient>> call, Throwable t) {
+            }
+        });
+    }
 }

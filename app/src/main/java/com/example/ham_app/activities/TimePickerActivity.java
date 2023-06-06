@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.ham_app.R;
 import com.example.ham_app.adapters.TimeAdapter;
@@ -19,6 +22,7 @@ public class TimePickerActivity extends AppCompatActivity {
     private ArrayList<String> sectionList = new ArrayList<>();
     private HashMap<String, ArrayList<String>> itemList = new HashMap<>();
     private TimeAdapter adapter;
+    private ImageButton igb_backTimePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,16 @@ public class TimePickerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_time_picker);
         initView();
         sectionSetUp();
+        onClick();
+    }
+
+    private void onClick() {
+        igb_backTimePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void sectionSetUp() {
@@ -66,5 +80,6 @@ public class TimePickerActivity extends AppCompatActivity {
 
     private void initView() {
         recyclerView = findViewById(R.id.rec_time);
+        igb_backTimePicker = findViewById(R.id.igb_backTimePicker);
     }
 }

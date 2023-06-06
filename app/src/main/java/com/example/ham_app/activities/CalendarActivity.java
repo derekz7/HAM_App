@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.CalendarView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.ham_app.R;
@@ -19,6 +21,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     private CalendarView calendarView;
     private Calendar lastSelectedCalendar = null;
+    private ImageButton igb_backBooking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,16 @@ public class CalendarActivity extends AppCompatActivity {
         initView();
         lastSelectedCalendar = Calendar.getInstance();
         setUp();
+        onClick();
+    }
+
+    private void onClick() {
+        igb_backBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setUp() {
@@ -57,6 +70,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     private void initView() {
         calendarView = findViewById(R.id.calendarView);
+        igb_backBooking = findViewById(R.id.igb_backBooking);
 
     }
 }

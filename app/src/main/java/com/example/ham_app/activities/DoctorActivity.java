@@ -1,6 +1,7 @@
 package com.example.ham_app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +33,7 @@ public class DoctorActivity extends AppCompatActivity {
     private List<Doctor> doctors;
     private ImageButton igbBack;
     private TextView tv_noti;
+    private ConstraintLayout layout_loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +47,10 @@ public class DoctorActivity extends AppCompatActivity {
 
     private void loadData() {
         if (ApiDataManager.getInstance().getBooking() != null){
-            String dep_id = ApiDataManager.getInstance().getSelectDepartment().getId();
+            String dep_id = ApiDataManager.getInstance().getSelectedDepartment().getId();
             String date = ApiDataManager.getInstance().getBooking().getDate();
             String time = ApiDataManager.getInstance().getBooking().getTime();
-            LoadingDialog.show(this);
+            layout_loading.setVisibility(View.VISIBLE);
             ApiService.api.getDoctorAvailable(dep_id,date,time).enqueue(new Callback<List<Doctor>>() {
                 @Override
                 public void onResponse(Call<List<Doctor>> call, Response<List<Doctor>> response) {
@@ -62,12 +64,12 @@ public class DoctorActivity extends AppCompatActivity {
                         Log.d("loadDoctor",response.body().size() + " ");
 
                     }
-                    LoadingDialog.dismissDialog();
+                    layout_loading.setVisibility(View.INVISIBLE);
                 }
 
                 @Override
                 public void onFailure(Call<List<Doctor>> call, Throwable t) {
-                    LoadingDialog.dismissDialog();
+                    layout_loading.setVisibility(View.INVISIBLE);
                     startActivity(new Intent(DoctorActivity.this,ErrorActivity.class));
                 }
             });
@@ -93,7 +95,7 @@ public class DoctorActivity extends AppCompatActivity {
         adapter.setOnClickListener(new DoctorAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int pos, View view) {
-                ApiDataManager.getInstance().setSelectDoctor(doctors.get(pos));
+                ApiDataManager.getInstance().setSelectedDoctor(doctors.get(pos));
                 ApiDataManager.getInstance().getBooking().setDc_id(doctors.get(pos).getId());
                 Log.d("Booking","Doctor: " + doctors.get(pos).getName());
                 Intent resultIntent = new Intent();
@@ -104,6 +106,7 @@ public class DoctorActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        layout_loading = findViewById(R.id.layout_loading);
         recyclerView = findViewById(R.id.rec_doctors);
         igbBack = findViewById(R.id.igb_backDoctor);
         tv_noti = findViewById(R.id.tv_notiDoctor);

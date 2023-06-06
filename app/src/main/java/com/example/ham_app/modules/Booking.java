@@ -34,6 +34,10 @@ public class Booking {
         this.note = note;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
