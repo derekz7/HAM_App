@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,12 +49,12 @@ public class LoginActivity extends AppCompatActivity {
     private void autoLog() {
         String username = edtUsername.getText().toString();
         String password = edt_password.getText().toString();
-        if (username.length() > 0 && password.length() > 0){
+        if (username.length() > 0 && password.length() > 0) {
             LoadingDialog.show(this);
-            ApiService.api.login(username,password).enqueue(new Callback<User>() {
+            ApiService.api.login(username, password).enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    if (response.body() != null){
+                    if (response.body() != null) {
                         ApiDataManager.getInstance().setUser(response.body());
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
@@ -66,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
                     LoadingDialog.dismissDialog();
+                    startActivity(new Intent(LoginActivity.this, ErrorActivity.class));
                 }
             });
         }
@@ -129,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
                             Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.d("error", t.getMessage());
                             startActivity(new Intent(LoginActivity.this, ErrorActivity.class));
                             LoadingDialog.dismissDialog();
                         }

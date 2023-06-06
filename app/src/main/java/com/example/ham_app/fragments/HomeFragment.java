@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -79,6 +80,7 @@ public class HomeFragment extends Fragment {
     private Button btn_seeMoreDepartments;
     private ImageButton igbDatKham, igbDonThuoc, igbTinTuc;
     private List<Department> departmentList;
+    private SwipeRefreshLayout swipelayoutHome;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -105,6 +107,24 @@ public class HomeFragment extends Fragment {
         getDepartment();
         getNews();
         onClick();
+
+        swipelayoutHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setLayout();
+                getDepartment();
+                getNews();
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadService();
+                        loadUser();
+                        getPatient();
+                    }
+                });
+                swipelayoutHome.setRefreshing(false);
+            }
+        });
 
     }
 
@@ -273,6 +293,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void init(View view) {
+        swipelayoutHome = view.findViewById(R.id.swipelayoutHome);
         imageSlider = view.findViewById(R.id.image_slider);
         igbDatKham = view.findViewById(R.id.btn_datKham);
         igbDonThuoc = view.findViewById(R.id.btn_donThuoc);

@@ -46,6 +46,7 @@
     <string name="time">Time<font color='@android:color/red'><sup>*</sup></font></string>
     <string name="patient">Patient<font color='@android:color/red'><sup>*</sup></font></string>
     <string name="doctor">Doctor<font color='@android:color/red'><sup>*</sup></font></string>
+    <string name="full_name">Full name<font color='@android:color/red'><sup>*</sup></font></string>
     <string name="note">Note</string>
     <string name="hint_note">Triệu chứng, thuốc đang dùng, tiền sử...</string>
     <string name="next">next</string>
@@ -56,6 +57,7 @@
     <string name="select">Xác nhận</string>
     <string name="booking_infomation">Booking Infomation</string>
     <string name="date_of_birth">Date of birth</string>
+    <string name="date_of_birth_req">Date of birth<font color='@android:color/red'><sup>*</sup></font></string>
     <string name="date_">Date</string>
     <string name="time_">Time</string>
     <string name="department_">Department</string>
@@ -72,4 +74,7 @@
     <string name="log_out">Đăng xuất</string>
     <string name="change_pasword">Change password</string>
     <string name="passwordandsecurity"><![CDATA[Mật khẩu & Bảo mật]]></string>
+    <string name="gender">Giới tính</string>
+    <string name="job">Công việc</string>
+    <string name="submit">Submit</string>
 </resources>

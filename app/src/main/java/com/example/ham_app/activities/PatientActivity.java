@@ -1,5 +1,7 @@
 package com.example.ham_app.activities;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -60,6 +62,15 @@ public class PatientActivity extends AppCompatActivity {
     }
 
     private void onClick() {
+        ActivityResultLauncher<Intent> secondActivityLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == 111) {
+                        loadData();
+                    }
+                }
+        );
+
         igb_backPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +87,8 @@ public class PatientActivity extends AppCompatActivity {
         igb_addPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(PatientActivity.this, CreatePatientActivity.class);
+                secondActivityLauncher.launch(intent);
             }
         });
 

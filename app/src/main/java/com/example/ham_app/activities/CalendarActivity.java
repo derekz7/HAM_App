@@ -43,6 +43,7 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     private void setUp() {
+
         calendarView.setMinDate(lastSelectedCalendar.getTimeInMillis());
         calendarView.setFirstDayOfWeek(Calendar.SUNDAY);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -59,13 +60,14 @@ public class CalendarActivity extends AppCompatActivity {
                     lastSelectedCalendar = calendar;
                     String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
                     ApiDataManager.getInstance().getBooking().setDate(selectedDate);
-                    Log.d("Booking","Date: " + selectedDate);
+                    Log.d("Booking", "Date: " + selectedDate);
                     Intent resultIntent = new Intent();
                     setResult(RESULT_OK, resultIntent);
                     finish();
                 }
             }
         });
+
     }
 
     private void initView() {

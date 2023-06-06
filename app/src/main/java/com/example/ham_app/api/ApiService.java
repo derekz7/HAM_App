@@ -12,8 +12,14 @@ import com.example.ham_app.untils.Common;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -53,6 +59,9 @@ public interface ApiService {
 
     @GET("api/Patient/GetPatientsByUsername")
     Call<List<Patient>> getPatientByUsername(@Query("username") String username);
+
+    @POST("api/Patient/CreatePatient")
+    Call<Patient> createPatient(@Body Patient patient);
 
     //Tin tuc
     @GET("api/News/GetAllNews")

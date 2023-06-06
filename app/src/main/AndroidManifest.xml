@@ -16,6 +16,9 @@
         android:theme="@style/Base.Theme.HAM_App"
         tools:targetApi="31">
         <activity
+            android:name=".activities.CreatePatientActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.SecurityActivity"
             android:exported="false" />
         <activity

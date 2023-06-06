@@ -3,6 +3,8 @@ package com.example.ham_app.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,7 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ham_app.R;
+import com.example.ham_app.activities.BookingActivity;
+import com.example.ham_app.activities.CreatePatientActivity;
 import com.example.ham_app.activities.ErrorActivity;
+import com.example.ham_app.activities.ServiceActivity;
 import com.example.ham_app.adapters.PatientAdapter;
 import com.example.ham_app.api.ApiService;
 import com.example.ham_app.dialog.LoadingDialog;
@@ -61,6 +66,14 @@ public class ProfileFragment extends Fragment {
     }
 
     private void onClick() {
+        ActivityResultLauncher<Intent> secondActivityLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == 111) {
+                        getData();
+                    }
+                }
+        );
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -71,7 +84,8 @@ public class ProfileFragment extends Fragment {
         igb_addPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getContext(), CreatePatientActivity.class);
+                secondActivityLauncher.launch(intent);
             }
         });
 

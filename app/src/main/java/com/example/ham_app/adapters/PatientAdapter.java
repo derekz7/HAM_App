@@ -57,8 +57,13 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
             return;
         }
         holder.tvPatientName.setText(patient.getPatientName());
+        if (patient.getAddress() == null || patient.getAddress().equals("")){
+            holder.tvPatientAddress.setText("Chưa cập nhật");
+        }else{
+            holder.tvPatientAddress.setText(patient.getAddress());
+
+        }
         holder.tvPatientDOB.setText(patient.getDob());
-        holder.tvPatientAddress.setText(patient.getAddress());
 
     }
 

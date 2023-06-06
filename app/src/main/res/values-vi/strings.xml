@@ -50,6 +50,7 @@
     <string name="select">Xác nhận</string>
     <string name="booking_infomation">Thông tin đặt khám</string>
     <string name="date_of_birth">Ngày sinh</string>
+    <string name="date_of_birth_req">Ngày sinh<font color="@android:color/red"><sup>*</sup></font></string>
     <string name="date_">Ngày khám</string>
     <string name="time_">Giờ khám</string>
     <string name="department_">Chuyên khoa</string>
@@ -68,5 +69,9 @@
     <string name="log_out">Đăng xuất</string>
     <string name="change_pasword">Đổi mật khẩu</string>
     <string name="passwordandsecurity"><![CDATA[Mật khẩu & Bảo mật]]></string>
+    <string name="gender">Giới tính</string>
+    <string name="job">Công việc</string>
+    <string name="full_name">Họ tên<font color="@android:color/red"><sup>*</sup></font></string>
+    <string name="submit">Xác nhận</string>
 
 </resources>
