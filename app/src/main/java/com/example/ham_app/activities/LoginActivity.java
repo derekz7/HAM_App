@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ham_app.R;
+import com.example.ham_app.activities.doctors.DoctorMainActivity;
 import com.example.ham_app.api.ApiService;
 import com.example.ham_app.dialog.AlertDialog;
 import com.example.ham_app.dialog.LoadingDialog;
@@ -43,34 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         init();
         onClick();
-        autoLog();
-    }
-
-    private void autoLog() {
-        String username = edtUsername.getText().toString();
-        String password = edt_password.getText().toString();
-        if (username.length() > 0 && password.length() > 0) {
-            LoadingDialog.show(this);
-            ApiService.api.login(username, password).enqueue(new Callback<User>() {
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    if (response.body() != null) {
-                        ApiDataManager.getInstance().setUser(response.body());
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                        LoadingDialog.dismissDialog();
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    LoadingDialog.dismissDialog();
-                    startActivity(new Intent(LoginActivity.this, ErrorActivity.class));
-                }
-            });
-        }
     }
 
     private void onClick() {
@@ -78,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                finish();
             }
         });
 
@@ -112,9 +84,16 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.apply();
                                     }
                                     ApiDataManager.getInstance().setUser(response.body());
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    if (response.body().getRole() == 2){
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                    if (response.body().getRole() == 1){
+                                        Intent intent = new Intent(LoginActivity.this, DoctorMainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                     LoadingDialog.dismissDialog();
                                 } else {
                                     alertDialog.show("Tên tài khoản hoặc mật khẩu không đúng.");

@@ -27,7 +27,10 @@ public class MainActivity extends AppCompatActivity {
         if (fragment != null && fragment.equals("appointment")) {
             replaceFragment(new AppointmentFragment());
             binding.bottomNavigationView.setSelectedItemId(R.id.appointment);
-        } else {
+        } else if (fragment != null && fragment.equals("Profile")){
+            replaceFragment(new ProfileFragment());
+            binding.bottomNavigationView.setSelectedItemId(R.id.profile);
+        }else {
             replaceFragment(new HomeFragment());
         }
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {

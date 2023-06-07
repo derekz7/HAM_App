@@ -60,13 +60,11 @@ public class RegisterActivity extends AppCompatActivity {
                         edtPassword.setError("Password cần có tối thiểu 6 ký tự.");
                     } else if (!password.equals(rePassword)) {
                         edtRePassword.setError("Vui lòng nhập lại password.");
-                    }
-                    if (!Common.isValidPhoneNumber(phoneNum)) {
+                    } else if (!Common.isValidPhoneNumber(phoneNum)) {
                         edtPhoneNumber.setError("Số điện thoại không hợp lệ.");
-                    }
-                    if (username.length() < 5 || username.length() > 30) {
+                    } else if (username.length() < 5 || username.length() > 30) {
                         edtUsername.setError("Vui lòng nhập username lớn hơn 5 và không quá 30 ký tự.");
-                    }else {
+                    } else {
                         if (username.contains(" ")) {
                             edtUsername.setError("Username không được có khoảng trắng.");
                         } else {
@@ -90,14 +88,14 @@ public class RegisterActivity extends AppCompatActivity {
                                                         editor.apply();
                                                         LoadingDialog.dismissDialog();
                                                         Toast.makeText(RegisterActivity.this, "Tạo tài khoản thành công.", Toast.LENGTH_SHORT).show();
-                                                        startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                                                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                                                     } else {
                                                         LoadingDialog.dismissDialog();
                                                         startActivity(new Intent(RegisterActivity.this, ErrorActivity.class));
                                                         finish();
                                                     }
 
-                                                }else{
+                                                } else {
                                                     LoadingDialog.dismissDialog();
                                                     Toast.makeText(RegisterActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                                                 }

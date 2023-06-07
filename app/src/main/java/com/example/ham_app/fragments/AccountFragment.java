@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.ham_app.R;
 import com.example.ham_app.activities.LoginActivity;
+import com.example.ham_app.activities.SecurityActivity;
 import com.example.ham_app.untils.ApiDataManager;
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +28,7 @@ import java.util.Objects;
 
 public class AccountFragment extends Fragment {
     private ImageView imgUser;
-    private Button btnLogOut;
+    private Button btnLogOut,btnSecurity;
     private TextView tvUserName, tvSdt;
     private SharedPreferences sharedPreferences;
 
@@ -57,6 +58,12 @@ public class AccountFragment extends Fragment {
                 requireActivity().finish();
             }
         });
+        btnSecurity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SecurityActivity.class));
+            }
+        });
     }
 
     private void setView() {
@@ -70,5 +77,6 @@ public class AccountFragment extends Fragment {
         tvSdt = view.findViewById(R.id.tv_Sdt);
         tvUserName = view.findViewById(R.id.tv_hoTen);
         btnLogOut = view.findViewById(R.id.btnLogout);
+        btnSecurity = view.findViewById(R.id.btnSecurity);
     }
 }

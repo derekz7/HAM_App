@@ -34,15 +34,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:text="@string/sign_up"
+                android:textAllCaps="true"
                 android:textAlignment="center"
                 android:textColor="@color/blue"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edt_name"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginVertical="10dp"
                 android:autofillHints="name"
@@ -60,7 +61,7 @@
             <EditText
                 android:id="@+id/edt_username"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginVertical="10dp"
                 android:autofillHints="emailAddress"
@@ -79,7 +80,7 @@
             <EditText
                 android:id="@+id/edt_password"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginVertical="10dp"
                 android:autofillHints="password"
@@ -96,7 +97,7 @@
             <EditText
                 android:id="@+id/edt_re_password"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginVertical="10dp"
                 android:autofillHints="password"
@@ -113,7 +114,7 @@
             <EditText
                 android:id="@+id/edt_phone_number"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginVertical="10dp"
                 android:autofillHints="password"
@@ -130,7 +131,7 @@
             <Button
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
@@ -164,6 +165,7 @@
         <Button
             android:id="@+id/edt_back_to_login"
             android:layout_width="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="@string/login"

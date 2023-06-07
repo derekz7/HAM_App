@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.ham_app.R;
 import com.example.ham_app.api.ApiService;
+import com.example.ham_app.dialog.LoadingDialog;
 import com.example.ham_app.modules.Patient;
 import com.example.ham_app.untils.ApiDataManager;
 
@@ -40,7 +41,7 @@ public class CreatePatientActivity extends AppCompatActivity {
     private EditText edtPatientName, edtJob, edtAddress;
     private TextView btnPickDate;
     private Patient patient = new Patient();
-    private RadioButton rdNam,rdNu;
+    private RadioButton rdMale, rdFemale;
     final Calendar myCalendar = Calendar.getInstance();
     private Button btn_CreatePt;
 
@@ -73,11 +74,12 @@ public class CreatePatientActivity extends AppCompatActivity {
         btnPickDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(CreatePatientActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                DatePickerDialog dialog = new DatePickerDialog(CreatePatientActivity.this,R.style.dialogDatePicker ,date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
+                dialog.show();
             }
         });
 
-        rdNam.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        rdMale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
@@ -85,7 +87,7 @@ public class CreatePatientActivity extends AppCompatActivity {
                 }
             }
         });
-        rdNu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        rdFemale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
@@ -98,32 +100,37 @@ public class CreatePatientActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 UUID uuid = UUID.randomUUID();
-                String id = "pt-" + uuid.toString().substring(0,17);
+                String id = "pt-" + uuid.toString().substring(0, 17);
                 patient.setId(id);
                 String name = edtPatientName.getText().toString();
-                if (name.length() < 10){
+                if (name.length() < 10) {
                     edtPatientName.setError("Vui lòng nhập họ tên đầy đủ của bạn");
-                }else {
+                } else {
                     patient.setDob(btnPickDate.getText().toString());
                     patient.setPatientName(name);
                     patient.setAddress(edtAddress.getText().toString());
                     patient.setJob(edtJob.getText().toString());
                     patient.setUser_id(ApiDataManager.getInstance().getUser().getId());
+                    LoadingDialog.show(CreatePatientActivity.this);
                     ApiService.api.createPatient(patient).enqueue(new Callback<Patient>() {
                         @Override
                         public void onResponse(Call<Patient> call, Response<Patient> response) {
-                            if (response.body() != null){
+                            if (response.body() != null) {
                                 ApiDataManager.getInstance().getPatientList().add(response.body());
                                 Toast.makeText(CreatePatientActivity.this, "Thêm hồ sơ đặt khám thành công", Toast.LENGTH_SHORT).show();
-                                Intent resultIntent = new Intent();
-                                setResult(111, resultIntent);
+                                Intent intent = new Intent(CreatePatientActivity.this, MainActivity.class);
+                                intent.putExtra("FRAGMENT_TAG", "Profile");
+                                setResult(111, intent);
+                                startActivity(intent);
                                 finish();
                             }
+                            LoadingDialog.dismissDialog();
                         }
 
                         @Override
                         public void onFailure(Call<Patient> call, Throwable t) {
-                            startActivity(new Intent(CreatePatientActivity.this,ErrorActivity.class));
+                            startActivity(new Intent(CreatePatientActivity.this, ErrorActivity.class));
+                            LoadingDialog.dismissDialog();
                         }
                     });
                 }
@@ -137,10 +144,11 @@ public class CreatePatientActivity extends AppCompatActivity {
         edtJob = findViewById(R.id.edtJob);
         edtAddress = findViewById(R.id.edtAddress);
         btnPickDate = findViewById(R.id.btnPickDate1);
-        rdNam = findViewById(R.id.rdNam);
-        rdNu = findViewById(R.id.rdNu);
+        rdMale = findViewById(R.id.rd_Male);
+        rdFemale = findViewById(R.id.rd_Female);
         btn_CreatePt = findViewById(R.id.btn_CreatePt);
     }
+
     @SuppressLint("SimpleDateFormat")
     private void updateLabel() {
         String myFormat = "dd/MM/yyyy";

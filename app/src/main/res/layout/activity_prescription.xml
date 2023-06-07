@@ -119,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Bạn chưa đơn thuốc nào"
+            android:text="Bạn chưa có đơn thuốc nào"
             android:textColor="@color/grey"
             android:textSize="18sp"
             android:textStyle="bold"

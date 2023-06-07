@@ -64,6 +64,7 @@
     <string name="booking_tips">Bạn chỉ đặt khám được một lần, vui lòng hoàn thành lịch khám đang chờ để có thể đặt lịch mới.</string>
     <string name="pending">Chờ khám</string>
     <string name="filter">Filter</string>
+    <string name="new_doctor_tipss">Nếu tài khoản của bạn mới được cấp, vui lòng thiết lập thông tin bác sĩ của mình.</string>
     <string name="your_prescription">Đơn thuốc của bạn</string>
     <string name="prescription_tips">Sau khi khám tại bệnh viện, nếu bạn yêu cầu bác sĩ có thể lên đơn thuốc trực tuyến. Giảm thiểu giấy tờ và bảo vệ môi trường.</string>
     <string name="log_out">Đăng xuất</string>
@@ -73,5 +74,11 @@
     <string name="job">Công việc</string>
     <string name="full_name">Họ tên<font color="@android:color/red"><sup>*</sup></font></string>
     <string name="submit">Xác nhận</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="delete_patient">Xóa</string>
+    <string name="current_password">Mật khẩu hiện tại<font color="@android:color/red"><sup>*</sup></font></string>
+    <string name="new_password">Mật khẩu mới</string>
+    <string name="confirm_password">Nhập lại mật khẩu mới</string>
 
 </resources>

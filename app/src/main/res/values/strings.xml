@@ -36,6 +36,7 @@
     <string name="not_update">Not update</string>
     <string name="ho_so_benh_nhan">Hồ sơ bệnh nhân</string>
     <string name="patient_tips">Please select one of the records below, or click the icon above to add a patient record.</string>
+    <string name="new_doctor_tipss">Nếu tài khoản của bạn mới được cấp, vui lòng thiết lập thông tin bác sĩ của mình.</string>
     <string name="booking_tips">Bạn chỉ đặt khám được một lần, vui lòng hoàn thành lịch khám đang chờ để có thể đặt lịch mới.</string>
     <string name="prescription_tips">Sau khi khám tại bệnh viện, nếu bạn yêu cầu bác sĩ có thể lên đơn thuốc trực tuyến. Điều này giúp thiểu giấy tờ và bảo vệ môi trường.</string>
     <string name="doctor_tips">Vui lòng chọn bác sĩ bên dưới. Nếu danh sách bác sĩ trống vui lòng thay đổi thời gian hoặc ngày đặt khám.</string>
@@ -77,4 +78,10 @@
     <string name="gender">Giới tính</string>
     <string name="job">Công việc</string>
     <string name="submit">Submit</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="delete_patient">Delete</string>
+    <string name="current_password">Current password<font color="@android:color/red"><sup>*</sup></font></string>
+    <string name="new_password">New password</string>
+    <string name="confirm_password">Confirm password</string>
 </resources>

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ham_app.R;
 import com.example.ham_app.api.ApiService;
@@ -56,7 +57,7 @@ public class BookingActivity extends AppCompatActivity {
             public void onResponse(Call<List<Patient>> call, Response<List<Patient>> response) {
                 if (response.body() != null) {
                     ApiDataManager.getInstance().setPatientList(response.body());
-                    Log.d("patient",response.body().get(0).getPatientName());
+                    Log.d("patient", response.body().get(0).getPatientName());
                 }
             }
 
@@ -99,6 +100,7 @@ public class BookingActivity extends AppCompatActivity {
                 selectedButtonChange(btnPickPatient, ApiDataManager.getInstance().getSelectedPatient().getPatientName());
                 btn_next.setClickable(true);
                 btn_next.setBackground(getDrawable(R.drawable.rounded_bg_blue));
+                btn_next.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -163,13 +165,18 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
         btn_next.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View v) {
                 String note = edtNote.getText().toString();
                 ApiDataManager.getInstance().getBooking().setNote(note);
                 ApiDataManager.getInstance().getBooking().setUser_id(userId);
-                Intent intent = new Intent(BookingActivity.this, DetailActivity.class);
-                secondActivityLauncher.launch(intent);
+                if (btn_next.getBackground().equals(R.drawable.rounded_bg_blue)) {
+                    Intent intent = new Intent(BookingActivity.this, DetailActivity.class);
+                    secondActivityLauncher.launch(intent);
+                } else {
+                    Toast.makeText(BookingActivity.this, "Bạn chưa chọn đủ thông tin đặt khám", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -178,6 +185,7 @@ public class BookingActivity extends AppCompatActivity {
     private void hideLayout() {
         btn_next.setBackground(getDrawable(R.drawable.rounded_bg_gray));
         btn_next.setClickable(false);
+        btn_next.setVisibility(View.INVISIBLE);
         layout_benhNhan.setVisibility(View.INVISIBLE);
         layout_bacSi.setVisibility(View.INVISIBLE);
         layout_gioKham.setVisibility(View.INVISIBLE);
@@ -207,7 +215,7 @@ public class BookingActivity extends AppCompatActivity {
     private void selectedButtonChange(TextView btn, String text) {
         btn.setText(text);
         btn.setTextColor(Color.BLACK);
-        Log.d("changeButton","Button " + btn.getText());
+        Log.d("changeButton", "Button " + btn.getText());
     }
 
 

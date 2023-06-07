@@ -26,8 +26,10 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -50,6 +52,9 @@ public interface ApiService {
     @POST("api/User/CreateUser")
     Call<User> signUp(@Body User user);
 
+    @PUT("api/User/UpdateUser")
+    Call<User> updateUser(@Query("id") String id, @Body User user);
+
     @GET("api/User/GetUserByUsername")
     Call<User> getUserByUsername(@Query("username") String username);
 
@@ -62,6 +67,9 @@ public interface ApiService {
 
     @POST("api/Patient/CreatePatient")
     Call<Patient> createPatient(@Body Patient patient);
+
+    @DELETE("api/Patient/DeletePatient")
+    Call<Patient> DeletePatient(@Query("id") String id);
 
     //Tin tuc
     @GET("api/News/GetAllNews")
@@ -94,6 +102,9 @@ public interface ApiService {
 
     @GET("api/Booking/GetBookingByUserId")
     Call<List<Booking>> getBookingByUserId(@Query("userid") String userid);
+
+    @GET("api/Booking/getAllBookingToday")
+    Call<List<Booking>> getAllBookingToday(@Query("doctorId") String doctorId);
 
     //APPOINTMENT
     @GET("api/Booking/getAppointmentByBid")

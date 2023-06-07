@@ -173,13 +173,18 @@ public class PatientActivity extends AppCompatActivity {
         final TextView ptJob = dialog.findViewById(R.id.tvPatientJob);
         final TextView ptAddress = dialog.findViewById(R.id.tvPatientAddress1);
         final Button btnSelectPatient = dialog.findViewById(R.id.btnSelectedPatient);
-
+        if (ptAddress.getText().equals("")||ptJob.getText().equals("")){
+            ptJob.setText(getString(R.string.not_update));
+            ptAddress.setText(getString(R.string.not_update));
+        }else {
+            ptJob.setText(patient.getJob());
+            ptAddress.setText(patient.getAddress());
+        }
         ptId.setText(patient.getId());
         ptName.setText(patient.getPatientName());
         ptDob.setText(patient.getDob());
         ptGender.setText(patient.getGender());
-        ptJob.setText(patient.getJob());
-        ptAddress.setText(patient.getAddress());
+
         imgCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

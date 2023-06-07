@@ -61,9 +61,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@color/white"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
             android:paddingHorizontal="16dp"
             android:paddingVertical="10dp">
 
@@ -86,12 +86,12 @@
                     android:layout_height="48dp"
                     android:background="@drawable/round_outline_gray_btn"
                     android:drawablePadding="10dp"
-                    android:gravity="start|center"
-                    android:inputType="text"
                     android:drawableTint="@color/grey"
+                    android:gravity="start|center"
+                    android:hint="Nhập họ tên bệnh nhân"
+                    android:inputType="text"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="10dp"
-                    android:hint="Nhập họ tên bệnh nhân"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -148,34 +148,36 @@
                     android:text="@string/gender"
                     android:textColor="@color/black" />
 
-
-                    <RadioGroup
-                        android:id="@+id/radioGenderGroup"
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
-                        <RadioButton
-                            android:id="@+id/rdNam"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:textIsSelectable="true"
-                            android:paddingVertical="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_height="48dp"
-                            android:text="Nam"/>
-
-                        <RadioButton
-                            android:id="@+id/rdNu"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_marginStart="10dp"
-                            android:textIsSelectable="true"
-                            android:paddingVertical="10dp"
-                            android:layout_height="48dp"
-                            android:text="Nữ"/>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
 
-                    </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/rd_Male"
+                        android:layout_width="80dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/radio_selector"
+                        android:button="@android:color/transparent"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="@string/male"
+                        android:textColor="@drawable/text_color_selector"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rd_Female"
+                        android:layout_width="80dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/radio_selector"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="@string/female"
+                        android:textColor="@drawable/text_color_selector"
+                        android:textSize="16sp" />
+                </RadioGroup>
 
             </LinearLayout>
 
@@ -200,15 +202,15 @@
                     android:layout_height="48dp"
                     android:background="@drawable/round_outline_gray_btn"
                     android:drawablePadding="10dp"
+                    android:drawableTint="@color/grey"
                     android:gravity="start|center"
+                    android:hint="Nhập công việc hiện tại"
                     android:inputType="text"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="10dp"
-                    android:hint="Nhập công việc hiện tại"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:drawableTint="@color/grey"
                     android:textStyle="normal"
                     app:drawableStartCompat="@drawable/baseline_work_24" />
 
@@ -233,20 +235,20 @@
                     android:id="@+id/edtAddress"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:autofillHints="Your address"
                     android:background="@drawable/round_outline_gray_btn"
                     android:drawablePadding="10dp"
+                    android:drawableTint="@color/grey"
                     android:gravity="start|center"
+                    android:hint="Nhập địa chỉ liên hệ"
                     android:inputType="text"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="10dp"
-                    android:hint="Nhập địa chỉ liên hệ"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:drawableTint="@color/grey"
                     android:textStyle="normal"
-                    app:drawableStartCompat="@drawable/baseline_location_on_24"
-                    android:autofillHints="Your address" />
+                    app:drawableStartCompat="@drawable/baseline_location_on_24" />
 
 
             </LinearLayout>

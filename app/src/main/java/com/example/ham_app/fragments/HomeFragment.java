@@ -99,7 +99,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
                 loadService();
-                loadUser();
                 getPatient();
             }
         });
@@ -118,7 +117,6 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void run() {
                         loadService();
-                        loadUser();
                         getPatient();
                     }
                 });
@@ -185,7 +183,6 @@ public class HomeFragment extends Fragment {
             departmentList.addAll(ApiDataManager.getInstance().getDepartmentList());
             depAdapter.setData(departmentList);
         } else {
-            LoadingDialog.show(getContext());
             ApiService.api.getDepartments().enqueue(new Callback<List<Department>>() {
                 @Override
                 public void onResponse(Call<List<Department>> call, Response<List<Department>> response) {
@@ -194,38 +191,18 @@ public class HomeFragment extends Fragment {
                         depAdapter.setData(response.body());
                         ApiDataManager.getInstance().setDepartmentList(departmentList);
                     }
-                    LoadingDialog.dismissDialog();
+
                 }
 
                 @Override
                 public void onFailure(Call<List<Department>> call, Throwable t) {
-                    LoadingDialog.dismissDialog();
+
                 }
             });
         }
 
     }
 
-    private void loadUser() {
-        if (ApiDataManager.getInstance().getUser() == null) {
-            ApiService.api.getUserByUsername(user.getUsername()).enqueue(new Callback<User>() {
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    if (response.body() != null) {
-                        tv_Username.setText(response.body().getFullName());
-                        Picasso.get().load(response.body().getImgUrl()).into(userImg);
-                        ApiDataManager.getInstance().setUser(response.body());
-                        user = response.body();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-
-                }
-            });
-        }
-    }
 
     private void loadService() {
         if (ApiDataManager.getInstance().getServiceList() == null) {
@@ -334,12 +311,6 @@ public class HomeFragment extends Fragment {
             }
         });
         dialog.show();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadUser();
     }
 
     private void getPatient() {
