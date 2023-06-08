@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.ham_app.R;
@@ -40,9 +41,6 @@ public class DoctorMainActivity extends AppCompatActivity {
                     fragment = new DoctorHomeFragment();
                 }
                 if (i == R.id.activity) {
-
-                }
-                if (i == R.id.settings) {
 
                 }
                 if (fragment != null){

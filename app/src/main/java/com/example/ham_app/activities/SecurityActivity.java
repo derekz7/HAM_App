@@ -74,9 +74,9 @@ public class SecurityActivity extends AppCompatActivity {
                         if (!edtNewPassword.getText().toString().equals(edtCurrentPassword.getText().toString())) {
                             if (edtNewPassword.getText().toString().equals(edtReNewPassword.getText().toString())) {
                                 ApiDataManager.getInstance().getUser().setPassword(edtNewPassword.getText().toString());
-                                ApiService.api.updateUser(ApiDataManager.getInstance().getUser().getId(), ApiDataManager.instance.getUser()).enqueue(new Callback<User>() {
+                                ApiService.api.updateUser(ApiDataManager.getInstance().getUser().getId(), ApiDataManager.instance.getUser()).enqueue(new Callback<Void>() {
                                     @Override
-                                    public void onResponse(Call<User> call, Response<User> response) {
+                                    public void onResponse(Call<Void> call, Response<Void> response) {
                                         if (response.isSuccessful()) {
                                             Toast.makeText(SecurityActivity.this, "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
                                         } else {
@@ -86,7 +86,7 @@ public class SecurityActivity extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(Call<User> call, Throwable t) {
+                                    public void onFailure(Call<Void> call, Throwable t) {
                                         startActivity(new Intent(SecurityActivity.this, ErrorActivity.class));
                                     }
                                 });

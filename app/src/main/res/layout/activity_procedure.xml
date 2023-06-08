@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".activities.ProcedureActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:gravity="center"
+            android:text="Quy trình đặt và khám bệnh"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageButton
+            android:id="@+id/igb_backProcedure"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/back"
+            android:padding="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp">
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Quy trình đặt lịch và khám bệnh tại bệnh viện Đa khoa tỉnh Hưng Yên"
+               android:textColor="@color/blue_dark"
+               android:textStyle="bold"
+               android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. Đặt lịch trên ứng dụng của Bệnh Viện Đa khoa tỉnh Hưng Yên"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="\t\t\t● Cài đặt ứng dụng Đa khoa Hưng Yên trên Google Play.\n\n\t\t\t● Tạo tài khoản của người dùng trên ứng dụng.\n\n\t\t\t● Chọn mục 'Đặt khám' để đặt lịch khám bệnh.\n\n\t\t\t● Tiến hành chọn loại hình khám, chuyên khoa, ngày và thời gian đặt khám, điền đầy đủ thông tin và thực hiện các bước theo hướng dẫn."
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2. Đến quầy tiếp nhận tại bệnh viện Đa khoa tỉnh Hưng Yên"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="\t\t\t● Đến ngày hẹn, vui lòng đến sớm hơn 15-30 phút so với thời gian đặt khám để làm thủ tục tiếp nhận.\n\n\t\t\t● Tại quầy tiếp nhận, bệnh nhân nộp thẻ BHYT,CCCD/CMND, mã đặt khám cho nhân viên y tế để được hướng dẫn vào phòng khám.\n\n\t\t\t● Bệnh nhân vui lòng thanh toán viện phí tại bệnh viện.\n\n\t\t\t● Trường hợp bạn đến muộn hơn giờ khám dự kiến thì phải tùy vào tình hình thực tế lúc đó tại bệnh viện để biết bạn có thể được vào khám luôn hay không. Trường hợp này bạn cần tuân theo sự sắp xếp của nhân viên bệnh viện."
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3. Quy trình khám bệnh"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="\t\t\t● Bệnh nhân vào phòng khám theo chỉ dẫn của nhân viên bệnh viện.\n\n\t\t\t● Sau khi khám xong, nếu có chỉ định cận lâm sàng: Người bệnh cần tiến hành thanh toán phí cận lâm sàng. Thanh toán thành công, bệnh nhân bắt đầu thực hiện các chỉ định theo hướng dẫn của nhân viên bệnh viện.\n\n\t\t\t● Khi đã có đầy đủ kết quả cận lâm sàng, bệnh nhân quay lại phòng khám để được bác sĩ chuẩn đoán và kê đơn thuốc (có thể yêu cầu bác sĩ kê đơn trực tuyến trên ứng dụng hoặc trực tiếp)."
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

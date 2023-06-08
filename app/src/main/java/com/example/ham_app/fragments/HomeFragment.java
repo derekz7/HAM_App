@@ -55,6 +55,7 @@ import com.example.ham_app.untils.ApiDataManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executor;
@@ -91,21 +92,19 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init(view);
-
+        setLayout();
+        getDepartment();
+        getNews();
+        onClick();
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        //Handler handler = new Handler(Looper.getMainLooper());
-
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 loadService();
                 getPatient();
+                getBookingList();
             }
         });
-        setLayout();
-        getDepartment();
-        getNews();
-        onClick();
 
         swipelayoutHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -125,6 +124,8 @@ public class HomeFragment extends Fragment {
         });
 
     }
+
+
 
     private void onClick() {
         imageSlider.setItemClickListener(new ItemClickListener() {
@@ -160,7 +161,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(int pos, View view) {
                 ApiDataManager.getInstance().setSelectedDepartment(departmentList.get(pos));
-                startActivity(new Intent(getContext(),BookingActivity.class));
+                startActivity(new Intent(getContext(), BookingActivity.class));
             }
         });
         userImg.setOnClickListener(new View.OnClickListener() {
@@ -179,9 +180,12 @@ public class HomeFragment extends Fragment {
     }
 
     private void getDepartment() {
+        //Toast.makeText(getContext(), "getDep", Toast.LENGTH_SHORT).show();
+        LoadingDialog.show(getContext());
         if (ApiDataManager.getInstance().getDepartmentList() != null) {
             departmentList.addAll(ApiDataManager.getInstance().getDepartmentList());
             depAdapter.setData(departmentList);
+            LoadingDialog.dismissDialog();
         } else {
             ApiService.api.getDepartments().enqueue(new Callback<List<Department>>() {
                 @Override
@@ -190,12 +194,16 @@ public class HomeFragment extends Fragment {
                         departmentList.addAll(response.body());
                         depAdapter.setData(response.body());
                         ApiDataManager.getInstance().setDepartmentList(departmentList);
+
                     }
+                    LoadingDialog.dismissDialog();
+
 
                 }
 
                 @Override
                 public void onFailure(Call<List<Department>> call, Throwable t) {
+                    LoadingDialog.dismissDialog();
 
                 }
             });
@@ -246,7 +254,7 @@ public class HomeFragment extends Fragment {
                         imageSlider.setImageList(slideModels);
 
 
-                    } 
+                    }
                 }
 
                 @Override
@@ -325,6 +333,21 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
+            }
+        });
+    }
+    private void getBookingList() {
+        ApiService.api.getBookingByUserId(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Booking>>() {
+            @Override
+            public void onResponse(Call<List<Booking>> call, Response<List<Booking>> response) {
+                if (response.body() != null){
+                    ApiDataManager.getInstance().setBookingList(response.body());
+                }
+                LoadingDialog.dismissDialog();
+            }
+
+            @Override
+            public void onFailure(Call<List<Booking>> call, Throwable t) {
             }
         });
     }

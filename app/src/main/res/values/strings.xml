@@ -84,4 +84,8 @@
     <string name="current_password">Current password<font color="@android:color/red"><sup>*</sup></font></string>
     <string name="new_password">New password</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="phone_hint">09xxxxxxxx</string>
+    <string name="change_profile_photo">Change profile photo</string>
+    <string name="update">Update</string>
+    <string name="patient_id">Patient ID</string>
 </resources>

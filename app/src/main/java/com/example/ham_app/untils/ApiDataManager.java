@@ -1,5 +1,6 @@
 package com.example.ham_app.untils;
 
+import com.example.ham_app.modules.Appointment;
 import com.example.ham_app.modules.Booking;
 import com.example.ham_app.modules.Department;
 import com.example.ham_app.modules.Doctor;
@@ -28,10 +29,20 @@ public class ApiDataManager {
     private Doctor selectedDoctor;
     private Department selectedDepartment;
     private List<Booking> bookingList;
+    private List<Appointment> appointmentListToday;
+    private List<Appointment> appointments;
     private int[] selectedTime;
 
     public ApiDataManager() {
 
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
     public int[] getSelectedTime() {
@@ -44,6 +55,13 @@ public class ApiDataManager {
         };
     }
 
+    public static void setInstance(ApiDataManager instance) {
+        ApiDataManager.instance = instance;
+    }
+
+    public void setAppointmentListToday(List<Appointment> appointmentListToday) {
+        this.appointmentListToday = appointmentListToday;
+    }
 
     public List<Prescription> getPrescriptionList() {
         return prescriptionList;
@@ -70,6 +88,10 @@ public class ApiDataManager {
             instance = new ApiDataManager();
         }
         return instance;
+    }
+
+    public List<Appointment> getAppointmentListToday() {
+        return appointmentListToday;
     }
 
     public List<Department> getDepartmentList() {

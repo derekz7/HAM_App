@@ -115,16 +115,20 @@ public class DetailActivity extends AppCompatActivity {
         currentBooking.setId(id);
         currentBooking.setOrderNum(new Random().nextInt(101));
         currentBooking.setPrice(service.getPrice());
+        LoadingDialog.show(DetailActivity.this);
         ApiService.api.createBooking(currentBooking).enqueue(new Callback<Booking>() {
             @Override
             public void onResponse(Call<Booking> call, Response<Booking> response) {
                 if (response.isSuccessful()){
                     if(response.body() != null){
                         Toast.makeText(DetailActivity.this, "Đặt khám thành công", Toast.LENGTH_SHORT).show();
+                        ApiDataManager.getInstance().getBookingList().add(response.body());
+                        LoadingDialog.dismissDialog();
                         startActivity(new Intent(DetailActivity.this,MedicalBillActivity.class));
                         finish();
                     }
                 }else {
+                    LoadingDialog.dismissDialog();
                     Toast.makeText(DetailActivity.this, "Bạn đang có lịch khám đang chờ. Không thể đặt thêm lịch", Toast.LENGTH_SHORT).show();
                 }
             }

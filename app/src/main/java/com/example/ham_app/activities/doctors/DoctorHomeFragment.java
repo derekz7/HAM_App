@@ -1,8 +1,12 @@
 package com.example.ham_app.activities.doctors;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -20,8 +24,11 @@ import android.widget.TextView;
 
 import com.example.ham_app.R;
 import com.example.ham_app.activities.ErrorActivity;
+import com.example.ham_app.activities.LoginActivity;
 import com.example.ham_app.adapters.AppointmentAdapter;
 import com.example.ham_app.api.ApiService;
+import com.example.ham_app.dialog.LoadingDialog;
+import com.example.ham_app.modules.Appointment;
 import com.example.ham_app.modules.Booking;
 import com.example.ham_app.modules.User;
 import com.example.ham_app.untils.ApiDataManager;
@@ -39,11 +46,11 @@ import retrofit2.Response;
 public class DoctorHomeFragment extends Fragment {
 
     private ImageView profile_image;
-    private TextView tvUserName,notiDoctor;
-    private ImageButton btnSetupProfile, btnPrescriptionHistory, btn_help;
+    private TextView tvUserName, notiDoctor, tvMessageSearch;
+    private ImageButton btnSetupProfile, btnPrescriptionHistory, btnLogOut1;
     private RecyclerView recycleViewAppointment;
     private AppointmentAdapter adapter;
-    private List<Booking> bookingList;
+    private List<Appointment> appointments;
     private ConstraintLayout layout_notificationB;
     private SwipeRefreshLayout swipelayoutDc;
 
@@ -65,7 +72,17 @@ public class DoctorHomeFragment extends Fragment {
     }
 
     private void onClick() {
-
+        btnLogOut1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("dataLogin", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("password");
+                editor.apply();
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                requireActivity().finish();
+            }
+        });
         btnSetupProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,26 +93,33 @@ public class DoctorHomeFragment extends Fragment {
         swipelayoutDc.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                ApiService.api.getAllBookingToday(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Booking>>() {
+                LoadingDialog.show(getContext());
+                ApiService.api.getAllAppointmentToday(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Appointment>>() {
                     @Override
-                    public void onResponse(Call<List<Booking>> call, Response<List<Booking>> response) {
-                        if (response.body() != null){
-                            if (response.body().size() > 0){
-                                bookingList.addAll(response.body());
+                    public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
+                        if (response.body() != null) {
+                            if (response.body().size() > 0) {
+                                appointments.addAll(response.body());
                                 adapter.setData(response.body());
-                                ApiDataManager.getInstance().setBookingList(response.body());
+                                ApiDataManager.getInstance().setAppointmentListToday(response.body());
                                 layout_notificationB.setVisibility(View.INVISIBLE);
-                            }
-                            else {
+                                LoadingDialog.dismissDialog();
+                            } else {
                                 layout_notificationB.setVisibility(View.VISIBLE);
+                                LoadingDialog.dismissDialog();
                             }
+
+                        } else {
+                            LoadingDialog.dismissDialog();
 
                         }
-
                     }
+
                     @Override
-                    public void onFailure(Call<List<Booking>> call, Throwable t) {
+                    public void onFailure(Call<List<Appointment>> call, Throwable t) {
+                        LoadingDialog.dismissDialog();
                         startActivity(new Intent(getContext(), ErrorActivity.class));
+
                     }
                 });
                 swipelayoutDc.setRefreshing(false);
@@ -104,35 +128,41 @@ public class DoctorHomeFragment extends Fragment {
     }
 
     private void loadData() {
-        if (ApiDataManager.getInstance().getBookingList() == null){
-            ApiService.api.getAllBookingToday(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Booking>>() {
+        if (ApiDataManager.getInstance().getAppointmentListToday() == null) {
+            layout_notificationB.setVisibility(View.VISIBLE);
+            tvMessageSearch.setText("Đang tìm kiếm lịch khám ngày hôm nay");
+            ApiService.api.getAllAppointmentToday(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Appointment>>() {
                 @Override
-                public void onResponse(Call<List<Booking>> call, Response<List<Booking>> response) {
-                    if (response.body() != null){
-                        if (response.body().size() > 0){
-                            bookingList.addAll(response.body());
+                public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
+                    if (response.body() != null) {
+                        if (response.body().size() > 0) {
+                            appointments.addAll(response.body());
                             adapter.setData(response.body());
-                            ApiDataManager.getInstance().setBookingList(response.body());
+                            ApiDataManager.getInstance().setAppointmentListToday(response.body());
                             layout_notificationB.setVisibility(View.INVISIBLE);
-                        }
-                        else {
+                        } else {
                             layout_notificationB.setVisibility(View.VISIBLE);
+                            tvMessageSearch.setText("Bạn không có lịch đặt khám nào hôm nay");
                         }
 
+                    } else {
+                        layout_notificationB.setVisibility(View.INVISIBLE);
                     }
 
                 }
+
                 @Override
-                public void onFailure(Call<List<Booking>> call, Throwable t) {
+                public void onFailure(Call<List<Appointment>> call, Throwable t) {
+                    layout_notificationB.setVisibility(View.INVISIBLE);
                     startActivity(new Intent(getContext(), ErrorActivity.class));
                 }
             });
-        }else {
-            if (ApiDataManager.getInstance().getBookingList().size() > 0){
-                bookingList.addAll(ApiDataManager.getInstance().getBookingList());
-                adapter.setData(bookingList);
+        } else {
+            if (ApiDataManager.getInstance().getAppointmentListToday().size() > 0) {
+                appointments.addAll(ApiDataManager.getInstance().getAppointmentListToday());
+                adapter.setData(appointments);
                 layout_notificationB.setVisibility(View.INVISIBLE);
-            }else {
+            } else {
                 layout_notificationB.setVisibility(View.VISIBLE);
             }
 
@@ -140,13 +170,13 @@ public class DoctorHomeFragment extends Fragment {
     }
 
     private void setLayout() {
-        if (ApiDataManager.getInstance().getUser() != null){
+        if (ApiDataManager.getInstance().getUser() != null) {
             User user = ApiDataManager.instance.getUser();
             Picasso.get().load(user.getImgUrl()).into(profile_image);
             tvUserName.setText(user.getFullName());
         }
-        bookingList = new ArrayList<>();
-        adapter = new AppointmentAdapter(getContext(),bookingList);
+        appointments = new ArrayList<>();
+        adapter = new AppointmentAdapter(getContext(), appointments);
         recycleViewAppointment.setAdapter(adapter);
         recycleViewAppointment.setNestedScrollingEnabled(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -158,10 +188,11 @@ public class DoctorHomeFragment extends Fragment {
         tvUserName = view.findViewById(R.id.tv_userName1);
         btnSetupProfile = view.findViewById(R.id.btnSetupProfile);
         btnPrescriptionHistory = view.findViewById(R.id.btnPrescriptionHistory);
-        btn_help = view.findViewById(R.id.btn_help);
+        btnLogOut1 = view.findViewById(R.id.btnLogOut1);
         recycleViewAppointment = view.findViewById(R.id.recycleViewAppointment);
         layout_notificationB = view.findViewById(R.id.layout_notificationB);
         swipelayoutDc = view.findViewById(R.id.swipelayoutDc);
         notiDoctor = view.findViewById(R.id.notiDoctor);
+        tvMessageSearch = view.findViewById(R.id.tvMessageSearch);
     }
 }

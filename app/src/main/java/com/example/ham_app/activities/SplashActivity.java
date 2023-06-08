@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.ham_app.R;
@@ -37,18 +38,19 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.body() != null) {
-                        if (response.body().getRole() == 2) {
+                        ApiDataManager.getInstance().setUser(response.body());
+                        Log.d("Splash", ApiDataManager.getInstance().getUser().getRole() + "");
+                        if (ApiDataManager.getInstance().getUser().getRole() == 2) {
                             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
 
                         }
-                        if (response.body().getRole() == 1) {
+                        if (ApiDataManager.getInstance().getUser().getRole() == 1) {
                             Intent intent = new Intent(SplashActivity.this, DoctorMainActivity.class);
                             startActivity(intent);
                             finish();
                         }
-                        ApiDataManager.getInstance().setUser(response.body());
                     } else {
                         Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                         startActivity(intent);
@@ -68,27 +70,5 @@ public class SplashActivity extends AppCompatActivity {
             finish();
         }
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        //Handler handler = new Handler(Looper.getMainLooper());
-
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                ApiService.api.getDepartments().enqueue(new Callback<List<Department>>() {
-                    @Override
-                    public void onResponse(Call<List<Department>> call, Response<List<Department>> response) {
-                        if (response.body() != null) {
-                            ApiDataManager.getInstance().setDepartmentList(response.body());
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Department>> call, Throwable t) {
-
-                    }
-                });
-            }
-        });
     }
 }

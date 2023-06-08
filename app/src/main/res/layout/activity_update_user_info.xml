@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".activities.CreatePatientActivity">
+    tools:context=".activities.UpdateUserInfoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_title"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:clickable="false"
             android:gravity="center"
-            android:text="Tạo hồ sơ đặt khám"
+            android:text="Chỉnh sửa thông tin"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -35,7 +35,7 @@
             app:layout_constraintVertical_bias="0.511" />
 
         <ImageButton
-            android:id="@+id/igb_backCreatePtE"
+            android:id="@+id/igb_backCreatePt"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@android:color/transparent"
@@ -67,9 +67,41 @@
             android:paddingHorizontal="16dp"
             android:paddingVertical="10dp">
 
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:elevation="10dp"
+                app:cardCornerRadius="200dp">
+
+                <ImageView
+                    android:id="@+id/img_userProfilePhoto"
+                    android:layout_width="100dp"
+                    android:scaleType="centerCrop"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/username"
+                    android:src="@drawable/default_user_image" />
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/btnChangeUserImage"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:background="@android:color/transparent"
+                android:text="@string/change_profile_photo"
+                android:textAllCaps="false"
+                android:textColor="@color/navy"
+                android:textSize="12sp"/>
+
             <LinearLayout
-                android:id="@+id/layout_LoaiHinhKham"
                 android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -81,14 +113,14 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/edtPatientName"
+                    android:id="@+id/edtUserFullname"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="@drawable/round_outline_gray_btn"
                     android:drawablePadding="10dp"
                     android:drawableTint="@color/grey"
                     android:gravity="start|center"
-                    android:hint="Nhập họ tên bệnh nhân"
+                    android:hint="@string/name_hint"
                     android:inputType="text"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="10dp"
@@ -96,12 +128,12 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="normal"
-                    app:drawableStartCompat="@drawable/baseline_person_24" />
+                    app:drawableStartCompat="@drawable/baseline_person_24"
+                    android:autofillHints="name" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_ngayKham"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -111,108 +143,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="@string/date_of_birth_req"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/btnPickDate1"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/round_outline_gray_btn"
-                    android:drawablePadding="10dp"
-                    android:gravity="start|center"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:text="Chọn ngày sinh"
-                    android:textAllCaps="false"
-                    android:textColor="@color/grey"
-                    android:textSize="16sp"
-                    android:textStyle="normal"
-                    app:drawableEndCompat="@drawable/baseline_arrow_forward_ios_24"
-                    app:drawableStartCompat="@drawable/baseline_calendar_month_24"
-                    app:drawableTint="@color/grey" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_gioKham"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="@string/gender"
-                    android:textColor="@color/black" />
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-
-                    <RadioButton
-                        android:id="@+id/rd_Male"
-                        android:layout_width="80dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/radio_selector"
-                        android:button="@android:color/transparent"
-                        android:checked="true"
-                        android:gravity="center"
-                        android:text="@string/male"
-                        android:textColor="@drawable/text_color_selector"
-                        android:textSize="16sp" />
-
-                    <RadioButton
-                        android:id="@+id/rd_Female"
-                        android:layout_width="80dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="20dp"
-                        android:background="@drawable/radio_selector"
-                        android:button="@android:color/transparent"
-                        android:gravity="center"
-                        android:text="@string/female"
-                        android:textColor="@drawable/text_color_selector"
-                        android:textSize="16sp" />
-                </RadioGroup>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/layout_bacSi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="@string/job"
+                    android:text="@string/email"
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/edtJob"
+                    android:id="@+id/edtEmailE"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="@drawable/round_outline_gray_btn"
                     android:drawablePadding="10dp"
                     android:drawableTint="@color/grey"
                     android:gravity="start|center"
-                    android:hint="Nhập công việc hiện tại"
-                    android:inputType="text"
+                    android:hint="@string/email_hint"
+                    android:inputType="textEmailAddress"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="10dp"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="normal"
-                    app:drawableStartCompat="@drawable/baseline_work_24" />
+                    app:drawableStartCompat="@drawable/baseline_email_24"
+                    android:autofillHints="emailAddress" />
 
             </LinearLayout>
 
@@ -228,11 +179,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="@string/address"
+                    android:text="@string/phone_number"
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/edtAddress"
+                    android:id="@+id/edtPhoneNumE"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:autofillHints="Your address"
@@ -240,15 +191,16 @@
                     android:drawablePadding="10dp"
                     android:drawableTint="@color/grey"
                     android:gravity="start|center"
-                    android:hint="Nhập địa chỉ liên hệ"
-                    android:inputType="text"
+                    android:hint="@string/phone_hint"
+                    android:inputType="number"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="10dp"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="normal"
-                    app:drawableStartCompat="@drawable/baseline_location_on_24" />
+                    app:drawableStartCompat="@drawable/baseline_local_phone_24"
+                    tools:ignore="TextFields" />
 
 
             </LinearLayout>
@@ -270,12 +222,12 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btn_UpdatePt"
+            android:id="@+id/btn_UpdateUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/rounded_bg_blue"
-            android:text="@string/submit"
+            android:text="@string/update"
             android:textAllCaps="false"
             android:textColor="@color/white" />
     </LinearLayout>

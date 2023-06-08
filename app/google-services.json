@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1028861773142",
+    "project_id": "ham-app-a2ba5",
+    "storage_bucket": "ham-app-a2ba5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028861773142:android:0d186cab44ec17122b42f7",
+        "android_client_info": {
+          "package_name": "com.example.ham_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028861773142-2oa7iph1hn5etir28h05d47vs3i6sjd6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLstgf_qTbftlmQh_c3_jE7_TaDi4PHws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028861773142-2oa7iph1hn5etir28h05d47vs3i6sjd6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
+    android:background="@drawable/login_bg__"
     android:orientation="vertical"
     tools:context=".activities.LoginActivity">
 
@@ -14,12 +14,12 @@
         android:layout_gravity="top|center"
         android:scaleType="centerInside"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/doctor" />
+        app:lottie_loop="true" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginHorizontal="30dp"
         android:background="@drawable/custom_edittext"
         app:cardCornerRadius="16dp"
@@ -38,6 +38,7 @@
                 android:layout_marginBottom="20dp"
                 android:text="@string/login"
                 android:textAlignment="center"
+                android:textAllCaps="true"
                 android:textColor="@color/blue"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -102,7 +103,7 @@
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="25dp"
@@ -114,34 +115,42 @@
                 android:text="@string/login"
                 android:textColor="@color/white" />
 
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/don_t_you_have_an_account"
+                    android:textColor="@color/grey" />
+
+                <Button
+                    android:id="@+id/btn_signUp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:background="@android:color/transparent"
+                    android:text="@string/register"
+                    android:textColor="@color/blue"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
 
     </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/don_t_you_have_an_account"
-            android:textColor="@color/grey" />
-
-        <Button
-            android:id="@+id/btn_signUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:background="@android:color/transparent"
-            android:text="@string/sign_up"
-            android:textColor="@color/blue" />
-
-    </LinearLayout>
 
 
 </LinearLayout>

@@ -19,7 +19,9 @@ import android.widget.TextView;
 
 import com.example.ham_app.R;
 import com.example.ham_app.activities.LoginActivity;
+import com.example.ham_app.activities.ProcedureActivity;
 import com.example.ham_app.activities.SecurityActivity;
+import com.example.ham_app.activities.UserActivity;
 import com.example.ham_app.untils.ApiDataManager;
 import com.squareup.picasso.Picasso;
 
@@ -28,7 +30,7 @@ import java.util.Objects;
 
 public class AccountFragment extends Fragment {
     private ImageView imgUser;
-    private Button btnLogOut,btnSecurity;
+    private Button btnLogOut,btnSecurity,btnEditUser,btnProcedure;
     private TextView tvUserName, tvSdt;
     private SharedPreferences sharedPreferences;
 
@@ -64,6 +66,18 @@ public class AccountFragment extends Fragment {
                 startActivity(new Intent(getActivity(), SecurityActivity.class));
             }
         });
+        btnEditUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), UserActivity.class));
+            }
+        });
+        btnProcedure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ProcedureActivity.class));
+            }
+        });
     }
 
     private void setView() {
@@ -78,5 +92,7 @@ public class AccountFragment extends Fragment {
         tvUserName = view.findViewById(R.id.tv_hoTen);
         btnLogOut = view.findViewById(R.id.btnLogout);
         btnSecurity = view.findViewById(R.id.btnSecurity);
+        btnEditUser = view.findViewById(R.id.btnEditUser);
+        btnProcedure = view.findViewById(R.id.btnProcedure);
     }
 }

@@ -37,8 +37,6 @@ public class BookingActivity extends AppCompatActivity {
     private LinearLayout layout_ChuyenKhoa, layout_ngayKham, layout_gioKham, layout_bacSi, layout_benhNhan;
     private TextView btn_next, btnPickService, btnPickDepartment, btn_PickDate, btnPickTime, btnPickDoctor, btnPickPatient;
     private EditText edtNote;
-    private Service selectedService;
-    private Department selectedDepartment;
     private String userId;
 
     @Override
@@ -75,12 +73,12 @@ public class BookingActivity extends AppCompatActivity {
             ApiDataManager.getInstance().setBooking(new Booking());
         } else {
             if (ApiDataManager.getInstance().getSelectedService() != null) {
-                selectedService = ApiDataManager.getInstance().getSelectedService();
+                Service selectedService = ApiDataManager.getInstance().getSelectedService();
                 selectedButtonChange(btnPickService, selectedService.getServiceName());
                 layout_ChuyenKhoa.setVisibility(View.VISIBLE);
             }
             if (ApiDataManager.getInstance().getSelectedDepartment() != null) {
-                selectedDepartment = ApiDataManager.getInstance().getSelectedDepartment();
+                Department selectedDepartment = ApiDataManager.getInstance().getSelectedDepartment();
                 selectedButtonChange(btnPickDepartment, selectedDepartment.getName());
                 layout_ngayKham.setVisibility(View.VISIBLE);
             }
@@ -98,9 +96,8 @@ public class BookingActivity extends AppCompatActivity {
             }
             if (ApiDataManager.getInstance().getSelectedPatient() != null) {
                 selectedButtonChange(btnPickPatient, ApiDataManager.getInstance().getSelectedPatient().getPatientName());
-                btn_next.setClickable(true);
                 btn_next.setBackground(getDrawable(R.drawable.rounded_bg_blue));
-                btn_next.setVisibility(View.VISIBLE);
+                btn_next.setEnabled(true);
             }
         }
     }
@@ -171,7 +168,7 @@ public class BookingActivity extends AppCompatActivity {
                 String note = edtNote.getText().toString();
                 ApiDataManager.getInstance().getBooking().setNote(note);
                 ApiDataManager.getInstance().getBooking().setUser_id(userId);
-                if (btn_next.getBackground().equals(R.drawable.rounded_bg_blue)) {
+                if (btn_next.isEnabled()) {
                     Intent intent = new Intent(BookingActivity.this, DetailActivity.class);
                     secondActivityLauncher.launch(intent);
                 } else {
@@ -184,8 +181,7 @@ public class BookingActivity extends AppCompatActivity {
     @SuppressLint("UseCompatLoadingForDrawables")
     private void hideLayout() {
         btn_next.setBackground(getDrawable(R.drawable.rounded_bg_gray));
-        btn_next.setClickable(false);
-        btn_next.setVisibility(View.INVISIBLE);
+        btn_next.setEnabled(false);
         layout_benhNhan.setVisibility(View.INVISIBLE);
         layout_bacSi.setVisibility(View.INVISIBLE);
         layout_gioKham.setVisibility(View.INVISIBLE);

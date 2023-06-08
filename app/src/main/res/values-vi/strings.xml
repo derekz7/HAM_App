@@ -80,5 +80,9 @@
     <string name="current_password">Mật khẩu hiện tại<font color="@android:color/red"><sup>*</sup></font></string>
     <string name="new_password">Mật khẩu mới</string>
     <string name="confirm_password">Nhập lại mật khẩu mới</string>
+    <string name="phone_hint">09xxxxxxxx</string>
+    <string name="change_profile_photo">Change profile photo</string>
+    <string name="update">Cập nhật</string>
+    <string name="patient_id">Mã bệnh nhân</string>
 
 </resources>

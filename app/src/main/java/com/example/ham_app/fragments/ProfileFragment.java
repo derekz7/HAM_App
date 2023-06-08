@@ -33,6 +33,7 @@ import com.example.ham_app.activities.BookingActivity;
 import com.example.ham_app.activities.CreatePatientActivity;
 import com.example.ham_app.activities.ErrorActivity;
 import com.example.ham_app.activities.ServiceActivity;
+import com.example.ham_app.activities.UpdatePatientActivity;
 import com.example.ham_app.adapters.PatientAdapter;
 import com.example.ham_app.api.ApiService;
 import com.example.ham_app.dialog.LoadingDialog;
@@ -54,7 +55,14 @@ public class ProfileFragment extends Fragment {
     private PatientAdapter patientAdapter;
     private List<Patient> patients;
     private SwipeRefreshLayout swipeRefreshLayout;
-
+    ActivityResultLauncher<Intent> secondActivityLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == 111) {
+                    getData();
+                }
+            }
+    );
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,14 +84,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void onClick() {
-        ActivityResultLauncher<Intent> secondActivityLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == 111) {
-                        getData();
-                    }
-                }
-        );
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -178,9 +179,9 @@ public class ProfileFragment extends Fragment {
         final TextView ptJob = dialog.findViewById(R.id.tvPatientJob);
         final TextView ptAddress = dialog.findViewById(R.id.tvPatientAddress1);
         final Button btnDelete = dialog.findViewById(R.id.btnSelectedPatient);
+        final Button btnEditPatient = dialog.findViewById(R.id.btnEditPatient);
         btnDelete.setText(getResources().getString(R.string.delete_patient));
         btnDelete.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.red)));
-        final Button btnEdit = dialog.findViewById(R.id.btnEditPatient);
 
         if (ptAddress.getText().equals("")||ptJob.getText().equals("")){
             ptJob.setText(getString(R.string.not_update));
@@ -206,10 +207,14 @@ public class ProfileFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-        btnEdit.setOnClickListener(new View.OnClickListener() {
+        btnEditPatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getContext(), UpdatePatientActivity.class);
+                intent.putExtra("patient",patient);
+                intent.putExtra("pos",patients.indexOf(patient));
+                secondActivityLauncher.launch(intent);
+                dialog.dismiss();
             }
         });
         btnDelete.setOnClickListener(new View.OnClickListener() {

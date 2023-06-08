@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:clickable="false"
             android:gravity="center"
-            android:text="Tạo hồ sơ đặt khám"
+            android:text="Chỉnh sửa hồ sơ đặt khám"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -35,7 +35,7 @@
             app:layout_constraintVertical_bias="0.511" />
 
         <ImageButton
-            android:id="@+id/igb_backCreatePtE"
+            android:id="@+id/igb_backCreatePt"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@android:color/transparent"
@@ -81,7 +81,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/edtPatientName"
+                    android:id="@+id/edtPatientNameE"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="@drawable/round_outline_gray_btn"
@@ -115,7 +115,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/btnPickDate1"
+                    android:id="@+id/btnPickDateE"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="@drawable/round_outline_gray_btn"
@@ -155,7 +155,7 @@
 
 
                     <RadioButton
-                        android:id="@+id/rd_Male"
+                        android:id="@+id/rd_MaleE"
                         android:layout_width="80dp"
                         android:layout_height="48dp"
                         android:background="@drawable/radio_selector"
@@ -167,7 +167,7 @@
                         android:textSize="16sp" />
 
                     <RadioButton
-                        android:id="@+id/rd_Female"
+                        android:id="@+id/rd_FemaleE"
                         android:layout_width="80dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="20dp"
@@ -197,7 +197,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/edtJob"
+                    android:id="@+id/edtJobE"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="@drawable/round_outline_gray_btn"
@@ -232,7 +232,7 @@
                     android:textColor="@color/black" />
 
                 <EditText
-                    android:id="@+id/edtAddress"
+                    android:id="@+id/edtAddressE"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:autofillHints="Your address"
@@ -270,7 +270,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btn_UpdatePt"
+            android:id="@+id/btn_CreatePt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

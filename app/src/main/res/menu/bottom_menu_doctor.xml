@@ -11,9 +11,4 @@
         android:icon="@drawable/calendar"
         android:title="@string/appointment"
         app:cnb_iconColor="@color/warning"/>
-    <item
-        android:id="@+id/settings"
-        android:icon="@drawable/ic_setting"
-        android:title="Settings"
-        app:cnb_iconColor="@color/green" />
 </menu>

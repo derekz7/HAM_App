@@ -4,13 +4,14 @@ import android.annotation.SuppressLint;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 
-public class Patient {
+public class Patient implements Serializable {
     private String id;
     @SerializedName("pt_name")
     private String patientName;

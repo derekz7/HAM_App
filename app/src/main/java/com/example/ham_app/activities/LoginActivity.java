@@ -84,12 +84,13 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.apply();
                                     }
                                     ApiDataManager.getInstance().setUser(response.body());
-                                    if (response.body().getRole() == 2){
+                                    if (ApiDataManager.getInstance().getUser().getRole() == 2){
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
                                         finish();
                                     }
-                                    if (response.body().getRole() == 1){
+                                    if (ApiDataManager.getInstance().getUser().getRole() == 1){
+                                        Toast.makeText(LoginActivity.this, "Login to Main User", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(LoginActivity.this, DoctorMainActivity.class);
                                         startActivity(intent);
                                         finish();

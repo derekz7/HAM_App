@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ham_app.R;
+import com.example.ham_app.modules.Appointment;
 import com.example.ham_app.modules.Booking;
 import com.example.ham_app.modules.Patient;
 import com.example.ham_app.untils.ApiDataManager;
@@ -21,7 +22,7 @@ import java.util.Objects;
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.AppointmentViewHolder> {
 
     private Context context;
-    private List<Booking> bookingList;
+    private List<Appointment> appointments;
 
     private AppointmentAdapter.onItemClickListener mListener;
 
@@ -33,14 +34,14 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         this.mListener = mListener;
     }
 
-    public AppointmentAdapter(Context context, List<Booking> bookingList) {
+    public AppointmentAdapter(Context context, List<Appointment> appointments) {
         this.context = context;
-        this.bookingList = bookingList;
+        this.appointments = appointments;
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setData(List<Booking> list) {
-        this.bookingList = list;
+    public void setData(List<Appointment> list) {
+        this.appointments = list;
         notifyDataSetChanged();
     }
 
@@ -54,29 +55,29 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull AppointmentViewHolder holder, int position) {
-        Booking booking = bookingList.get(position);
-        if (booking == null) {
+        Appointment appointment = appointments.get(position);
+        if (appointment == null) {
             return;
         }
         ColorStateList colorStateList;
-        holder.tvNumber.setText("Phiếu khám số " + booking.getOrderNum());
-        if (booking.getStatus().equals("Chờ khám") || booking.getStatus().equals("Pending")) {
+        holder.tvNumber.setText("Phiếu khám số " + appointment.getOrderNum());
+        if (appointment.getStatus().equals("Chờ khám") || appointment.getStatus().equals("Pending")) {
             colorStateList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.warning));
-            holder.tvStatus1.setText(booking.getStatus());
+            holder.tvStatus1.setText(appointment.getStatus());
             holder.tvStatus1.setBackgroundTintList(colorStateList);
-        } else if (booking.getStatus().equals("Đã khám")) {
+        } else if (appointment.getStatus().equals("Đã khám")) {
             colorStateList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green));
-            holder.tvStatus1.setText(booking.getStatus());
+            holder.tvStatus1.setText(appointment.getStatus());
             holder.tvStatus1.setBackgroundTintList(colorStateList);
         } else {
             colorStateList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.grey));
-            holder.tvStatus1.setText(booking.getStatus());
+            holder.tvStatus1.setText(appointment.getStatus());
             holder.tvStatus1.setBackgroundTintList(colorStateList);
         }
-        holder.tvDate1.setText(booking.getDate());
-        holder.tv_bookingTime1.setText(booking.getTime());
-        holder.tvMaPhieu.setText(booking.getId());
-        holder.tv_ptName1.setText(getPatient(booking.getPt_id()) != null ? getPatient(booking.getPt_id()).getPatientName() : "Chưa cập nhật");
+        holder.tvDate1.setText(appointment.getDate());
+        holder.tv_bookingTime1.setText(appointment.getTime());
+        holder.tvMaPhieu.setText(appointment.getBid());
+        holder.tv_ptName1.setText(appointment.getPtName());
 
 
     }
@@ -84,8 +85,8 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
     @Override
     public int getItemCount() {
-        if (bookingList != null) {
-            return bookingList.size();
+        if (appointments != null) {
+            return appointments.size();
         }
         return 0;
     }
@@ -117,12 +118,4 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         }
     }
 
-    private Patient getPatient(String id) {
-        for (Patient patient : ApiDataManager.instance.getPatientList()) {
-            if (patient.getId().equals(id)) {
-                return patient;
-            }
-        }
-        return null;
-    }
 }

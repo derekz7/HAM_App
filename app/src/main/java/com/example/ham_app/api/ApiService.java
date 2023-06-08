@@ -53,7 +53,7 @@ public interface ApiService {
     Call<User> signUp(@Body User user);
 
     @PUT("api/User/UpdateUser")
-    Call<User> updateUser(@Query("id") String id, @Body User user);
+    Call<Void> updateUser(@Query("id") String id, @Body User user);
 
     @GET("api/User/GetUserByUsername")
     Call<User> getUserByUsername(@Query("username") String username);
@@ -67,6 +67,9 @@ public interface ApiService {
 
     @POST("api/Patient/CreatePatient")
     Call<Patient> createPatient(@Body Patient patient);
+
+    @PUT("api/Patient/UpdatePatient")
+    Call<Void> updatePatient(@Query("id") String id, @Body Patient patient);
 
     @DELETE("api/Patient/DeletePatient")
     Call<Patient> DeletePatient(@Query("id") String id);
@@ -109,4 +112,10 @@ public interface ApiService {
     //APPOINTMENT
     @GET("api/Booking/getAppointmentByBid")
     Call<Appointment> getAppointment(@Query("bid") String bid);
+
+    @GET("api/Booking/GetAppointmentsByUser")
+    Call<List<Appointment>> getAppointmentsByUser(@Query("userId") String userId);
+
+    @GET("api/Booking/getAllBookingToday")
+    Call<List<Appointment>> getAllAppointmentToday(@Query("doctorId") String doctorId);
 }
