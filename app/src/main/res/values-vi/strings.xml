@@ -84,5 +84,6 @@
     <string name="change_profile_photo">Change profile photo</string>
     <string name="update">Cập nhật</string>
     <string name="patient_id">Mã bệnh nhân</string>
+    <string name="complete">Lịch đã khám</string>
 
 </resources>

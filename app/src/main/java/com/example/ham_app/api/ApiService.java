@@ -109,13 +109,16 @@ public interface ApiService {
     @GET("api/Booking/getAllBookingToday")
     Call<List<Booking>> getAllBookingToday(@Query("doctorId") String doctorId);
 
+    @PUT("api/Booking/ChangeStatus")
+    Call<Void> changeStatus (@Query("id") String id, @Query("status")  String status);
+
     //APPOINTMENT
     @GET("api/Booking/getAppointmentByBid")
     Call<Appointment> getAppointment(@Query("bid") String bid);
 
-    @GET("api/Booking/GetAppointmentsByUser")
+    @GET("api/Appointment/GetAppointmentsByUser")
     Call<List<Appointment>> getAppointmentsByUser(@Query("userId") String userId);
 
-    @GET("api/Booking/getAllBookingToday")
+    @GET("api/Appointment/getAllBookingToday")
     Call<List<Appointment>> getAllAppointmentToday(@Query("doctorId") String doctorId);
 }

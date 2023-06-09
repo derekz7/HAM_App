@@ -41,7 +41,7 @@ public class DoctorMainActivity extends AppCompatActivity {
                     fragment = new DoctorHomeFragment();
                 }
                 if (i == R.id.activity) {
-
+                    fragment = new SuccessScheduleFragment();
                 }
                 if (fragment != null){
                     fragmentManager = getSupportFragmentManager();

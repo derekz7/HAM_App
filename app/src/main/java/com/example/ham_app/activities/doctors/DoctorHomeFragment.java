@@ -2,34 +2,44 @@ package com.example.ham_app.activities.doctors;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ham_app.R;
 import com.example.ham_app.activities.ErrorActivity;
 import com.example.ham_app.activities.LoginActivity;
+import com.example.ham_app.activities.UpdatePatientActivity;
 import com.example.ham_app.adapters.AppointmentAdapter;
 import com.example.ham_app.api.ApiService;
 import com.example.ham_app.dialog.LoadingDialog;
 import com.example.ham_app.modules.Appointment;
 import com.example.ham_app.modules.Booking;
+import com.example.ham_app.modules.Patient;
 import com.example.ham_app.modules.User;
 import com.example.ham_app.untils.ApiDataManager;
 import com.squareup.picasso.Picasso;
@@ -72,6 +82,13 @@ public class DoctorHomeFragment extends Fragment {
     }
 
     private void onClick() {
+
+        adapter.setOnItemClickListener(new AppointmentAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int pos, View view) {
+                showDialog(appointments.get(pos));
+            }
+        });
         btnLogOut1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +116,7 @@ public class DoctorHomeFragment extends Fragment {
                     public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
                         if (response.body() != null) {
                             if (response.body().size() > 0) {
+                                appointments.clear();
                                 appointments.addAll(response.body());
                                 adapter.setData(response.body());
                                 ApiDataManager.getInstance().setAppointmentListToday(response.body());
@@ -136,6 +154,7 @@ public class DoctorHomeFragment extends Fragment {
                 public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
                     if (response.body() != null) {
                         if (response.body().size() > 0) {
+                            appointments.clear();
                             appointments.addAll(response.body());
                             adapter.setData(response.body());
                             ApiDataManager.getInstance().setAppointmentListToday(response.body());
@@ -159,6 +178,7 @@ public class DoctorHomeFragment extends Fragment {
             });
         } else {
             if (ApiDataManager.getInstance().getAppointmentListToday().size() > 0) {
+                appointments.clear();
                 appointments.addAll(ApiDataManager.getInstance().getAppointmentListToday());
                 adapter.setData(appointments);
                 layout_notificationB.setVisibility(View.INVISIBLE);
@@ -194,5 +214,86 @@ public class DoctorHomeFragment extends Fragment {
         swipelayoutDc = view.findViewById(R.id.swipelayoutDc);
         notiDoctor = view.findViewById(R.id.notiDoctor);
         tvMessageSearch = view.findViewById(R.id.tvMessageSearch);
+    }
+
+    public void showDialog(Appointment appointment) {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.custom_dialog_appointment);
+        dialog.setCancelable(true);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setGravity(Gravity.BOTTOM);
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().getAttributes().windowAnimations = R.style.BottomSheetAnimation;
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        final TextView tvStatus2 = dialog.findViewById(R.id.tvStatus2);
+        final TextView tvPTname = dialog.findViewById(R.id.tvPTname);
+        final TextView tvTime = dialog.findViewById(R.id.tvTime1);
+        final TextView tv_BookingID = dialog.findViewById(R.id.tv_BookingID);
+
+        final Button btnCancelBooking = dialog.findViewById(R.id.btnCancelBooking);
+        final Button btnSuccess = dialog.findViewById(R.id.btnSuccess);
+        final ImageView imgCancelAppointment = dialog.findViewById(R.id.imgCancelAppointment);
+        
+        tvStatus2.setText(appointment.getStatus());
+        tvPTname.setText(appointment.getPtName());
+        tvTime.setText(appointment.getTime());
+        tv_BookingID.setText(appointment.getBid());
+
+        imgCancelAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        
+        btnCancelBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApiService.api.changeStatus(appointment.getBid(),"Canceled").enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        Toast.makeText(getContext(), "Đã hủy lịch khám", Toast.LENGTH_SHORT).show();
+                        ApiDataManager.getInstance().setAppointmentListToday(null);
+                        appointments.clear();
+                        adapter.setData(appointments);
+                        loadData();
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });btnSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApiService.api.changeStatus(appointment.getBid(),"Đã khám").enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        ApiDataManager.getInstance().setAppointmentListToday(null);
+                        appointments.clear();
+                        adapter.setData(appointments);
+                        loadData();
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+
+
+        dialog.show();
+
     }
 }

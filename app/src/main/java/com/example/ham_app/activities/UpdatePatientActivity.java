@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.ham_app.R;
 import com.example.ham_app.api.ApiService;
+import com.example.ham_app.dialog.LoadingDialog;
 import com.example.ham_app.modules.Patient;
 import com.example.ham_app.untils.ApiDataManager;
 import com.google.android.gms.common.api.Api;
@@ -31,13 +32,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UpdatePatientActivity extends AppCompatActivity {
-    private ImageButton igb_backCreatePt;
+
     private EditText edtPatientName, edtJob, edtAddress;
     private TextView btnPickDate;
     private RadioButton rdMale, rdFemale;
     final Calendar myCalendar = Calendar.getInstance();
     private Button btn_UpdatePt;
-
+    private ImageButton igb_backUpdatePt;
     private Patient patient;
     private int pos;
 
@@ -47,7 +48,7 @@ public class UpdatePatientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_patient);
         patient = (Patient) getIntent().getSerializableExtra("patient");
-        pos = getIntent().getIntExtra("pos",0);
+        pos = getIntent().getIntExtra("pos", 0);
         initView();
         setUpView();
         onClick();
@@ -72,7 +73,8 @@ public class UpdatePatientActivity extends AppCompatActivity {
             }
 
         };
-        igb_backCreatePt.setOnClickListener(new View.OnClickListener() {
+
+        igb_backUpdatePt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -114,22 +116,26 @@ public class UpdatePatientActivity extends AppCompatActivity {
                     patient.setPatientName(name);
                     patient.setAddress(edtAddress.getText().toString());
                     patient.setJob(edtJob.getText().toString());
+                    LoadingDialog.show(UpdatePatientActivity.this);
                     ApiService.api.updatePatient(patient.getId(), patient).enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if (response.isSuccessful()) {
-                                ApiDataManager.getInstance().getPatientList().set(pos,patient);
+                                ApiDataManager.getInstance().getPatientList().set(pos, patient);
                                 Toast.makeText(UpdatePatientActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                                 Intent resultIntent = new Intent();
+                                LoadingDialog.dismissDialog();
                                 setResult(111, resultIntent);
                                 finish();
                             } else {
+                                LoadingDialog.dismissDialog();
                                 Toast.makeText(UpdatePatientActivity.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<Void> call, Throwable t) {
+                            LoadingDialog.dismissDialog();
                             startActivity(new Intent(UpdatePatientActivity.this, ErrorActivity.class));
                         }
                     });
@@ -139,7 +145,6 @@ public class UpdatePatientActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        igb_backCreatePt = findViewById(R.id.igb_backCreatePtE);
         edtPatientName = findViewById(R.id.edtPatientNameE);
         edtJob = findViewById(R.id.edtJobE);
         edtAddress = findViewById(R.id.edtAddressE);
@@ -147,6 +152,7 @@ public class UpdatePatientActivity extends AppCompatActivity {
         rdMale = findViewById(R.id.rd_MaleE);
         rdFemale = findViewById(R.id.rd_FemaleE);
         btn_UpdatePt = findViewById(R.id.btn_UpdatePt);
+        igb_backUpdatePt = findViewById(R.id.igb_backUpdatePt);
     }
 
     @SuppressLint("SimpleDateFormat")

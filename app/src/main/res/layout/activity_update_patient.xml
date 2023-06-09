@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".activities.CreatePatientActivity">
+    tools:context=".activities.UpdatePatientActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_title"
@@ -35,7 +35,7 @@
             app:layout_constraintVertical_bias="0.511" />
 
         <ImageButton
-            android:id="@+id/igb_backCreatePt"
+            android:id="@+id/igb_backUpdatePt"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@android:color/transparent"
@@ -270,7 +270,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btn_CreatePt"
+            android:id="@+id/btn_UpdatePt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

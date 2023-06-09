@@ -39,7 +39,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PatientActivity extends AppCompatActivity {
-    private ImageButton igb_addPatient;
     private RecyclerView recyclerViewPatients;
     private TextView tvNotification;
     private PatientAdapter patientAdapter;
@@ -82,13 +81,6 @@ public class PatientActivity extends AppCompatActivity {
             public void onRefresh() {
                 getData();
                 swipeRefreshLayout.setRefreshing(false);
-            }
-        });
-        igb_addPatient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PatientActivity.this, CreatePatientActivity.class);
-                secondActivityLauncher.launch(intent);
             }
         });
 
@@ -147,12 +139,11 @@ public class PatientActivity extends AppCompatActivity {
 
     private void init() {
         patients = new ArrayList<>();
-        swipeRefreshLayout = findViewById(R.id.swipelayout);
+        swipeRefreshLayout = findViewById(R.id.swipelayout1);
         patientAdapter = new PatientAdapter(this, patients);
-        igb_addPatient = findViewById(R.id.igb_addPatient);
         recyclerViewPatients = findViewById(R.id.rec_Patient);
         tvNotification = findViewById(R.id.tv_notiPatient);
-        igb_backPatient = findViewById(R.id.igb_backPatient);
+        igb_backPatient = findViewById(R.id.igb_backPatient12);
     }
 
     public void showDialog(Patient patient) {

@@ -139,7 +139,7 @@ public class CreatePatientActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        igb_backCreatePt = findViewById(R.id.igb_backCreatePt);
+        igb_backCreatePt = findViewById(R.id.igb_backCreatePtE);
         edtPatientName = findViewById(R.id.edtPatientName);
         edtJob = findViewById(R.id.edtJob);
         edtAddress = findViewById(R.id.edtAddress);

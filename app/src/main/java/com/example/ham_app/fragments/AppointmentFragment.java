@@ -3,6 +3,8 @@ package com.example.ham_app.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -77,30 +79,39 @@ public class AppointmentFragment extends Fragment {
             public void onItemClick(int pos, View view) {
                 Appointment appointment = appointments.get(pos);
                 Intent intent = new Intent(getContext(), AppointmentDetailActivity.class);
-                intent.putExtra("Appointment",appointment);
+                intent.putExtra("Appointment", appointment);
                 startActivity(intent);
             }
         });
     }
-    private void init(View view){
+
+    private void init(View view) {
         layout_notification = view.findViewById(R.id.layout_notification);
         swipeRefreshBooking = view.findViewById(R.id.swipeRefreshBooking);
         rec_Booking = view.findViewById(R.id.rec_booking);
         appointments = new ArrayList<>();
     }
+
     private void getData() {
         LoadingDialog.show(getContext());
         ApiService.api.getAppointmentsByUser(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Appointment>>() {
             @Override
             public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
-                if (response.body() != null){
-                    appointments.clear();
-                    appointments.addAll(response.body());
-                    Collections.reverse(appointments);
-                    adapter.setData(appointments);
-                    ApiDataManager.getInstance().setAppointments(appointments);
-                    LoadingDialog.dismissDialog();
-                }else {
+                if (response.body() != null) {
+                    if (response.body().size() > 0) {
+                        appointments.clear();
+                        appointments.addAll(response.body());
+                        Collections.reverse(appointments);
+                        adapter.setData(appointments);
+                        layout_notification.setVisibility(View.INVISIBLE);
+                        ApiDataManager.getInstance().setAppointments(appointments);
+                        LoadingDialog.dismissDialog();
+                    } else {
+                        layout_notification.setVisibility(View.VISIBLE);
+                        LoadingDialog.dismissDialog();
+                    }
+
+                } else {
                     layout_notification.setVisibility(View.VISIBLE);
                     LoadingDialog.dismissDialog();
                 }
@@ -121,7 +132,6 @@ public class AppointmentFragment extends Fragment {
                 layout_notification.setVisibility(View.INVISIBLE);
                 appointments.clear();
                 appointments = ApiDataManager.getInstance().getAppointments();
-                Collections.reverse(appointments);
                 adapter.setData(appointments);
             } else {
                 layout_notification.setVisibility(View.VISIBLE);
@@ -132,7 +142,7 @@ public class AppointmentFragment extends Fragment {
     }
 
     private void setLayout() {
-        adapter = new AppointmentAdapter(getContext(),appointments);
+        adapter = new AppointmentAdapter(getContext(), appointments);
         rec_Booking.setAdapter(adapter);
         rec_Booking.setNestedScrollingEnabled(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

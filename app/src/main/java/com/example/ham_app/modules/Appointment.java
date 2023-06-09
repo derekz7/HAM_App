@@ -1,10 +1,13 @@
 package com.example.ham_app.modules;
 
+import android.widget.ImageButton;
+
 import java.io.Serializable;
 
 public class Appointment implements Serializable {
     private String id;
     private String bid;
+    private String uid;
     private String serviceName;
     private int orderNum;
 
@@ -21,9 +24,10 @@ public class Appointment implements Serializable {
     public Appointment() {
     }
 
-    public Appointment(String id, String bid, String serviceName, int orderNum, String depName, String room, String dcName, String date, String time, String ptName, int price, String status) {
+    public Appointment(String id, String bid, String uid, String serviceName, int orderNum, String depName, String room, String dcName, String date, String time, String ptName, int price, String status) {
         this.id = id;
         this.bid = bid;
+        this.uid = uid;
         this.serviceName = serviceName;
         this.orderNum = orderNum;
         this.depName = depName;
@@ -34,6 +38,13 @@ public class Appointment implements Serializable {
         this.ptName = ptName;
         this.price = price;
         this.status = status;
+    }
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getDepName() {

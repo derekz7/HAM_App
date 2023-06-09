@@ -87,7 +87,7 @@
                 android:padding="5dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:text="Thanh toán trưc tiếp tại bệnh viện"
+                android:text="Thanh toán trực tiếp tại bệnh viện"
                 android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold"

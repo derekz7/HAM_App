@@ -33,7 +33,7 @@
 
 
         <ImageButton
-            android:id="@+id/igb_backPatient"
+            android:id="@+id/igb_backPatient12"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@android:color/transparent"
@@ -57,7 +57,7 @@
         app:drawableStartCompat="@drawable/baseline_info_24" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipelayout"
+        android:id="@+id/swipelayout1"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content">

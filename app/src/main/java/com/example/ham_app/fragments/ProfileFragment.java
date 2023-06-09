@@ -59,10 +59,11 @@ public class ProfileFragment extends Fragment {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == 111) {
-                    getData();
+                    loadData();
                 }
             }
     );
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,12 +75,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         init(view);
         setLayout();
-        if (ApiDataManager.getInstance().getPatientList() != null) {
-            //Toast.makeText(getContext(), ApiDataManager.getInstance().getUser().getId(), Toast.LENGTH_SHORT).show();
-            loadData();
-        } else {
-            getData();
-        }
+        loadData();
         onClick();
     }
 
@@ -117,6 +113,7 @@ public class ProfileFragment extends Fragment {
                     patients.clear();
                     patients.addAll(response.body());
                     patientAdapter.setData(response.body());
+                    tvNotification.setVisibility(View.INVISIBLE);
                     ApiDataManager.getInstance().setPatientList(patients);
                 } else {
                     tvNotification.setVisibility(View.VISIBLE);
@@ -132,8 +129,8 @@ public class ProfileFragment extends Fragment {
     }
 
     private void loadData() {
-        LoadingDialog.show(getContext());
         if (ApiDataManager.getInstance().getPatientList() != null) {
+            LoadingDialog.show(getContext());
             if (ApiDataManager.getInstance().getPatientList().size() > 0) {
                 tvNotification.setVisibility(View.INVISIBLE);
                 patients = ApiDataManager.getInstance().getPatientList();
@@ -141,9 +138,10 @@ public class ProfileFragment extends Fragment {
             } else {
                 tvNotification.setVisibility(View.VISIBLE);
             }
-
+            LoadingDialog.dismissDialog();
+        } else {
+            getData();
         }
-        LoadingDialog.dismissDialog();
     }
 
     private void setLayout() {
@@ -160,6 +158,7 @@ public class ProfileFragment extends Fragment {
         recyclerViewPatients = view.findViewById(R.id.rec_Patients);
         tvNotification = view.findViewById(R.id.tv_noti);
     }
+
     public void showDialog(Patient patient) {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.bottom_dialog_patient);
@@ -183,10 +182,10 @@ public class ProfileFragment extends Fragment {
         btnDelete.setText(getResources().getString(R.string.delete_patient));
         btnDelete.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.red)));
 
-        if (ptAddress.getText().equals("")||ptJob.getText().equals("")){
+        if (ptAddress.getText().equals("") || ptJob.getText().equals("")) {
             ptJob.setText(getString(R.string.not_update));
             ptAddress.setText(getString(R.string.not_update));
-        }else {
+        } else {
             ptJob.setText(patient.getJob());
             ptAddress.setText(patient.getAddress());
         }
@@ -211,8 +210,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), UpdatePatientActivity.class);
-                intent.putExtra("patient",patient);
-                intent.putExtra("pos",patients.indexOf(patient));
+                intent.putExtra("patient", patient);
+                intent.putExtra("pos", patients.indexOf(patient));
                 secondActivityLauncher.launch(intent);
                 dialog.dismiss();
             }
@@ -220,7 +219,7 @@ public class ProfileFragment extends Fragment {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               dialogDelete(patient);
+                dialogDelete(patient);
                 dialog.dismiss();
             }
         });
@@ -228,17 +227,16 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    public void dialogDelete(Patient patient){
+    public void dialogDelete(Patient patient) {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.custom_alert_dialog);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         final Button btnDelete = dialog.findViewById(R.id.btnAlert_tryAgain);
         final LottieAnimationView lottieAnimationViewAlert = dialog.findViewById(R.id.lottieAnimationViewAlert);
         lottieAnimationViewAlert.setAnimation(R.raw.delete);
         btnDelete.setText(getResources().getString(R.string.delete_patient));
         final TextView tv_Message = dialog.findViewById(R.id.tvMessage);
-        if (dialog.getWindow() != null)
-        {
+        if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
         tv_Message.setText("Bạn có chắc muốn xóa hồ sơ này không?");
@@ -248,7 +246,7 @@ public class ProfileFragment extends Fragment {
                 ApiService.api.DeletePatient(patient.getId()).enqueue(new Callback<Patient>() {
                     @Override
                     public void onResponse(Call<Patient> call, Response<Patient> response) {
-                        if (response.body() != null){
+                        if (response.body() != null) {
                             Toast.makeText(getContext(), "Đã xóa", Toast.LENGTH_SHORT).show();
                             patients.remove(patient);
                             patientAdapter.setData(patients);
@@ -257,7 +255,7 @@ public class ProfileFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<Patient> call, Throwable t) {
-                        startActivity(new Intent(getActivity(),ErrorActivity.class));
+                        startActivity(new Intent(getActivity(), ErrorActivity.class));
                     }
                 });
                 dialog.dismiss();

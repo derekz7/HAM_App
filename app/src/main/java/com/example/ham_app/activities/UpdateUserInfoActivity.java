@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.ham_app.R;
@@ -29,6 +30,7 @@ import retrofit2.Response;
 
 public class UpdateUserInfoActivity extends AppCompatActivity {
     private ImageView img_userProfilePhoto;
+    private ImageButton igb_backUpdateUserInfo;
     private Button btnChangeUserImage, btn_UpdateUser;
     private EditText edtUserFullname, edtEmailE, edtPhoneNumE;
     private Uri imgUri;
@@ -55,6 +57,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity {
 
     private void initView() {
         img_userProfilePhoto = findViewById(R.id.img_userProfilePhoto);
+        igb_backUpdateUserInfo = findViewById(R.id.igb_backUpdateUserInfo);
         btnChangeUserImage = findViewById(R.id.btnChangeUserImage);
         edtUserFullname = findViewById(R.id.edtUserFullname);
         edtEmailE = findViewById(R.id.edtEmailE);
@@ -89,6 +92,13 @@ public class UpdateUserInfoActivity extends AppCompatActivity {
                 i.setType("image/*");
                 i.setAction(Intent.ACTION_GET_CONTENT);
                 launchSomeActivity.launch(i);
+            }
+        });
+
+        igb_backUpdateUserInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
         btn_UpdateUser.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +143,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
 
