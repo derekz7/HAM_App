@@ -6,6 +6,7 @@ import com.example.ham_app.modules.Department;
 import com.example.ham_app.modules.Doctor;
 import com.example.ham_app.modules.News;
 import com.example.ham_app.modules.Patient;
+import com.example.ham_app.modules.Prescription;
 import com.example.ham_app.modules.Service;
 import com.example.ham_app.modules.User;
 import com.example.ham_app.untils.Common;
@@ -110,7 +111,7 @@ public interface ApiService {
     Call<List<Booking>> getAllBookingToday(@Query("doctorId") String doctorId);
 
     @PUT("api/Booking/ChangeStatus")
-    Call<Void> changeStatus (@Query("id") String id, @Query("status")  String status);
+    Call<Void> changeStatus (@Query("id") String id, @Query("status")  String status, @Query("reason") String reason);
 
     //APPOINTMENT
     @GET("api/Booking/getAppointmentByBid")
@@ -121,4 +122,17 @@ public interface ApiService {
 
     @GET("api/Appointment/getAllBookingToday")
     Call<List<Appointment>> getAllAppointmentToday(@Query("doctorId") String doctorId);
+
+    @GET("api/Appointment/getAppointmentsSuccess")
+    Call<List<Appointment>> getAppointmentsSuccessful(@Query("doctorId") String doctorId);
+
+    @GET("api/Appointment/getAppointmentsSuccessToday")
+    Call<List<Appointment>> getAppointmentsSuccessfulToday(@Query("doctorId") String doctorId);
+
+    //Prescription
+    @POST("api/Prescription/CreatePrescription")
+    Call<Prescription> createPrescription(@Body Prescription prescription);
+
+    @GET("api/Prescription/GetPrescriptionByUser")
+    Call<List<Prescription>> getPrescriptionByUser(@Query("userid") String userid);
 }

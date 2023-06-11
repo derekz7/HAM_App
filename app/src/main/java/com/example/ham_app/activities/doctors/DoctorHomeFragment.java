@@ -25,8 +25,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -234,7 +237,7 @@ public class DoctorHomeFragment extends Fragment {
         final Button btnCancelBooking = dialog.findViewById(R.id.btnCancelBooking);
         final Button btnSuccess = dialog.findViewById(R.id.btnSuccess);
         final ImageView imgCancelAppointment = dialog.findViewById(R.id.imgCancelAppointment);
-        
+
         tvStatus2.setText(appointment.getStatus());
         tvPTname.setText(appointment.getPtName());
         tvTime.setText(appointment.getTime());
@@ -246,36 +249,22 @@ public class DoctorHomeFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-        
+
         btnCancelBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ApiService.api.changeStatus(appointment.getBid(),"Canceled").enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        Toast.makeText(getContext(), "Đã hủy lịch khám", Toast.LENGTH_SHORT).show();
-                        ApiDataManager.getInstance().setAppointmentListToday(null);
-                        appointments.clear();
-                        adapter.setData(appointments);
-                        loadData();
-                        dialog.dismiss();
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-
-                        dialog.dismiss();
-                    }
-                });
+              showDialogReason(appointment);
+              dialog.dismiss();
             }
-        });btnSuccess.setOnClickListener(new View.OnClickListener() {
+        });
+        btnSuccess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ApiService.api.changeStatus(appointment.getBid(),"Đã khám").enqueue(new Callback<Void>() {
+                ApiService.api.changeStatus(appointment.getBid(), "Đã khám",null).enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         ApiDataManager.getInstance().setAppointmentListToday(null);
+                        ApiDataManager.getInstance().setAppointmentsSuccess(null);
                         appointments.clear();
                         adapter.setData(appointments);
                         loadData();
@@ -292,6 +281,88 @@ public class DoctorHomeFragment extends Fragment {
         });
 
 
+        dialog.show();
+
+    }
+    public void showDialogReason(Appointment appointment) {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.custom_dialog_reason);
+        dialog.setCancelable(true);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setGravity(Gravity.BOTTOM);
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().getAttributes().windowAnimations = R.style.BottomSheetAnimation;
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        final RadioButton rd_reason1 = dialog.findViewById(R.id.rd_reason1);
+        final RadioButton rd_reason2 = dialog.findViewById(R.id.rd_reason2);
+        final RadioButton rd_other = dialog.findViewById(R.id.rd_other);
+        final EditText edt_Reason = dialog.findViewById(R.id.edt_Reason);
+
+        final ImageView imgCancel = dialog.findViewById(R.id.imgCancelReason);
+        final Button btnCancelAppointment = dialog.findViewById(R.id.btnCancelAppointment);
+
+
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        rd_reason1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    appointment.setReason(rd_reason1.getText().toString());
+                }
+            }
+        });
+
+        rd_reason2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    appointment.setReason(rd_reason2.getText().toString());
+                }
+            }
+        });
+        rd_other.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    edt_Reason.setVisibility(View.VISIBLE);
+                }else {
+                    edt_Reason.setVisibility(View.GONE);
+                }
+            }
+        });
+        btnCancelAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (appointment.getReason() == null){
+                    Toast.makeText(getContext(), "Vui lòng chọn lý do hủy lịch khám", Toast.LENGTH_SHORT).show();
+                }else{
+                    ApiService.api.changeStatus(appointment.getBid(), "Canceled",appointment.getReason()).enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            Toast.makeText(getContext(), "Đã hủy lịch khám", Toast.LENGTH_SHORT).show();
+                            ApiDataManager.getInstance().setAppointmentListToday(null);
+                            appointments.clear();
+                            adapter.setData(appointments);
+                            loadData();
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            }
+        });
 
         dialog.show();
 

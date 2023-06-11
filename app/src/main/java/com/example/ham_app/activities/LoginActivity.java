@@ -24,8 +24,14 @@ import com.example.ham_app.activities.doctors.DoctorMainActivity;
 import com.example.ham_app.api.ApiService;
 import com.example.ham_app.dialog.AlertDialog;
 import com.example.ham_app.dialog.LoadingDialog;
+import com.example.ham_app.modules.Department;
 import com.example.ham_app.modules.User;
 import com.example.ham_app.untils.ApiDataManager;
+
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +50,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         init();
         onClick();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+               getDepartment();
+            }
+        });
     }
 
     private void onClick() {
@@ -84,13 +97,13 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.apply();
                                     }
                                     ApiDataManager.getInstance().setUser(response.body());
-                                    if (ApiDataManager.getInstance().getUser().getRole() == 2){
+                                    if (ApiDataManager.getInstance().getUser().getRole() == 2) {
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
                                         finish();
                                     }
-                                    if (ApiDataManager.getInstance().getUser().getRole() == 1){
-                                        Toast.makeText(LoginActivity.this, "Login to Main User", Toast.LENGTH_SHORT).show();
+                                    if (ApiDataManager.getInstance().getUser().getRole() == 1) {
+                                        //Toast.makeText(LoginActivity.this, "Login to Main User", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(LoginActivity.this, DoctorMainActivity.class);
                                         startActivity(intent);
                                         finish();
@@ -161,4 +174,19 @@ public class LoginActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private void getDepartment() {
+        ApiService.api.getDepartments().enqueue(new Callback<List<Department>>() {
+            @Override
+            public void onResponse(Call<List<Department>> call, Response<List<Department>> response) {
+                if (response.body() != null) {
+                    ApiDataManager.getInstance().setDepartmentList(response.body());
+                    Log.d("loadDep",response.body().size()+"");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Department>> call, Throwable t) {
+            }
+        });
+    }
 }

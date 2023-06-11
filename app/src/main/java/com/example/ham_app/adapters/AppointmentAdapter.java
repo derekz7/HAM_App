@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -45,6 +46,10 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         notifyDataSetChanged();
     }
 
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
     @NonNull
     @Override
     public AppointmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -70,6 +75,12 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             holder.tvStatus1.setText(appointment.getStatus());
             holder.tvStatus1.setBackgroundTintList(colorStateList);
         } else {
+            if (appointment.getReason() != null){
+                holder.layout_reason.setVisibility(View.VISIBLE);
+                holder.tvReason.setText(appointment.getReason());
+            }else {
+                holder.layout_reason.setVisibility(View.GONE);
+            }
             colorStateList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.grey));
             holder.tvStatus1.setText(appointment.getStatus());
             holder.tvStatus1.setBackgroundTintList(colorStateList);
@@ -94,7 +105,8 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
     public class AppointmentViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvStatus1, tv_ptName1, tv_bookingTime1, tvDate1, tvMaPhieu, tvNumber;
+        private TextView tvStatus1, tv_ptName1, tv_bookingTime1, tvDate1, tvMaPhieu, tvNumber,tvReason;
+        private LinearLayout layout_reason;
 
         public AppointmentViewHolder(@NonNull View itemView, AppointmentAdapter.onItemClickListener listener) {
             super(itemView);
@@ -104,6 +116,8 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             tvDate1 = itemView.findViewById(R.id.tvDate1);
             tvMaPhieu = itemView.findViewById(R.id.tvMaPhieu);
             tvNumber = itemView.findViewById(R.id.tvNumber);
+            tvReason = itemView.findViewById(R.id.tvReason);
+            layout_reason = itemView.findViewById(R.id.layout_reason);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

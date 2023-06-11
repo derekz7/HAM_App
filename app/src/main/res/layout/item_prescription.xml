@@ -17,43 +17,6 @@
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvNumber"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="15dp"
-                android:text="Phiếu khám số 54"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-
-            <TextView
-                android:id="@+id/tvStatus1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:layout_marginEnd="10dp"
-                android:gravity="center"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="3dp"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:background="@drawable/rounded_bg_blue"
-                android:backgroundTint="@color/warning"
-                android:text="@string/pending"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="3dp"
@@ -108,12 +71,12 @@
                     android:gravity="center|start"
                     android:padding="5dp"
 
-                    android:text="@string/name_hint"
+                    android:text="@string/patient_"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tv_ptName1"
+                    android:id="@+id/tv_Pre_PtName1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -138,20 +101,20 @@
                     android:layout_weight="1"
                     android:gravity="center|start"
                     android:padding="5dp"
-                    android:text="@string/time_"
+                    android:text="Chuẩn đoán"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
 
                 <TextView
-                    android:id="@+id/tv_bookingTime1"
+                    android:id="@+id/tv_disease"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="end|center"
                     android:padding="5dp"
-                    android:text="13:00 - 13:30"
-                    android:textColor="@color/green"
+                    android:text="Viêm họng"
+                    android:textColor="@color/green_"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -168,49 +131,19 @@
                     android:layout_weight="1"
                     android:gravity="center|start"
                     android:padding="5dp"
-                    android:text="@string/date_"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-
-                <TextView
-                    android:id="@+id/tvDate1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="end|center"
-                    android:padding="5dp"
-                    android:textStyle="bold"
-                    android:text="01/06/2023"
-                    android:textColor="@color/blue"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center|start"
-                    android:padding="5dp"
-                    android:text="Mã phiếu"
+                    android:text="Mã đơn"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tvMaPhieu"
+                    android:id="@+id/tvPreID"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="end|center"
                     android:padding="5dp"
                     android:textAllCaps="true"
-                    android:text="BK-SAHSY14124JASKD"
+                    android:text="PR-SAHSY14124JASKD"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="normal" />

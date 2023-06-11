@@ -8,7 +8,7 @@
         app:cnb_iconColor="@color/blue"/>
     <item
         android:id="@+id/activity"
-        android:icon="@drawable/calendar"
+        android:icon="@drawable/calendar_icon"
         android:title="@string/complete"
-        app:cnb_iconColor="@color/warning"/>
+        app:cnb_iconColor="@color/green_"/>
 </menu>

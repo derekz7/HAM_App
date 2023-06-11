@@ -72,11 +72,11 @@
     <string name="pending">Chờ khám</string>
     <string name="filter">Filter</string>
     <string name="your_prescription">Đơn thuốc của bạn</string>
-    <string name="log_out">Đăng xuất</string>
+    <string name="log_out">Log out</string>
     <string name="change_pasword">Change password</string>
     <string name="passwordandsecurity"><![CDATA[Mật khẩu & Bảo mật]]></string>
-    <string name="gender">Giới tính</string>
-    <string name="job">Công việc</string>
+    <string name="gender">Gender</string>
+    <string name="job">Job</string>
     <string name="submit">Submit</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
@@ -89,4 +89,10 @@
     <string name="update">Update</string>
     <string name="patient_id">Patient ID</string>
     <string name="complete">Lịch đã khám</string>
+    <string name="today">Today</string>
+    <string name="all">All</string>
+    <string name="reason">Reasons</string>
+    <string name="other">Other</string>
+    <string name="medicines">Medicines</string>
+    <string name="patient_">Patient Name</string>
 </resources>

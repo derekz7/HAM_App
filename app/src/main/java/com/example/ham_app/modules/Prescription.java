@@ -3,23 +3,33 @@ package com.example.ham_app.modules;
 public class Prescription {
     private String id;
     private String disease;
-    private  String symtoms;
+    private  String symptoms;
     private  String medicines;
     private String ptu_medicines;
     private String user_id;
     private String dc_id;
+    private String ptName;
 
     public Prescription() {
     }
 
-    public Prescription(String id, String disease, String symtoms, String medicines, String ptu_medicines, String user_id, String dc_id) {
+    public Prescription(String id, String disease, String symptoms, String medicines, String ptu_medicines, String user_id, String dc_id, String ptName) {
         this.id = id;
         this.disease = disease;
-        this.symtoms = symtoms;
+        this.symptoms = symptoms;
         this.medicines = medicines;
         this.ptu_medicines = ptu_medicines;
         this.user_id = user_id;
         this.dc_id = dc_id;
+        this.ptName = ptName;
+    }
+
+    public String getPtName() {
+        return ptName;
+    }
+
+    public void setPtName(String ptName) {
+        this.ptName = ptName;
     }
 
     public String getId() {
@@ -38,12 +48,12 @@ public class Prescription {
         this.disease = disease;
     }
 
-    public String getSymtoms() {
-        return symtoms;
+    public String getSymptoms() {
+        return symptoms;
     }
 
-    public void setSymtoms(String symtoms) {
-        this.symtoms = symtoms;
+    public void setSymptoms(String v) {
+        this.symptoms = symptoms;
     }
 
     public String getMedicines() {

@@ -44,6 +44,7 @@ import com.example.ham_app.activities.UserActivity;
 import com.example.ham_app.dialog.LoadingDialog;
 import com.example.ham_app.adapters.DepartmentAdapter;
 import com.example.ham_app.api.ApiService;
+import com.example.ham_app.modules.Appointment;
 import com.example.ham_app.modules.Booking;
 import com.example.ham_app.modules.Department;
 import com.example.ham_app.modules.News;
@@ -97,10 +98,27 @@ public class HomeFragment extends Fragment {
         getNews();
         onClick();
         ExecutorService executor = Executors.newSingleThreadExecutor();
+        ExecutorService executor1 = Executors.newSingleThreadExecutor();
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 loadService();
+                ApiService.api.getPrescriptionByUser(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Prescription>>() {
+                    @Override
+                    public void onResponse(Call<List<Prescription>> call, Response<List<Prescription>> response) {
+                        if (response.body() != null) {
+                            ApiDataManager.getInstance().setPrescriptionList(response.body());
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<List<Prescription>> call, Throwable t) {
+                    }
+                });
+            }
+        });
+        executor1.execute(new Runnable() {
+            @Override
+            public void run() {
                 getPatient();
                 getBookingList();
             }
@@ -124,7 +142,6 @@ public class HomeFragment extends Fragment {
         });
 
     }
-
 
 
     private void onClick() {
@@ -336,18 +353,19 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
     private void getBookingList() {
-        ApiService.api.getBookingByUserId(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Booking>>() {
+        ApiService.api.getAppointmentsByUser(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Appointment>>() {
             @Override
-            public void onResponse(Call<List<Booking>> call, Response<List<Booking>> response) {
-                if (response.body() != null){
-                    ApiDataManager.getInstance().setBookingList(response.body());
+            public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
+                if (response.body() != null) {
+                    ApiDataManager.getInstance().setAppointments(response.body());
                 }
                 LoadingDialog.dismissDialog();
             }
 
             @Override
-            public void onFailure(Call<List<Booking>> call, Throwable t) {
+            public void onFailure(Call<List<Appointment>> call, Throwable t) {
             }
         });
     }

@@ -85,5 +85,11 @@
     <string name="update">Cập nhật</string>
     <string name="patient_id">Mã bệnh nhân</string>
     <string name="complete">Lịch đã khám</string>
+    <string name="today">Hôm nay</string>
+    <string name="all">Tất cả</string>
+    <string name="reason">Lý do hủy</string>
+    <string name="other">Khác</string>
+    <string name="medicines">Thuốc điều trị</string>
+    <string name="patient_">Bệnh nhân</string>
 
 </resources>

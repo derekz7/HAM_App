@@ -19,12 +19,13 @@ public class Appointment implements Serializable {
     private String ptName;
     private int price;
     private String status;
+    private String reason;
 
 
     public Appointment() {
     }
 
-    public Appointment(String id, String bid, String uid, String serviceName, int orderNum, String depName, String room, String dcName, String date, String time, String ptName, int price, String status) {
+    public Appointment(String id, String bid, String uid, String serviceName, int orderNum, String depName, String room, String dcName, String date, String time, String ptName, int price, String status, String reason) {
         this.id = id;
         this.bid = bid;
         this.uid = uid;
@@ -38,7 +39,17 @@ public class Appointment implements Serializable {
         this.ptName = ptName;
         this.price = price;
         this.status = status;
+        this.reason = reason;
     }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
     public String getUid() {
         return uid;
     }

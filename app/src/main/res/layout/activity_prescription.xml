@@ -84,8 +84,7 @@
                 android:id="@+id/rec_prescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:paddingHorizontal="16dp" />
+                android:layout_marginBottom="10dp"/>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

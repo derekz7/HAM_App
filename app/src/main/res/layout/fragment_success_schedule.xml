@@ -14,7 +14,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue"
+            android:background="@color/green_"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -50,31 +50,48 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:background="@drawable/rounded_background_white"
-            android:elevation="10dp"
-            android:layout_marginHorizontal="6dp"
-            android:layout_marginTop="6dp"
+        <LinearLayout
+            android:id="@+id/layoutSearchAndFilter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            app:queryHint="Search for..."/>
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/rounded_background_white"
+                android:elevation="10dp"
+                app:iconifiedByDefault="false"
+                app:queryHint="Search for..." />
+
+            <ImageButton
+                android:id="@+id/igbFilterAppointment"
+                android:layout_width="48dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_bg_blue"
+                android:backgroundTint="@color/green_"
+                android:src="@drawable/baseline_filter_alt_24"
+                android:contentDescription="filter" />
+        </LinearLayout>
 
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshBooking"
+            android:id="@+id/swipeRefreshSuccess"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_Success"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:paddingHorizontal="16dp" />
+                android:layout_marginBottom="10dp" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
@@ -87,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,18 +122,19 @@
             app:lottie_rawRes="@raw/dna_doctor" />
 
         <TextView
+            android:id="@+id/tvNotiSuccess"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Bạn chưa hoàn thành lịch khám nào"
             android:textColor="@color/grey"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 </FrameLayout>

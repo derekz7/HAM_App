@@ -31,10 +31,16 @@ public class ApiDataManager {
     private List<Booking> bookingList;
     private List<Appointment> appointmentListToday;
     private List<Appointment> appointments;
+    private List<Appointment> appointmentsSuccess;
     private int[] selectedTime;
 
-    public ApiDataManager() {
 
+    public List<Appointment> getAppointmentsSuccess() {
+        return appointmentsSuccess;
+    }
+
+    public void setAppointmentsSuccess(List<Appointment> appointmentsSuccess) {
+        this.appointmentsSuccess = appointmentsSuccess;
     }
 
     public List<Appointment> getAppointments() {
@@ -53,10 +59,6 @@ public class ApiDataManager {
         this.selectedTime = new int[]{
                 selectedSection, selectedItem
         };
-    }
-
-    public static void setInstance(ApiDataManager instance) {
-        ApiDataManager.instance = instance;
     }
 
     public void setAppointmentListToday(List<Appointment> appointmentListToday) {

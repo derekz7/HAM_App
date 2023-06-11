@@ -177,7 +177,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
-                    android:background="@color/white"
+
                     android:elevation="10dp"
                     android:orientation="vertical">
 
@@ -185,10 +185,10 @@
                         android:id="@+id/cata"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/sky"
+                        android:paddingHorizontal="6dp"
                         android:gravity="start|center"
                         android:orientation="horizontal"
-                        android:paddingHorizontal="10dp"
+                        android:background="@color/white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -218,6 +218,7 @@
                         android:id="@+id/imageView"
                         android:layout_width="match_parent"
                         android:layout_height="3dp"
+                        android:src="@drawable/horizontal_line"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cata" />
@@ -225,6 +226,7 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -267,8 +269,7 @@
                                 android:gravity="center"
                                 android:text="Hôm nay không có lịch đặt khám nào"
                                 android:textColor="@color/grey"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
+                                android:textSize="16sp"
                                 android:visibility="visible"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"

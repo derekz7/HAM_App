@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/transparent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgCancelReason"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:scaleType="centerCrop"
+        android:src="@drawable/baseline_remove_24" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/dialog_bg"
+        tools:ignore="UselessParent">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/rd_reason1"
+                android:layout_width="match_parent"
+                android:layout_height="48sp"
+                android:text="Bệnh nhân không đến khám"
+                android:textSize="16sp"/>
+            <RadioButton
+                android:id="@+id/rd_reason2"
+                android:layout_width="match_parent"
+                android:layout_height="48sp"
+                android:text="Sự cố đến từ phía bệnh viện"
+                android:textSize="16sp"/>
+            <RadioButton
+                android:id="@+id/rd_other"
+                android:layout_width="match_parent"
+                android:layout_height="48sp"
+                android:text="@string/other"
+                android:textSize="16sp"/>
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/edt_Reason"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:visibility="gone"
+            android:inputType="text"
+            android:background="@drawable/round_outline_gray_btn"
+            android:hint="Lý do khác:..."
+            android:padding="10dp"
+            android:autofillHints="other reason" />
+
+        <Button
+            android:id="@+id/btnCancelAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hủy lịch khám"
+            android:background="@drawable/rounded_bg_gray"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
