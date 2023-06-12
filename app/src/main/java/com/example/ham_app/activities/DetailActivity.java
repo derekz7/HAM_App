@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.ham_app.R;
 import com.example.ham_app.api.ApiService;
 import com.example.ham_app.dialog.LoadingDialog;
+import com.example.ham_app.modules.Appointment;
 import com.example.ham_app.modules.Booking;
 import com.example.ham_app.modules.Department;
 import com.example.ham_app.modules.Patient;
@@ -30,6 +31,7 @@ import com.example.ham_app.modules.Service;
 import com.example.ham_app.untils.ApiDataManager;
 import com.example.ham_app.untils.Common;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
 
@@ -61,6 +63,7 @@ public class DetailActivity extends AppCompatActivity {
         if(Common.selectedPayment != null){
             if (Common.selectedPayment.equals("cash")){
                 linear_payment.setVisibility(View.VISIBLE);
+                Common.selectedPayment = null;
                 btn_nextToPay.setText(getString(R.string.place_an_order));
             }
         }else {
@@ -110,6 +113,9 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void createBooking() {
+        if(ApiDataManager.getInstance().getBookingList() == null){
+            ApiDataManager.getInstance().setBookingList(new ArrayList<>());
+        }
         UUID uuid = UUID.randomUUID();
         String id = "bk-" + uuid.toString().substring(0,17);
         currentBooking.setId(id);

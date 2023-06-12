@@ -128,6 +128,8 @@ public interface ApiService {
 
     @GET("api/Appointment/getAppointmentsSuccessToday")
     Call<List<Appointment>> getAppointmentsSuccessfulToday(@Query("doctorId") String doctorId);
+    @GET("api/Appointment/getPendingAppointments")
+    Call<List<Appointment>> getPendingAppointments(@Query("userId") String userId);
 
     //Prescription
     @POST("api/Prescription/CreatePrescription")

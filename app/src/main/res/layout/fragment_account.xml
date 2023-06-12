@@ -75,6 +75,7 @@
                     <ImageView
                         android:id="@+id/img_avatarUser"
                         android:layout_width="80dp"
+                        android:scaleType="centerCrop"
                         android:layout_height="80dp"
                         android:src="@drawable/default_user_image" />
                 </androidx.cardview.widget.CardView>

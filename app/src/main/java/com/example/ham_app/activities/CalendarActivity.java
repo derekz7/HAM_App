@@ -51,10 +51,10 @@ public class CalendarActivity extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMonth);
-                if (calendar.equals(lastSelectedCalendar)) {
+                //Toast.makeText(CalendarActivity.this, "Calendar: "+lastSelectedCalendar.get(Calendar.DATE)+"|" +calendar.compareTo(lastSelectedCalendar), Toast.LENGTH_SHORT).show();
+                if (calendar.get(Calendar.DATE) == lastSelectedCalendar.get(Calendar.DATE)) {
                     Toast.makeText(CalendarActivity.this, "Không thể đặt khám vào hôm nay", Toast.LENGTH_SHORT).show();
-                }
-                if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
                     Toast.makeText(CalendarActivity.this, "Không thể đặt khám vào cuối tuần", Toast.LENGTH_SHORT).show();
                 } else {
                     lastSelectedCalendar = calendar;

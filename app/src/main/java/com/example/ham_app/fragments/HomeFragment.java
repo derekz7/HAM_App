@@ -211,17 +211,15 @@ public class HomeFragment extends Fragment {
                         departmentList.addAll(response.body());
                         depAdapter.setData(response.body());
                         ApiDataManager.getInstance().setDepartmentList(departmentList);
-
+                        LoadingDialog.dismissDialog();
                     }
-                    LoadingDialog.dismissDialog();
-
-
+                    else{
+                        LoadingDialog.dismissDialog();
+                    }
                 }
-
                 @Override
                 public void onFailure(Call<List<Department>> call, Throwable t) {
                     LoadingDialog.dismissDialog();
-
                 }
             });
         }

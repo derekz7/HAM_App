@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,12 +28,14 @@ import retrofit2.Response;
 
 public class PrescriptionActivity extends AppCompatActivity {
 
-    private ImageButton igb_backPrescription,igb_tips;
+    private ImageButton igb_backPrescription, igb_tips;
     private ConstraintLayout layout_notificationPre;
     private RecyclerView rec_prescriptions;
     private List<Prescription> prescriptionList;
     private TextView textViewTips;
     private PrescriptionAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshPrescription;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,32 +47,42 @@ public class PrescriptionActivity extends AppCompatActivity {
     }
 
     private void setupLayout() {
-        adapter = new PrescriptionAdapter(this,prescriptionList);
+        adapter = new PrescriptionAdapter(this, prescriptionList);
         rec_prescriptions.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rec_prescriptions.setLayoutManager(linearLayoutManager);
     }
 
     private void loadData() {
-        if (ApiDataManager.getInstance().getPrescriptionList() != null){
-            layout_notificationPre.setVisibility(View.INVISIBLE);
-            prescriptionList = ApiDataManager.getInstance().getPrescriptionList();
+        if (ApiDataManager.getInstance().getPrescriptionList() != null) {
+            if (ApiDataManager.getInstance().getPrescriptionList().size() > 0){
+                layout_notificationPre.setVisibility(View.INVISIBLE);
+                prescriptionList = ApiDataManager.getInstance().getPrescriptionList();
+            }else {
+                layout_notificationPre.setVisibility(View.VISIBLE);
+            }
             adapter.setData(prescriptionList);
 
-        }else {
+        } else {
             LoadingDialog.show(this);
             ApiService.api.getPrescriptionByUser(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Prescription>>() {
                 @Override
                 public void onResponse(Call<List<Prescription>> call, Response<List<Prescription>> response) {
-                    if (response.body() != null){
-                        layout_notificationPre.setVisibility(View.GONE);
-                        prescriptionList.clear();
-                        prescriptionList.addAll(response.body());
-                        adapter.setData(response.body());
-                        ApiDataManager.getInstance().setPrescriptionList(response.body());
-                        LoadingDialog.dismissDialog();
+                    if (response.body() != null) {
+                        if (response.body().size() > 0) {
+                            layout_notificationPre.setVisibility(View.GONE);
+                            prescriptionList.clear();
+                            prescriptionList.addAll(response.body());
+                            adapter.setData(response.body());
+                            ApiDataManager.getInstance().setPrescriptionList(response.body());
+                            LoadingDialog.dismissDialog();
+                        } else {
+                            adapter.setData(response.body());
+                            layout_notificationPre.setVisibility(View.VISIBLE);
+                            LoadingDialog.dismissDialog();
+                        }
 
-                    }else{
+                    } else {
                         layout_notificationPre.setVisibility(View.VISIBLE);
                         LoadingDialog.dismissDialog();
                     }
@@ -85,6 +98,23 @@ public class PrescriptionActivity extends AppCompatActivity {
     }
 
     private void onClick() {
+
+        adapter.setOnItemClickListener(new PrescriptionAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int pos, View view) {
+                Intent intent = new Intent(PrescriptionActivity.this, DetailPrescriptionActivity.class);
+                intent.putExtra("prescription",prescriptionList.get(pos));
+                startActivity(intent);
+            }
+        });
+        swipeRefreshPrescription.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ApiDataManager.getInstance().setPrescriptionList(null);
+                loadData();
+                swipeRefreshPrescription.setRefreshing(false);
+            }
+        });
         igb_backPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,9 +124,9 @@ public class PrescriptionActivity extends AppCompatActivity {
         igb_tips.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (textViewTips.getVisibility() == View.GONE){
+                if (textViewTips.getVisibility() == View.GONE) {
                     textViewTips.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     textViewTips.setVisibility(View.GONE);
                 }
             }
@@ -109,6 +139,7 @@ public class PrescriptionActivity extends AppCompatActivity {
         rec_prescriptions = findViewById(R.id.rec_prescription);
         igb_tips = findViewById(R.id.igb_tips);
         textViewTips = findViewById(R.id.textViewTips);
+        swipeRefreshPrescription = findViewById(R.id.swipeRefreshPrescription);
         prescriptionList = new ArrayList<>();
     }
 }

@@ -76,7 +76,7 @@
             app:drawableStartCompat="@drawable/baseline_info_24" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshBooking"
+            android:id="@+id/swipeRefreshPrescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

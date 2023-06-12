@@ -1,27 +1,29 @@
 package com.example.ham_app.modules;
 
-public class Prescription {
+import java.io.Serializable;
+
+public class Prescription implements Serializable {
     private String id;
     private String disease;
     private  String symptoms;
     private  String medicines;
     private String ptu_medicines;
     private String user_id;
-    private String dc_id;
     private String ptName;
+    private String dcName;
 
     public Prescription() {
     }
 
-    public Prescription(String id, String disease, String symptoms, String medicines, String ptu_medicines, String user_id, String dc_id, String ptName) {
+    public Prescription(String id, String disease, String symptoms, String medicines, String ptu_medicines, String user_id, String ptName, String dcName) {
         this.id = id;
         this.disease = disease;
         this.symptoms = symptoms;
         this.medicines = medicines;
         this.ptu_medicines = ptu_medicines;
         this.user_id = user_id;
-        this.dc_id = dc_id;
         this.ptName = ptName;
+        this.dcName = dcName;
     }
 
     public String getPtName() {
@@ -80,11 +82,11 @@ public class Prescription {
         this.user_id = user_id;
     }
 
-    public String getDc_id() {
-        return dc_id;
+    public String getDcName() {
+        return dcName;
     }
 
-    public void setDc_id(String dc_id) {
-        this.dc_id = dc_id;
+    public void setDcName(String dcName) {
+        this.dcName = dcName;
     }
 }

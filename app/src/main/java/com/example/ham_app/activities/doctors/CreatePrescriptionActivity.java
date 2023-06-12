@@ -55,7 +55,7 @@ public class CreatePrescriptionActivity extends AppCompatActivity {
                 } else {
                     UUID uuid = UUID.randomUUID();
                     String id = "PR-" + uuid.toString().substring(0,17);
-                    Prescription prescription = new Prescription(id,disease,symptoms,medicines,procedure,appointment.getUid(), ApiDataManager.getInstance().getUser().getId(),appointment.getPtName());
+                    Prescription prescription = new Prescription(id,disease,symptoms,medicines,procedure, appointment.getUid(),appointment.getPtName(),ApiDataManager.getInstance().getUser().getFullName());
 
                     LoadingDialog.show(CreatePrescriptionActivity.this);
                     ApiService.api.createPrescription(prescription).enqueue(new Callback<Prescription>() {

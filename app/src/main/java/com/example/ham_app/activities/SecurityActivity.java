@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import retrofit2.Response;
 
 public class SecurityActivity extends AppCompatActivity {
     private Button btnChangePasswod,btnDeleteUser;
+    private ImageButton igbBackSecurity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,12 @@ public class SecurityActivity extends AppCompatActivity {
     }
 
     private void onClick() {
+        igbBackSecurity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         btnChangePasswod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,5 +121,6 @@ public class SecurityActivity extends AppCompatActivity {
     private void initView() {
         btnChangePasswod = findViewById(R.id.btnChangePasswod);
         btnDeleteUser = findViewById(R.id.btnDeleteUser);
+        igbBackSecurity = findViewById(R.id.igbBackSecurity);
     }
 }
