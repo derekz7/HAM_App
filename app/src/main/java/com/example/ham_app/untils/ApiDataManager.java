@@ -32,8 +32,18 @@ public class ApiDataManager {
     private List<Appointment> appointmentListToday;
     private List<Appointment> appointments;
     private List<Appointment> appointmentsSuccess;
+
+    private List<Appointment> appointmentsTomorrow;
     private int[] selectedTime;
 
+
+    public List<Appointment> getAppointmentsTomorrow() {
+        return appointmentsTomorrow;
+    }
+
+    public void setAppointmentsTomorrow(List<Appointment> appointmentsTomorrow) {
+        this.appointmentsTomorrow = appointmentsTomorrow;
+    }
 
     public List<Appointment> getAppointmentsSuccess() {
         return appointmentsSuccess;

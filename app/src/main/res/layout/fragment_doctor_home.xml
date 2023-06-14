@@ -113,7 +113,7 @@
                             android:src="@drawable/account" />
 
                         <ImageButton
-                            android:id="@+id/btnPrescriptionHistory"
+                            android:id="@+id/btnAppointmentTmr"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_marginHorizontal="10dp"
@@ -157,7 +157,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="10dp"
                             android:gravity="center"
-                            android:text="Tạo đơn thuốc"
+                            android:text="Xem lịch đặt khám ngày mai"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
 

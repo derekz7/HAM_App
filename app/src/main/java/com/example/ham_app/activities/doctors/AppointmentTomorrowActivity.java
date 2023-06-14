@@ -1,27 +1,18 @@
 package com.example.ham_app.activities.doctors;
 
-import static android.content.Context.MODE_PRIVATE;
-
-import android.app.Dialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,205 +20,199 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ham_app.R;
 import com.example.ham_app.activities.ErrorActivity;
-import com.example.ham_app.activities.LoginActivity;
-import com.example.ham_app.activities.UpdatePatientActivity;
 import com.example.ham_app.adapters.AppointmentAdapter;
 import com.example.ham_app.api.ApiService;
 import com.example.ham_app.dialog.LoadingDialog;
 import com.example.ham_app.modules.Appointment;
-import com.example.ham_app.modules.Booking;
-import com.example.ham_app.modules.Patient;
-import com.example.ham_app.modules.User;
 import com.example.ham_app.untils.ApiDataManager;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-public class DoctorHomeFragment extends Fragment {
-
-    private ImageView profile_image;
-    private TextView tvUserName, notiDoctor, tvMessageSearch;
-    private ImageButton btnSetupProfile, btnAppointmentTmr, btnLogOut1;
-    private RecyclerView recycleViewAppointment;
-    private AppointmentAdapter adapter;
+public class AppointmentTomorrowActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private SearchView searchView;
     private List<Appointment> appointments;
-    private ConstraintLayout layout_notificationB;
-    private SwipeRefreshLayout swipelayoutDc;
+    private AppointmentAdapter adapter;
+    private ImageButton igbSearch ,igb_backAppNext;
+    private LinearLayout layoutSearchAndFilterNext;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ConstraintLayout layout_notiNext;
+    private TextView tvNotiNext;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_doctor_home, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_appointment_tomorrow);
+        initView();
         setLayout();
         loadData();
         onClick();
-
-
     }
-
     private void onClick() {
-
-        btnAppointmentTmr.setOnClickListener(new View.OnClickListener() {
+        igb_backAppNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(),AppointmentTomorrowActivity.class));
+                finish();
             }
         });
 
         adapter.setOnItemClickListener(new AppointmentAdapter.onItemClickListener() {
             @Override
             public void onItemClick(int pos, View view) {
-                showDialog(appointments.get(pos));
+                showDialog(adapter.getAppointments().get(pos));
             }
         });
-        btnLogOut1.setOnClickListener(new View.OnClickListener() {
+        igbSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("dataLogin", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.remove("password");
-                editor.apply();
-                startActivity(new Intent(getContext(), LoginActivity.class));
-                requireActivity().finish();
-            }
-        });
-        btnSetupProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+                if (layoutSearchAndFilterNext.getVisibility() == View.GONE) {
+                    layoutSearchAndFilterNext.setVisibility(View.VISIBLE);
+                } else {
+                    layoutSearchAndFilterNext.setVisibility(View.GONE);
+                }
             }
         });
 
-        swipelayoutDc.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                LoadingDialog.show(getContext());
-                ApiService.api.getAllAppointmentToday(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Appointment>>() {
+                LoadingDialog.show(AppointmentTomorrowActivity.this);
+                ApiService.api.getAppointmentsTomorrow(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Appointment>>() {
                     @Override
                     public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
                         if (response.body() != null) {
-                            if (response.body().size() > 0) {
-                                appointments.clear();
-                                appointments.addAll(response.body());
-                                adapter.setData(response.body());
-                                ApiDataManager.getInstance().setAppointmentListToday(response.body());
-                                layout_notificationB.setVisibility(View.INVISIBLE);
-                                LoadingDialog.dismissDialog();
-                            } else {
-                                layout_notificationB.setVisibility(View.VISIBLE);
-                                LoadingDialog.dismissDialog();
-                            }
-
-                        } else {
-                            LoadingDialog.dismissDialog();
-
+                            appointments.clear();
+                            appointments.addAll(response.body());
+                            adapter.setData(appointments);
+                            ApiDataManager.getInstance().setAppointmentsTomorrow(response.body());
                         }
+                        LoadingDialog.dismissDialog();
                     }
 
                     @Override
                     public void onFailure(Call<List<Appointment>> call, Throwable t) {
                         LoadingDialog.dismissDialog();
-                        startActivity(new Intent(getContext(), ErrorActivity.class));
-
+                        startActivity(new Intent(AppointmentTomorrowActivity.this, ErrorActivity.class));
                     }
                 });
-                swipelayoutDc.setRefreshing(false);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
             }
         });
     }
 
+    private void filterList(String searchString) {
+        List<Appointment> filteredList = new ArrayList<>();
+        for (Appointment app : appointments) {
+            if (app.getPtName().toLowerCase().contains(searchString.toLowerCase())) {
+                filteredList.add(app);
+            }
+        }
+        if (filteredList.isEmpty()) {
+            tvNotiNext.setText("Không tìm thấy lịch khám");
+            layout_notiNext.setVisibility(View.VISIBLE);
+            adapter.setData(filteredList);
+        } else {
+            layout_notiNext.setVisibility(View.GONE);
+            adapter.setData(filteredList);
+        }
+    }
+
     private void loadData() {
-        if (ApiDataManager.getInstance().getAppointmentListToday() == null) {
-            layout_notificationB.setVisibility(View.VISIBLE);
-            tvMessageSearch.setText("Đang tìm kiếm lịch khám ngày hôm nay");
-            ApiService.api.getAllAppointmentToday(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Appointment>>() {
+        if (ApiDataManager.getInstance().getAppointmentsTomorrow() != null) {
+            if (ApiDataManager.getInstance().getAppointmentsTomorrow().size() > 0) {
+                layout_notiNext.setVisibility(View.GONE);
+                appointments.clear();
+                appointments.addAll(ApiDataManager.getInstance().getAppointmentsTomorrow());
+                adapter.setData(appointments);
+            } else {
+                tvNotiNext.setText("Bạn không có lịch khám nào ngày mai");
+                layout_notiNext.setVisibility(View.VISIBLE);
+            }
+
+        } else {
+            LoadingDialog.show(this);
+            ApiService.api.getAppointmentsTomorrow(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Appointment>>() {
                 @Override
                 public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
                     if (response.body() != null) {
                         if (response.body().size() > 0) {
+                            layout_notiNext.setVisibility(View.GONE);
                             appointments.clear();
                             appointments.addAll(response.body());
-                            adapter.setData(response.body());
-                            ApiDataManager.getInstance().setAppointmentListToday(response.body());
-                            layout_notificationB.setVisibility(View.INVISIBLE);
+                            adapter.setData(appointments);
+                            ApiDataManager.getInstance().setAppointmentsTomorrow(response.body());
                         } else {
-                            layout_notificationB.setVisibility(View.VISIBLE);
-                            tvMessageSearch.setText("Bạn không có lịch đặt khám nào hôm nay");
+                            tvNotiNext.setText("Bạn không có lịch khám nào ngày mai");
+                            layout_notiNext.setVisibility(View.VISIBLE);
                         }
 
                     } else {
-                        layout_notificationB.setVisibility(View.INVISIBLE);
+                        tvNotiNext.setText("Bạn không có lịch khám nào ngày mai");
+                        layout_notiNext.setVisibility(View.VISIBLE);
                     }
 
+                    LoadingDialog.dismissDialog();
                 }
 
                 @Override
                 public void onFailure(Call<List<Appointment>> call, Throwable t) {
-                    layout_notificationB.setVisibility(View.INVISIBLE);
-                    startActivity(new Intent(getContext(), ErrorActivity.class));
+                    LoadingDialog.dismissDialog();
+                    startActivity(new Intent(AppointmentTomorrowActivity.this, ErrorActivity.class));
                 }
             });
-        } else {
-            if (ApiDataManager.getInstance().getAppointmentListToday().size() > 0) {
-                appointments.clear();
-                appointments.addAll(ApiDataManager.getInstance().getAppointmentListToday());
-                adapter.setData(appointments);
-                layout_notificationB.setVisibility(View.INVISIBLE);
-            } else {
-                layout_notificationB.setVisibility(View.VISIBLE);
-            }
-
         }
+    }
+    private void initView() {
+        recyclerView = findViewById(R.id.rec_Next);
+        searchView = findViewById(R.id.searchViewNext);
+        igbSearch = findViewById(R.id.igbSearchNext);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshNext);
+        layoutSearchAndFilterNext = findViewById(R.id.layoutSearchAndFilterNext);
+        layout_notiNext = findViewById(R.id.layout_notiNext);
+        tvNotiNext = findViewById(R.id.tvNotiNext);
+        igb_backAppNext = findViewById(R.id.igb_backAppNext);
     }
 
     private void setLayout() {
-        if (ApiDataManager.getInstance().getUser() != null) {
-            User user = ApiDataManager.instance.getUser();
-            Picasso.get().load(user.getImgUrl()).into(profile_image);
-            tvUserName.setText(user.getFullName());
-        }
         appointments = new ArrayList<>();
-        adapter = new AppointmentAdapter(getContext(), appointments);
-        recycleViewAppointment.setAdapter(adapter);
-        recycleViewAppointment.setNestedScrollingEnabled(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recycleViewAppointment.setLayoutManager(linearLayoutManager);
+        adapter = new AppointmentAdapter(AppointmentTomorrowActivity.this, appointments);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setNestedScrollingEnabled(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AppointmentTomorrowActivity.this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        layoutSearchAndFilterNext.setVisibility(View.GONE);
+        layout_notiNext.setVisibility(View.GONE);
     }
 
-    private void initView(View view) {
-        profile_image = view.findViewById(R.id.profile_image1);
-        tvUserName = view.findViewById(R.id.tv_userName1);
-        btnSetupProfile = view.findViewById(R.id.btnSetupProfile);
-        btnAppointmentTmr = view.findViewById(R.id.btnAppointmentTmr);
-        btnLogOut1 = view.findViewById(R.id.btnLogOut1);
-        recycleViewAppointment = view.findViewById(R.id.recycleViewAppointment);
-        layout_notificationB = view.findViewById(R.id.layout_notificationB);
-        swipelayoutDc = view.findViewById(R.id.swipelayoutDc);
-        notiDoctor = view.findViewById(R.id.notiDoctor);
-        tvMessageSearch = view.findViewById(R.id.tvMessageSearch);
-    }
 
     public void showDialog(Appointment appointment) {
-        Dialog dialog = new Dialog(getContext());
+        Dialog dialog = new Dialog(AppointmentTomorrowActivity.this);
         dialog.setContentView(R.layout.custom_dialog_appointment);
         dialog.setCancelable(true);
         if (dialog.getWindow() != null) {
@@ -260,8 +245,8 @@ public class DoctorHomeFragment extends Fragment {
         btnCancelBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              showDialogReason(appointment);
-              dialog.dismiss();
+                showDialogReason(appointment);
+                dialog.dismiss();
             }
         });
         btnSuccess.setOnClickListener(new View.OnClickListener() {
@@ -280,7 +265,7 @@ public class DoctorHomeFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AppointmentTomorrowActivity.this, "Error", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
@@ -291,8 +276,9 @@ public class DoctorHomeFragment extends Fragment {
         dialog.show();
 
     }
+
     public void showDialogReason(Appointment appointment) {
-        Dialog dialog = new Dialog(getContext());
+        Dialog dialog = new Dialog(AppointmentTomorrowActivity.this);
         dialog.setContentView(R.layout.custom_dialog_reason);
         dialog.setCancelable(true);
         if (dialog.getWindow() != null) {
@@ -348,12 +334,12 @@ public class DoctorHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (appointment.getReason() == null){
-                    Toast.makeText(getContext(), "Vui lòng chọn lý do hủy lịch khám", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AppointmentTomorrowActivity.this, "Vui lòng chọn lý do hủy lịch khám", Toast.LENGTH_SHORT).show();
                 }else{
                     ApiService.api.changeStatus(appointment.getBid(), "Canceled",appointment.getReason()).enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
-                            Toast.makeText(getContext(), "Đã hủy lịch khám", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AppointmentTomorrowActivity.this, "Đã hủy lịch khám", Toast.LENGTH_SHORT).show();
                             ApiDataManager.getInstance().setAppointmentListToday(null);
                             appointments.clear();
                             adapter.setData(appointments);
@@ -363,7 +349,7 @@ public class DoctorHomeFragment extends Fragment {
 
                         @Override
                         public void onFailure(Call<Void> call, Throwable t) {
-                            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AppointmentTomorrowActivity.this, "Error", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }
                     });

@@ -17,6 +17,9 @@
         android:theme="@style/Base.Theme.HAM_App"
         tools:targetApi="31">
         <activity
+            android:name=".activities.doctors.AppointmentTomorrowActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.DetailPrescriptionActivity"
             android:exported="false" />
         <activity

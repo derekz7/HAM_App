@@ -60,6 +60,11 @@ public class UpdatePatientActivity extends AppCompatActivity {
         edtPatientName.setText(patient.getPatientName());
         edtAddress.setText(patient.getAddress() != null ? patient.getAddress() : "");
         edtJob.setText(patient.getJob() != null ? patient.getJob() : "");
+        if(patient.getGender().equals("Nam")){
+            rdMale.setChecked(true);
+        }else if(patient.getGender().equals("Nữ")){
+            rdFemale.setChecked(true);
+        }
     }
 
     private void onClick() {

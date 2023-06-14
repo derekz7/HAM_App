@@ -164,6 +164,8 @@ public class PatientActivity extends AppCompatActivity {
         final TextView ptJob = dialog.findViewById(R.id.tvPatientJob);
         final TextView ptAddress = dialog.findViewById(R.id.tvPatientAddress1);
         final Button btnSelectPatient = dialog.findViewById(R.id.btnSelectedPatient);
+        final Button btnEditPatient = dialog.findViewById(R.id.btnEditPatient);
+        btnEditPatient.setVisibility(View.GONE);
         if (ptAddress.getText().equals("")||ptJob.getText().equals("")){
             ptJob.setText(getString(R.string.not_update));
             ptAddress.setText(getString(R.string.not_update));
