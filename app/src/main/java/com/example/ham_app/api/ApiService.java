@@ -140,4 +140,8 @@ public interface ApiService {
 
     @GET("api/Prescription/GetPrescriptionByUser")
     Call<List<Prescription>> getPrescriptionByUser(@Query("userid") String userid);
+
+    //get lich kham cua bac si trong ngay
+    @GET("api/Booking/getAppointmentByDate")
+    Call<List<Appointment>> getAppointmentByDate(@Query("date") String date, @Query("docID") String docID);
 }

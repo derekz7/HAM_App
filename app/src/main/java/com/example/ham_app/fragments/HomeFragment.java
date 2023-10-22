@@ -94,6 +94,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         init(view);
         setLayout();
+        loadService();
         getDepartment();
         getNews();
         onClick();
@@ -102,7 +103,6 @@ public class HomeFragment extends Fragment {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                loadService();
                 ApiService.api.getPrescriptionByUser(ApiDataManager.getInstance().getUser().getId()).enqueue(new Callback<List<Prescription>>() {
                     @Override
                     public void onResponse(Call<List<Prescription>> call, Response<List<Prescription>> response) {
@@ -148,7 +148,7 @@ public class HomeFragment extends Fragment {
         imageSlider.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemSelected(int i) {
-                Toast.makeText(getContext(), "clicked " + newsList.get(i).getTitle(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "clicked " + newsList.get(i).getTitle(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 String url = newsList.get(i).getUrl();
                 intent.setData(Uri.parse(url));
@@ -192,6 +192,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), PrescriptionActivity.class));
+            }
+        });
+        igbTinTuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                String url = "http://benhviendakhoatinhhungyen.vn/";
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
             }
         });
     }

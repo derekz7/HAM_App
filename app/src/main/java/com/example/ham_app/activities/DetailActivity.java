@@ -32,6 +32,7 @@ import com.example.ham_app.untils.ApiDataManager;
 import com.example.ham_app.untils.Common;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -42,13 +43,15 @@ import retrofit2.Response;
 public class DetailActivity extends AppCompatActivity {
     private ImageButton igb_backDetail;
     private ImageView img_iconPayment;
-    private TextView tv_ptName,tv_ptDob,tv_bookingDate,tv_bookingTime,tv_department,tv_price,tv_total, tvPaymentMethod;
+    private TextView tv_ptName, tv_ptDob, tv_bookingDate, tv_bookingTime, tv_department, tv_price, tv_total, tvPaymentMethod;
     private Button btn_nextToPay;
     private Booking currentBooking;
     private Department department;
     private Patient patient;
     private Service service;
-    private LinearLayout layout_Patient,linear_payment;
+    private LinearLayout layout_Patient, linear_payment;
+    private List<Appointment> appointmentList = new ArrayList<Appointment>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +63,13 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void reloadView() {
-        if(Common.selectedPayment != null){
-            if (Common.selectedPayment.equals("cash")){
+        if (Common.selectedPayment != null) {
+            if (Common.selectedPayment.equals("cash")) {
                 linear_payment.setVisibility(View.VISIBLE);
                 Common.selectedPayment = null;
                 btn_nextToPay.setText(getString(R.string.place_an_order));
             }
-        }else {
+        } else {
             linear_payment.setVisibility(View.INVISIBLE);
             btn_nextToPay.setText(getString(R.string.payment_method));
         }
@@ -78,7 +81,7 @@ public class DetailActivity extends AppCompatActivity {
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == 123) {
-                       reloadView();
+                        reloadView();
                     }
                 }
         );
@@ -101,39 +104,39 @@ public class DetailActivity extends AppCompatActivity {
         btn_nextToPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if(btn_nextToPay.getText().equals(getString(R.string.place_an_order))){
-                   createBooking();
-               }
-               if(btn_nextToPay.getText().equals(getString(R.string.payment_method))){
-                   Intent intent = new Intent(DetailActivity.this, PaymentActivity.class);
-                   startActivity.launch(intent);
-               }
+                if (btn_nextToPay.getText().equals(getString(R.string.place_an_order))) {
+                    createBooking();
+                }
+                if (btn_nextToPay.getText().equals(getString(R.string.payment_method))) {
+                    Intent intent = new Intent(DetailActivity.this, PaymentActivity.class);
+                    startActivity.launch(intent);
+                }
             }
         });
     }
 
     private void createBooking() {
-        if(ApiDataManager.getInstance().getBookingList() == null){
+        if (ApiDataManager.getInstance().getBookingList() == null) {
             ApiDataManager.getInstance().setBookingList(new ArrayList<>());
         }
         UUID uuid = UUID.randomUUID();
-        String id = "bk-" + uuid.toString().substring(0,17);
+        String id = "bk-" + uuid.toString().substring(0, 17);
         currentBooking.setId(id);
-        currentBooking.setOrderNum(new Random().nextInt(101));
+        currentBooking.setOrderNum(appointmentList.size() >= 1 ? appointmentList.size() + 1 : 1);
         currentBooking.setPrice(service.getPrice());
         LoadingDialog.show(DetailActivity.this);
         ApiService.api.createBooking(currentBooking).enqueue(new Callback<Booking>() {
             @Override
             public void onResponse(Call<Booking> call, Response<Booking> response) {
-                if (response.isSuccessful()){
-                    if(response.body() != null){
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
                         Toast.makeText(DetailActivity.this, "Đặt khám thành công", Toast.LENGTH_SHORT).show();
                         ApiDataManager.getInstance().getBookingList().add(response.body());
                         LoadingDialog.dismissDialog();
-                        startActivity(new Intent(DetailActivity.this,MedicalBillActivity.class));
+                        startActivity(new Intent(DetailActivity.this, MedicalBillActivity.class));
                         finish();
                     }
-                }else {
+                } else {
                     LoadingDialog.dismissDialog();
                     Toast.makeText(DetailActivity.this, "Bạn đang có lịch khám đang chờ. Không thể đặt thêm lịch", Toast.LENGTH_SHORT).show();
                 }
@@ -161,7 +164,19 @@ public class DetailActivity extends AppCompatActivity {
         tv_department.setText(department.getName());
         tv_price.setText(service.getPrice() + "đ");
         tv_total.setText(service.getPrice() + "đ");
+        ApiService.api.getAppointmentByDate(currentBooking.getDate(), currentBooking.getDc_id()).enqueue(new Callback<List<Appointment>>() {
+            @Override
+            public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
+                if (response.isSuccessful() && response.body().size() > 0) {
+                    appointmentList.addAll(response.body());
+                }
+            }
 
+            @Override
+            public void onFailure(Call<List<Appointment>> call, Throwable t) {
+                Toast.makeText(DetailActivity.this, "Fail to load all appointments by date and doctor ID!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void intiView() {
@@ -179,6 +194,7 @@ public class DetailActivity extends AppCompatActivity {
         tv_total = findViewById(R.id.tv_total);
         btn_nextToPay = findViewById(R.id.btn_nextToPay);
     }
+
     public void showDialog(Patient patient) {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.bottom_dialog_patient);

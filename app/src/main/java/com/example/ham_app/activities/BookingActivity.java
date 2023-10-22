@@ -55,7 +55,7 @@ public class BookingActivity extends AppCompatActivity {
             public void onResponse(Call<List<Patient>> call, Response<List<Patient>> response) {
                 if (response.body() != null) {
                     ApiDataManager.getInstance().setPatientList(response.body());
-                    Log.d("patient", response.body().get(0).getPatientName());
+                    //Log.d("patient", response.body().get(0).getPatientName());
                 }
             }
 
